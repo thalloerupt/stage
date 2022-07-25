@@ -32,6 +32,7 @@ public class Controller {
     BottomSheetBehavior behavior;
     HomeFragment homeFragment;
     FragmentManager fm;
+    int exAmount;
     public void setWebExtensionController(WebExtensionController webExtensionController) {
         this.webExtensionController = webExtensionController;
     }
@@ -74,6 +75,7 @@ public class Controller {
         webExtensionController.list().accept(new GeckoResult.Consumer<List<WebExtension>>() {
             @Override
             public void accept(@Nullable List<WebExtension> webExtensions) {
+                exAmount=webExtensions.size();
                 for (int i=0;i<webExtensions.size();i++)
                 {
                     webExtensions.get(i).setActionDelegate(new WebExtension.ActionDelegate() {
@@ -136,4 +138,7 @@ public class Controller {
 
     }
 
+    public int getExAmount() {
+        return exAmount;
+    }
 }

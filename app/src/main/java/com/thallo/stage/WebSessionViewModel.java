@@ -66,7 +66,12 @@ public class WebSessionViewModel extends BaseObservable {
         webExtensionController = GeckoRuntime.getDefault(mContext).getWebExtensionController();
         WebExtension.SessionController sessionController= session.getWebExtensionController();
         session.setContentDelegate(new GeckoSession.ContentDelegate() {
-         /**   @Override
+            @Override
+            public void onShowDynamicToolbar(@NonNull GeckoSession geckoSession) {
+                GeckoSession.ContentDelegate.super.onShowDynamicToolbar(geckoSession);
+            }
+
+            /**   @Override
             public void onFirstContentfulPaint(@NonNull GeckoSession session) {
                 geckoDisplay= session.acquireDisplay();
 

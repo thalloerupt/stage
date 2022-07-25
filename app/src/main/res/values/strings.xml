@@ -30,4 +30,7 @@
     <string name="pop_desktop">桌面模式</string>
     <string name="pop_video">视频</string>
     <string name="dialog_permission">权限:</string>
+    <string name="baidu">baidu</string>
+    <string name="advanced">高级</string>
+    <string name="setting_about">关于 Stage</string>
 </resources>

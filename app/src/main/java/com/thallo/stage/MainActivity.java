@@ -44,6 +44,7 @@ import com.thallo.stage.extension.Controller;
 import com.thallo.stage.tab.TabDetails;
 
 import org.mozilla.geckoview.AllowOrDeny;
+import org.mozilla.geckoview.GeckoDisplay;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
@@ -84,13 +85,13 @@ public class MainActivity extends AppCompatActivity  {
     Bitmap pngBM;
     androidx.appcompat.app.AlertDialog alertDialog;
     String s="";
-    GeckoResult n;
     GeckoSession.SessionState mSessionState;
     WebExtension.SessionController sessionController;
     PopUp popUp;
     SettingPopUp settingPopUp;
     Controller controller;
     TabDetails tabDetails;
+     GeckoResult n;
     private List<PageTab> mTabList;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(binding.getRoot());
         ImmersionBar.with(this)
                 .fitsSystemWindows(true)
-                .statusBarColor(R.color.white)
+                .navigationBarColor(R.color.background)
                 .transparentStatusBar()
                 .statusBarDarkFont(true)
                 .init();
@@ -229,7 +230,7 @@ public class MainActivity extends AppCompatActivity  {
         homeTab(tabList.size());
         webExtensionController = GeckoRuntime.getDefault(MainActivity.this).getWebExtensionController();
         controller.setWebExtensionController(webExtensionController);
-        controller.setThing(this,tabDetails,binding.getSessionModel(),mTabList,behavior,homeFragment,getSupportFragmentManager());
+        controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,behavior,homeFragment,getSupportFragmentManager());
         controller.Details();
         controller.promptDelegate();
 
@@ -247,8 +248,12 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
+
+
+
     }
     public GeckoResult showDialog(Image image, String name, String[] per){
+
 
 
         View view = LayoutInflater.from(this).inflate(R.layout.dia_install,null);
@@ -346,9 +351,16 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-
-
-
+    @Override
+    protected void onNightModeChanged(int mode) {
+        super.onNightModeChanged(mode);
+        ImmersionBar.with(MainActivity.this)
+                .fitsSystemWindows(true)
+                .navigationBarColor(R.color.background)
+                .statusBarDarkFont(false)
+                .transparentStatusBar()
+                .init();
+    }
 
     @Override
     protected void onStart() {

@@ -1,25 +1,30 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/purple_10">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="@string/setting_gen">
 
+
         <ListPreference
-            app:defaultValue="true"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
+            android:entryValues="@array/reply_entries"
+            app:defaultValue="@string/baidu"
+            app:entries="@array/reply_values"
             app:iconSpaceReserved="false"
-            app:key="reply"
+            app:key="searchEngine"
             app:title="@string/engine"
             app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:iconSpaceReserved="false"
+            app:title="@string/pop_addons" />
+
 
     </PreferenceCategory>
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:title="@string/sync_header">
+        app:title="@string/advanced">
+
 
         <SwitchPreferenceCompat
             app:iconSpaceReserved="false"
@@ -33,6 +38,10 @@
             app:summaryOff="@string/attachment_summary_off"
             app:summaryOn="@string/attachment_summary_on"
             app:title="@string/attachment_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:title="@string/setting_about" />
 
     </PreferenceCategory>
 

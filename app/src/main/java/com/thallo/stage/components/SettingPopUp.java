@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -43,6 +45,7 @@ public class SettingPopUp {
         SharedPreferences.Editor mEditor;
         TabDetails tabDetails;
         TextView popText;
+        View addonsLayout;
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogStyle);
         dialogView= LayoutInflater.from(context).inflate(R.layout.setting_menu,null );
@@ -52,6 +55,7 @@ public class SettingPopUp {
         popText= dialogView.findViewById(R.id.popTitle);
         desktopMode = dialogView.findViewById(R.id.desktop);
         linearLayout2= dialogView.findViewById(R.id.addonsIcon);
+        addonsLayout=dialogView.findViewById(R.id.addonsLayout);
         popUp=new PopUp();
         mEditor = mSp.edit();
         tabDetails=new TabDetails();
@@ -61,10 +65,16 @@ public class SettingPopUp {
         webExtensionController.list().accept(new GeckoResult.Consumer<List<WebExtension>>() {
             @Override
             public void accept(@Nullable List<WebExtension> webExtensions) {
+                if (webExtensions.size()==0) addonsLayout.setVisibility(View.GONE);
+                else addonsLayout.setVisibility(View.VISIBLE);
+
                 for (int i=0;i<webExtensions.size();i++)
                 {
                     View iconView= LayoutInflater.from(context).inflate(R.layout.addons_icons,null );
                     ImageView imageView = iconView.findViewById(R.id.imageView2);
+                    View badgeLayout=iconView.findViewById(R.id.badgeLayout);
+                    CardView badgeCard=iconView.findViewById(R.id.badgeCard);
+                    TextView badeText=iconView.findViewById(R.id.badgeText);
 
 
 
@@ -105,6 +115,13 @@ public class SettingPopUp {
                                     return GeckoResult.fromValue(session);
                                 }
                             });
+                            badgeCard.setCardBackgroundColor(action.badgeBackgroundColor);
+                            if (action.badgeText!=null)
+                                badeText.setText(action.badgeText);
+                            Log.d("badgeText",action.badgeText);
+
+
+
 
 
 
