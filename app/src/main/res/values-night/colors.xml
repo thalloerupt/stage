@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="textcolor">#cac4d0</color>
+    <color name="background">#1C1B1F</color>
+    <color name="editBackground">#59000000</color>
+</resources>

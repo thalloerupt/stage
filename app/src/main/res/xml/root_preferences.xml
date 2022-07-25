@@ -1,0 +1,39 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/purple_10">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/setting_gen">
+
+        <ListPreference
+            app:defaultValue="true"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:iconSpaceReserved="false"
+            app:key="reply"
+            app:title="@string/engine"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:key="sync"
+            app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:iconSpaceReserved="false"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

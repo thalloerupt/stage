@@ -1,0 +1,155 @@
+{
+    "extension_description": {
+        "message": "Dark mode para sa lahat ng website. Alagaan ang iyong mga mata, gamitin ang dark theme para sa gabi at pang-araw-araw na browsing."
+    },
+    "loading_please_wait": {
+        "message": "Ikinakarga, mangyaring maghintay"
+    },
+    "on": {
+        "message": "Bukas"
+    },
+    "off": {
+        "message": "Sarado"
+    },
+    "toggle_current_site": {
+        "message": "I-toggle ang kasalukuyang site"
+    },
+    "setup_hotkey_toggle_site": {
+        "message": "I-setup ang kasalukuyang site\nhotkey sa pag-toggle"
+    },
+    "toggle_extension": {
+        "message": "I-toggle ang ekstensyon"
+    },
+    "setup_hotkey_toggle_extension": {
+        "message": "I-setup ang ekstensyon\nhotkey sa pag-toggle"
+    },
+    "automation": {
+        "message": "Awtomasyon"
+    },
+    "set_active_hours": {
+        "message": "Itakda ang mga aktibong oras"
+    },
+    "set_location": {
+        "message": "Buksan pagkatapos ng paglubog ng araw sa lokasyon"
+    },
+    "longitude": {
+        "message": "Longhitud"
+    },
+    "latitude": {
+        "message": "Latitud"
+    },
+    "page_protected": {
+        "message": "Protektado ang pahinang ito\nng browser"
+    },
+    "page_in_dark_list": {
+        "message": "Ang site na ito ay nasa pandaigdigang\nDark List"
+    },
+    "system_dark_mode": {
+        "message": "Gamitin ang iskema ng kulay ng system"
+    },
+    "system_dark_mode_description": {
+        "message": "Buksan kapag nakabukas ang dark mode ng system"
+    },
+    "filter": {
+        "message": "Filter"
+    },
+    "mode": {
+        "message": "Mode"
+    },
+    "dark": {
+        "message": "Madilim"
+    },
+    "light": {
+        "message": "Maliwanag"
+    },
+    "brightness": {
+        "message": "Liwanag"
+    },
+    "contrast": {
+        "message": "Contrast"
+    },
+    "grayscale": {
+        "message": "Grayscale"
+    },
+    "sepia": {
+        "message": "Sepia"
+    },
+    "only_for": {
+        "message": "Para lang sa"
+    },
+    "only_for_description": {
+        "message": "Ilapat ang mga setting sa kasalukuyang website lamang"
+    },
+    "site_list": {
+        "message": "Listahan ng mga site"
+    },
+    "invert_listed_only": {
+        "message": "I-invert ang mga nakalista lamang"
+    },
+    "not_invert_listed": {
+        "message": "Huwag i-invert ang mga nakalista"
+    },
+    "add_site_to_list": {
+        "message": "Idagdag ang site sa listahan"
+    },
+    "setup_add_site_hotkey": {
+        "message": "Magtakda ng hotkey para sa pagdadagdag ng isang site"
+    },
+    "more": {
+        "message": "Higit pa"
+    },
+    "select_font": {
+        "message": "Pumili ng font"
+    },
+    "text_stroke": {
+        "message": "Stroke ng teksto"
+    },
+    "try_experimental_theme_engines": {
+        "message": "Subukan ang mga **ekspermintal** na mga engine ng tema:\n**Filter+** pinapanatili ang saturation ng mga kulay, gumagamit ng GPU\n**Static na tema** gumagawa ng simple at mabilis na tema\n**Dynamikong tema** sinusuri ang mga kulay at larawan"
+    },
+    "engine_filter": {
+        "message": "Filter"
+    },
+    "engine_filter_plus": {
+        "message": "Filter+"
+    },
+    "engine_static": {
+        "message": "Static"
+    },
+    "engine_dynamic": {
+        "message": "Dynamiko"
+    },
+    "theme_generation_mode": {
+        "message": "Mode ng paggawa ng tema"
+    },
+    "custom_browser_theme_on": {
+        "message": "Custom"
+    },
+    "custom_browser_theme_off": {
+        "message": "Default"
+    },
+    "change_browser_theme": {
+        "message": "Palitan ang tema ng browser"
+    },
+    "privacy": {
+        "message": "Pagkapribado"
+    },
+    "help": {
+        "message": "Tulong"
+    },
+    "donate": {
+        "message": "Mag-donate"
+    },
+    "news": {
+        "message": "Balita"
+    },
+    "read_more": {
+        "message": "Magbasa ng higit pa"
+    },
+    "open_dev_tools": {
+        "message": "Mga kagamitan para sa mga developer"
+    },
+    "store_listing": {
+        "message": "Mabilisang binubuksan ng ekstensyong ito ang night mode sa pamamagitan ng madilim na tema. Ini-invert ng Dark Reader ang matitingkad na kulay, ginagawa silang high contrast at madaling basahin sa gabi.\n\nPuwede mong i-adjust ang liwanag, contrast, sepia filter, dark mode, mga setting ng font at ang ignore-list.\n\nHindi nagpapakita ng mga ad ang Dark Reader o ipinapadala ang iyong data kung saan-saan. Open-source ito: https://github.com/darkreader/darkreader\n\nBago mo ikabit (i-install) ito, tanggalin muna ang mga katulad na ekstensyon. Magsaya sa panonood!"
+    }
+}

@@ -1,0 +1,155 @@
+{
+    "extension_description": {
+        "message": "Темний вигляд для кожного мережевого сайту. Піклуйтеся про свої очі, використовуйте темний вид для нічного та щоденного перегляду."
+    },
+    "loading_please_wait": {
+        "message": "Завантаження, будь ласка зачекайте..."
+    },
+    "on": {
+        "message": "Увімк"
+    },
+    "off": {
+        "message": "Вимк"
+    },
+    "toggle_current_site": {
+        "message": "Перемкнути для поточного сайту"
+    },
+    "setup_hotkey_toggle_site": {
+        "message": "Налаштувати гарячу клавішу\nдля поточного сайту"
+    },
+    "toggle_extension": {
+        "message": "Перемкнути розширення"
+    },
+    "setup_hotkey_toggle_extension": {
+        "message": "Налаштувати гарячу клавішу\nдля розширення"
+    },
+    "automation": {
+        "message": "Автоматизація"
+    },
+    "set_active_hours": {
+        "message": "Встановити робочий час"
+    },
+    "set_location": {
+        "message": "Активізувати після заходу сонця"
+    },
+    "longitude": {
+        "message": "Довгота"
+    },
+    "latitude": {
+        "message": "Широта"
+    },
+    "page_protected": {
+        "message": "Ця сторінка захищена\nбраузером"
+    },
+    "page_in_dark_list": {
+        "message": "Цей сайт у глобальному\n\"Темному Списку\""
+    },
+    "system_dark_mode": {
+        "message": "Використовувати системну колірну схему"
+    },
+    "system_dark_mode_description": {
+        "message": "Активізувати коли системний нічний режим включений"
+    },
+    "filter": {
+        "message": "Фільтр"
+    },
+    "mode": {
+        "message": "Вид"
+    },
+    "dark": {
+        "message": "Темний"
+    },
+    "light": {
+        "message": "Світлий"
+    },
+    "brightness": {
+        "message": "Яскравість"
+    },
+    "contrast": {
+        "message": "Контраст"
+    },
+    "grayscale": {
+        "message": "Сірі відтінки"
+    },
+    "sepia": {
+        "message": "Сепія"
+    },
+    "only_for": {
+        "message": "Лише для"
+    },
+    "only_for_description": {
+        "message": "Лише для поточного сайту"
+    },
+    "site_list": {
+        "message": "Список сайтів"
+    },
+    "invert_listed_only": {
+        "message": "Інвертувати лише у списку"
+    },
+    "not_invert_listed": {
+        "message": "Не інвертувати у списку"
+    },
+    "add_site_to_list": {
+        "message": "Додати сайт до списку"
+    },
+    "setup_add_site_hotkey": {
+        "message": "Встановити гарячу кнопку для додавання сайтів"
+    },
+    "more": {
+        "message": "Більше"
+    },
+    "select_font": {
+        "message": "Обрати вид тексту"
+    },
+    "text_stroke": {
+        "message": "Обведення тексту"
+    },
+    "try_experimental_theme_engines": {
+        "message": "Спробуйте **експериментальні** теми:\n**Фільтр+** зберігає насиченість барв, використовує GPU\n**Сталий** створює простий швидкмй вигляд\n**Змінний** розбирає барви та зображення"
+    },
+    "engine_filter": {
+        "message": "Фільтр"
+    },
+    "engine_filter_plus": {
+        "message": "Фільтр+"
+    },
+    "engine_static": {
+        "message": "Сталий"
+    },
+    "engine_dynamic": {
+        "message": "Змінний"
+    },
+    "theme_generation_mode": {
+        "message": "Вид"
+    },
+    "custom_browser_theme_on": {
+        "message": "Користувацький"
+    },
+    "custom_browser_theme_off": {
+        "message": "За промовчанням"
+    },
+    "change_browser_theme": {
+        "message": "Обрати вигляд браузера"
+    },
+    "privacy": {
+        "message": "Приватність"
+    },
+    "help": {
+        "message": "Допомога"
+    },
+    "donate": {
+        "message": "Пожертвувати"
+    },
+    "news": {
+        "message": "Новини"
+    },
+    "read_more": {
+        "message": "Докладніше"
+    },
+    "open_dev_tools": {
+        "message": "Інструменти розробника"
+    },
+    "store_listing": {
+        "message": "Це розширення для догляду за очима дозволяє створювати темні вигляди для мережевих сайтів. Dark Reader інвертує яскраві барви, роблячи їх контрастними і такими що легко читаються вночі.\n\nВи можете налаштувати яскравість, контраст, сепію, темний вигляд, налаштування вигляду тексту та список нехтування.\n\nDark Reader не містить рекламу і не надсилає дані користувача нікуди. Це розширення з відкритим кодом https://github.com/darkreader/darkreader\n\nПеред встановленням відімкніть подібні розширення. Насолоджуйтесь переглядом!"
+    }
+}

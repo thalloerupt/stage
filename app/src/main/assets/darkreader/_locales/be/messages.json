@@ -1,0 +1,155 @@
+{
+    "extension_description": {
+        "message": "Цёмная Тэма для кожнага сайта. Беражыце свае вочы, карыстайцеся Дарк Рыдарам для начнога ці штодзённага прагляду вэб-старонак."
+    },
+    "loading_please_wait": {
+        "message": "Ідзе загрузка, пачакайце"
+    },
+    "on": {
+        "message": "Укл."
+    },
+    "off": {
+        "message": "Выкл."
+    },
+    "toggle_current_site": {
+        "message": "Пераключыць гэты сайт"
+    },
+    "setup_hotkey_toggle_site": {
+        "message": "Усталюйце спалучэнне\nклавіш"
+    },
+    "toggle_extension": {
+        "message": "Укл/выкл Дарк Рыдар"
+    },
+    "setup_hotkey_toggle_extension": {
+        "message": "Уст. спалучэнне\nклавіш"
+    },
+    "automation": {
+        "message": "Аўтаматызацыя"
+    },
+    "set_active_hours": {
+        "message": "Усталюйце перыяд актыўнасці"
+    },
+    "set_location": {
+        "message": "Уключыць пасля захода сонца"
+    },
+    "longitude": {
+        "message": "Даўгата"
+    },
+    "latitude": {
+        "message": "Шырата"
+    },
+    "page_protected": {
+        "message": "Гэтая старонка ахоўваецца\nбраўзэрам"
+    },
+    "page_in_dark_list": {
+        "message": "Гэтая старонка ў глаб.\nспісе Цёмных Сайтаў"
+    },
+    "system_dark_mode": {
+        "message": "Выкарыстоўваць сістэмныя колеры"
+    },
+    "system_dark_mode_description": {
+        "message": "Уключыць калі сістэмны начны рэжым актыўны"
+    },
+    "filter": {
+        "message": "Фільтр"
+    },
+    "mode": {
+        "message": "Рэжым"
+    },
+    "dark": {
+        "message": "Цёмны"
+    },
+    "light": {
+        "message": "Светлы"
+    },
+    "brightness": {
+        "message": "Яркасць"
+    },
+    "contrast": {
+        "message": "Кантраснасць"
+    },
+    "grayscale": {
+        "message": "Адценні шэрага"
+    },
+    "sepia": {
+        "message": "Сэпія"
+    },
+    "only_for": {
+        "message": "Толькі для"
+    },
+    "only_for_description": {
+        "message": "Прымяніць налады толькі да гэтага сайта"
+    },
+    "site_list": {
+        "message": "Спіс"
+    },
+    "invert_listed_only": {
+        "message": "Інверт. толькі гэтыя"
+    },
+    "not_invert_listed": {
+        "message": "Ня інвертаваць"
+    },
+    "add_site_to_list": {
+        "message": "Дадаць сайт у спіс"
+    },
+    "setup_add_site_hotkey": {
+        "message": "Уст. спалуч. клавіш для даб. сайта ў спіс"
+    },
+    "more": {
+        "message": "Яшчэ"
+    },
+    "select_font": {
+        "message": "Выберыце шрыфт"
+    },
+    "text_stroke": {
+        "message": "Абводка тэксту"
+    },
+    "try_experimental_theme_engines": {
+        "message": "Апрабуйце **эксперыментальныя** рэжымы:\n**Фільтр+** зах. яркасць колераў, выкарыстоўвае GPU\n**Статычны рэжым** стварае простую тэму\n**Дынамічны** аналізуе колеры і карцінкі"
+    },
+    "engine_filter": {
+        "message": "Фільтр"
+    },
+    "engine_filter_plus": {
+        "message": "Фільтр+"
+    },
+    "engine_static": {
+        "message": "Стат."
+    },
+    "engine_dynamic": {
+        "message": "Дынам."
+    },
+    "theme_generation_mode": {
+        "message": "Рэжым генерацыi тэмы"
+    },
+    "custom_browser_theme_on": {
+        "message": "Асаблiвая"
+    },
+    "custom_browser_theme_off": {
+        "message": "Агаданая"
+    },
+    "change_browser_theme": {
+        "message": "Змяніць тэму браўзэра"
+    },
+    "privacy": {
+        "message": "Пагад."
+    },
+    "help": {
+        "message": "Даведка"
+    },
+    "donate": {
+        "message": "Падтрымка"
+    },
+    "news": {
+        "message": "Навіны"
+    },
+    "read_more": {
+        "message": "Чытаць яшчэ"
+    },
+    "open_dev_tools": {
+        "message": "Прылады"
+    },
+    "store_listing": {
+        "message": "Гэта пашырэнне пераводзіць браўзэр у начны рэжым. Дарк Рыдар замяняе светлы фон цёмным, што зніжае стомленасць вачэй пры доўгай працы за кампутарам альбо пры праглядзе вэб-старонак ноччу.\n\nМаецца магчымасць наладжваць яркасць, кантраснасць, шрыфт, рэжым інверсіі, рэжым накладання жоўтага фільтра (сэпія).\n\nDark Reader ня ўбудоўвае рэкламу і не збірае дадзеныя карыстальніка, увесь зыходны код адкрыты https://github.com/darkreader/darkreader\n\nПерад усталёўкай адключыце падобныя пашырэнні. Прыемнага прагляду!"
+    }
+}

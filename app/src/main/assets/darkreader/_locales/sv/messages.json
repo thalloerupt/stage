@@ -1,0 +1,155 @@
+{
+    "extension_description": {
+        "message": "Mörkt läge på alla webbplatser. Ta hand om dina ögon och använd ett mörkt tema för att surfa på natten och dagen."
+    },
+    "loading_please_wait": {
+        "message": "Laddar, var god vänta"
+    },
+    "on": {
+        "message": "På"
+    },
+    "off": {
+        "message": "Av"
+    },
+    "toggle_current_site": {
+        "message": "Slå på/av denna webbplats"
+    },
+    "setup_hotkey_toggle_site": {
+        "message": "Konfigurera aktuell webbplats\nslå på/av kortkommando"
+    },
+    "toggle_extension": {
+        "message": "Slå på/av tillägg"
+    },
+    "setup_hotkey_toggle_extension": {
+        "message": "Konfigurera tillägg\nslå på/av kortkommando"
+    },
+    "automation": {
+        "message": "Automatisering"
+    },
+    "set_active_hours": {
+        "message": "Ange aktiva timmar"
+    },
+    "set_location": {
+        "message": "Aktivera vid solnedgång vid position"
+    },
+    "longitude": {
+        "message": "Longitud"
+    },
+    "latitude": {
+        "message": "Latitud"
+    },
+    "page_protected": {
+        "message": "Den här webbplatsen\nskyddas av webbläsaren"
+    },
+    "page_in_dark_list": {
+        "message": "Den här webbplatsen finns\ni den globala listan"
+    },
+    "system_dark_mode": {
+        "message": "Använd systemets färgschema"
+    },
+    "system_dark_mode_description": {
+        "message": "Aktivera när systemets mörka läge är på"
+    },
+    "filter": {
+        "message": "Filter"
+    },
+    "mode": {
+        "message": "Läge"
+    },
+    "dark": {
+        "message": "Mörkt"
+    },
+    "light": {
+        "message": "Ljust"
+    },
+    "brightness": {
+        "message": "Ljusstyrka"
+    },
+    "contrast": {
+        "message": "Kontrast"
+    },
+    "grayscale": {
+        "message": "Gråskala"
+    },
+    "sepia": {
+        "message": "Sepia"
+    },
+    "only_for": {
+        "message": "Endast för"
+    },
+    "only_for_description": {
+        "message": "Använd inställningarna bara för aktuell webbplats"
+    },
+    "site_list": {
+        "message": "Webbplatslista"
+    },
+    "invert_listed_only": {
+        "message": "Invertera endast"
+    },
+    "not_invert_listed": {
+        "message": "Invertera inte"
+    },
+    "add_site_to_list": {
+        "message": "Lägg till webbplats i listan"
+    },
+    "setup_add_site_hotkey": {
+        "message": "Ange kortkommando för att lägga till webbplatser"
+    },
+    "more": {
+        "message": "Mer"
+    },
+    "select_font": {
+        "message": "Välj ett typsnitt"
+    },
+    "text_stroke": {
+        "message": "Textkontur"
+    },
+    "try_experimental_theme_engines": {
+        "message": "Testa **experimentella** temamotorer:\n**Filter+** bevarar färgmättnaden, använder grafikprocessorn\n**Statiskt tema** genererar ett snabbt och enkelt tema\n**Dynamiskt tema** analyserar färger och bilder"
+    },
+    "engine_filter": {
+        "message": "Filter"
+    },
+    "engine_filter_plus": {
+        "message": "Filter+"
+    },
+    "engine_static": {
+        "message": "Statisk"
+    },
+    "engine_dynamic": {
+        "message": "Dynamisk"
+    },
+    "theme_generation_mode": {
+        "message": "Genereringsläge för tema"
+    },
+    "custom_browser_theme_on": {
+        "message": "Anpassad"
+    },
+    "custom_browser_theme_off": {
+        "message": "Standard"
+    },
+    "change_browser_theme": {
+        "message": "Ändra webbläsarens tema"
+    },
+    "privacy": {
+        "message": "Integritet"
+    },
+    "help": {
+        "message": "Hjälp"
+    },
+    "donate": {
+        "message": "Donera"
+    },
+    "news": {
+        "message": "Nyheter"
+    },
+    "read_more": {
+        "message": "Läs mer"
+    },
+    "open_dev_tools": {
+        "message": "Verktyg"
+    },
+    "store_listing": {
+        "message": "Detta ögonskonande tillägg aktiverar ett nattläge som skapar mörka teman på webbplatser. Dark Reader inverterar ljusa färger för att skapa hög kontrast och göra det enkelt att läsa på natten.\n\nDu kan justera ljusstyrkan, kontrasten, sepiafiltret, mörkerläget, typsnittet och ignoreringslistan.\n\nDark Reader visar inte reklam och skickar inte användardata någonstans. Den har helt öppen källkod https://github.com/darkreader/darkreader\n\nInaktivera liknande tillägg innan du installerar. Trevlig läsning!"
+    }
+}

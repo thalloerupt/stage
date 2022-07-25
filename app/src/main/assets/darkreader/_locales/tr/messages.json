@@ -1,0 +1,155 @@
+{
+    "extension_description": {
+        "message": "Her web sitesi için koyu mod. Gözlerinize iyi bakın, gece ve günlük gezinti için koyu renk tema kullanın."
+    },
+    "loading_please_wait": {
+        "message": "Yükleniyor, lütfen bekleyin"
+    },
+    "on": {
+        "message": "Açık"
+    },
+    "off": {
+        "message": "Kapalı"
+    },
+    "toggle_current_site": {
+        "message": "Şu anki siteyi aç-kapat"
+    },
+    "setup_hotkey_toggle_site": {
+        "message": "Şu anki site için\naç-kapat kısayol tuşu ayarla"
+    },
+    "toggle_extension": {
+        "message": "Eklentiyi aç-kapat"
+    },
+    "setup_hotkey_toggle_extension": {
+        "message": "Eklenti aç-kapat\nkısayol tuşu ayarla"
+    },
+    "automation": {
+        "message": "Otomasyon"
+    },
+    "set_active_hours": {
+        "message": "Etkin saatleri ayarla"
+    },
+    "set_location": {
+        "message": "Güneş battıktan sonra etkinleştir"
+    },
+    "longitude": {
+        "message": "Boylam"
+    },
+    "latitude": {
+        "message": "Enlem"
+    },
+    "page_protected": {
+        "message": "Bu sayfa tarayıcı\ntarafından korunuyor"
+    },
+    "page_in_dark_list": {
+        "message": "Bu site genel\nKoyu Listesinde"
+    },
+    "system_dark_mode": {
+        "message": "Sistem renk düzenini kullan"
+    },
+    "system_dark_mode_description": {
+        "message": "Sistem koyu modu açıkken etkinleştir"
+    },
+    "filter": {
+        "message": "Filtre"
+    },
+    "mode": {
+        "message": "Mod"
+    },
+    "dark": {
+        "message": "Koyu"
+    },
+    "light": {
+        "message": "Açık"
+    },
+    "brightness": {
+        "message": "Parlaklık"
+    },
+    "contrast": {
+        "message": "Kontrast"
+    },
+    "grayscale": {
+        "message": "Gri ton"
+    },
+    "sepia": {
+        "message": "Sepya"
+    },
+    "only_for": {
+        "message": "Sadece:"
+    },
+    "only_for_description": {
+        "message": "Ayarları sadece şu anki site için uygula"
+    },
+    "site_list": {
+        "message": "Site listesi"
+    },
+    "invert_listed_only": {
+        "message": "Sadece listedekiler"
+    },
+    "not_invert_listed": {
+        "message": "Hariç tutulanlar"
+    },
+    "add_site_to_list": {
+        "message": "Siteyi listeye ekle"
+    },
+    "setup_add_site_hotkey": {
+        "message": "Site eklemek için bir kısayol tuşu ayarla"
+    },
+    "more": {
+        "message": "Daha fazla"
+    },
+    "select_font": {
+        "message": "Yazı tipi seç"
+    },
+    "text_stroke": {
+        "message": "Yazı çizgisi"
+    },
+    "try_experimental_theme_engines": {
+        "message": "**Deneysel** tema motorlarını deneyin:\n**Filtre+** renk doygunluğunu korur, GPU kullanır\n**Statik tema** basit, hızlı bir tema oluşturur\n**Dinamik tema** renkleri ve görüntüleri analiz eder"
+    },
+    "engine_filter": {
+        "message": "Filtre"
+    },
+    "engine_filter_plus": {
+        "message": "Filtre+"
+    },
+    "engine_static": {
+        "message": "Statik"
+    },
+    "engine_dynamic": {
+        "message": "Dinamik"
+    },
+    "theme_generation_mode": {
+        "message": "Tema oluşturma modu"
+    },
+    "custom_browser_theme_on": {
+        "message": "Özel"
+    },
+    "custom_browser_theme_off": {
+        "message": "Varsayılan"
+    },
+    "change_browser_theme": {
+        "message": "Tarayıcı temasını değiştir"
+    },
+    "privacy": {
+        "message": "Gizlilik"
+    },
+    "help": {
+        "message": "Yardım"
+    },
+    "donate": {
+        "message": "Bağış yap"
+    },
+    "news": {
+        "message": "Haberler"
+    },
+    "read_more": {
+        "message": "Daha fazla oku"
+    },
+    "open_dev_tools": {
+        "message": "Geliş. araçları"
+    },
+    "store_listing": {
+        "message": "Bu göz bakım eklentisi web siteleri için anında koyu temalar oluşturarak gece modunu etkinleştirir. Dark Reader parlak renkleri ters çevirerek yüksek kontrast oluşturur ve geceleri okumayı kolaylaştırır.\n\nParlaklığı, kontrastı, sepya filtresini, koyu modu, yazı tipi ayarlarını ve yoksayma listesini ayarlayabilirsiniz.\n\nDark Reader, reklam göstermez ve kullanıcının verilerini hiçbir yere göndermez. Tamamen açık kaynak kodludur. https://github.com/darkreader/darkreader\n\nYüklemeden önce benzer uzantıları devre dışı bırakın. Gezintinin tadını çıkarın!"
+    }
+}

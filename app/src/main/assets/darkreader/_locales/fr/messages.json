@@ -1,0 +1,155 @@
+{
+    "extension_description": {
+        "message": "Un thème sombre pour chaque site Web. Prenez soin de vos yeux, utilisez Dark Reader pour votre navigation nocturne et quotidienne."
+    },
+    "loading_please_wait": {
+        "message": "Chargement, veuillez patienter"
+    },
+    "on": {
+        "message": "Marche"
+    },
+    "off": {
+        "message": "Arrêt"
+    },
+    "toggle_current_site": {
+        "message": "Activer/Désactiver le site actuel"
+    },
+    "setup_hotkey_toggle_site": {
+        "message": "Configurer la touche de raccourci\ndu basculement du site actuel"
+    },
+    "toggle_extension": {
+        "message": "Activer/Désactiver l'extension"
+    },
+    "setup_hotkey_toggle_extension": {
+        "message": "Configuration de l'extension\nTouche de raccourci bascule"
+    },
+    "automation": {
+        "message": "Automatisation"
+    },
+    "set_active_hours": {
+        "message": "Définissez les heures d’activité"
+    },
+    "set_location": {
+        "message": "Activer après le coucher du soleil à l'endroit"
+    },
+    "longitude": {
+        "message": "Longitude"
+    },
+    "latitude": {
+        "message": "Latitude"
+    },
+    "page_protected": {
+        "message": "Cette page est protégée\npar le navigateur"
+    },
+    "page_in_dark_list": {
+        "message": "Ce site est dans la\nliste noire mondiale"
+    },
+    "system_dark_mode": {
+        "message": "Utilisez des couleurs du système"
+    },
+    "system_dark_mode_description": {
+        "message": "Activer lorsque le mode sombre du système est"
+    },
+    "filter": {
+        "message": "Filtrer"
+    },
+    "mode": {
+        "message": "Mode"
+    },
+    "dark": {
+        "message": "Obscur"
+    },
+    "light": {
+        "message": "Lumineux"
+    },
+    "brightness": {
+        "message": "Luminosité"
+    },
+    "contrast": {
+        "message": "Contraste"
+    },
+    "grayscale": {
+        "message": "Niveaux de gris"
+    },
+    "sepia": {
+        "message": "Sépia"
+    },
+    "only_for": {
+        "message": "Uniquement pour"
+    },
+    "only_for_description": {
+        "message": "Appliquer les paramètres au site actuel seulement"
+    },
+    "site_list": {
+        "message": "Liste de sites"
+    },
+    "invert_listed_only": {
+        "message": "Uniquement inversé"
+    },
+    "not_invert_listed": {
+        "message": "Non-inversé"
+    },
+    "add_site_to_list": {
+        "message": "Ajouter un site à la liste"
+    },
+    "setup_add_site_hotkey": {
+        "message": "Configurer un raccourci pour ajouter un site"
+    },
+    "more": {
+        "message": "Plus"
+    },
+    "select_font": {
+        "message": "Sélectionnez une police"
+    },
+    "text_stroke": {
+        "message": "Trait du texte"
+    },
+    "try_experimental_theme_engines": {
+        "message": "Essayez les moteurs de thème **expérimentaux**:\n**Filtre+** préserve la satur. des couleurs, utilise le GPU\n**Thème statique** génère un thème rapide simple\n**Dynamique** analyse les couleurs et les images"
+    },
+    "engine_filter": {
+        "message": "Filtre"
+    },
+    "engine_filter_plus": {
+        "message": "Filtre+"
+    },
+    "engine_static": {
+        "message": "Statique"
+    },
+    "engine_dynamic": {
+        "message": "Dynamiq."
+    },
+    "theme_generation_mode": {
+        "message": "Mode de génération de thème"
+    },
+    "custom_browser_theme_on": {
+        "message": "Modifié"
+    },
+    "custom_browser_theme_off": {
+        "message": "Défaut"
+    },
+    "change_browser_theme": {
+        "message": "Modifier le thème du navigateur"
+    },
+    "privacy": {
+        "message": "Confid."
+    },
+    "help": {
+        "message": "Aide"
+    },
+    "donate": {
+        "message": "Donner"
+    },
+    "news": {
+        "message": "Nouveautés"
+    },
+    "read_more": {
+        "message": "Lire la suite"
+    },
+    "open_dev_tools": {
+        "message": "Dévelop."
+    },
+    "store_listing": {
+        "message": "Cette extension de protection oculaire active le mode nuit en créant à la volée des thèmes sombres pour les sites Web. Dark Reader inverse les couleurs vives, ce qui les rend très contrastés et faciles à lire la nuit.\n\nVous pouvez régler la luminosité, le contraste, le filtre sépia, le mode sombre, les paramètres de police et la liste des sites ignorés.\n\nDark Reader n’affiche pas de publicités et n’envoie aucune donnée utilisateur. Il est entièrement open source https://github.com/darkreader/darkreader\n\nAvant de l’installer, désactivez vos extensions similaires. Profitez et regardez!"
+    }
+}

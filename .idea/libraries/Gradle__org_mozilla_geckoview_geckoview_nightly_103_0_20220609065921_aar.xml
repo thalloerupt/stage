@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.geckoview:geckoview-nightly:103.0.20220609065921@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4a0ddf1d5d4fc3720c2227a5f5491654/transformed/jetified-geckoview-nightly-103.0.20220609065921/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4a0ddf1d5d4fc3720c2227a5f5491654/transformed/jetified-geckoview-nightly-103.0.20220609065921/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4a0ddf1d5d4fc3720c2227a5f5491654/transformed/jetified-geckoview-nightly-103.0.20220609065921/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4a0ddf1d5d4fc3720c2227a5f5491654/transformed/jetified-geckoview-nightly-103.0.20220609065921/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-nightly/103.0.20220609065921/4e5da2757bb829238d28e611fafe491081b7d5af/geckoview-nightly-103.0.20220609065921-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-nightly/103.0.20220609065921/90178b73bf798b9eb862697afc4f94ee3858be27/geckoview-nightly-103.0.20220609065921-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

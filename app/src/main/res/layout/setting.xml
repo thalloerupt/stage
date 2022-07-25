@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            app:expanded="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:fitsSystemWindows="true"
+                app:collapsedTitleTextColor="@color/textcolor"
+                app:expandedTitleGravity="center"
+                app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:expandedTitleTextColor="@color/textcolor"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleCollapseMode="scale"
+                app:titleEnabled="true"
+                app:toolbarId="@+id/toolbar">
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:isScrollContainer="false"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/ic_left"
+                    app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:title="@string/layout_setting"
+                    app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"></androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            android:clipToPadding="false"
+            android:isScrollContainer="false"
+            android:overScrollMode="never"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settingCon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,155 @@
+{
+    "extension_description": {
+        "message": "Dunkles Design für jede Website. Schonen Sie Ihre Augen und verwenden Sie Dark Reader für die Nacht und das tägliche Surfen."
+    },
+    "loading_please_wait": {
+        "message": "Lädt, bitte warten"
+    },
+    "on": {
+        "message": "Ein"
+    },
+    "off": {
+        "message": "Aus"
+    },
+    "toggle_current_site": {
+        "message": "Aktuelle Seite umschalten"
+    },
+    "setup_hotkey_toggle_site": {
+        "message": "Hotkey zum Umschalten der\naktuellen Webseite einrichten"
+    },
+    "toggle_extension": {
+        "message": "Erweiterung"
+    },
+    "setup_hotkey_toggle_extension": {
+        "message": "Hotkey zum (de)aktivieren\nder Erweiterung"
+    },
+    "automation": {
+        "message": "Automatisierung"
+    },
+    "set_active_hours": {
+        "message": "Nutzungszeit ändern"
+    },
+    "set_location": {
+        "message": "Nach lokalem Sonnenuntergang aktivieren"
+    },
+    "longitude": {
+        "message": "Längengrad"
+    },
+    "latitude": {
+        "message": "Breitengrad"
+    },
+    "page_protected": {
+        "message": "Diese Seite ist durch\nden Browser geschützt"
+    },
+    "page_in_dark_list": {
+        "message": "Seite befindet sich auf der\npermanenten Dunkel-Liste"
+    },
+    "system_dark_mode": {
+        "message": "Systemfarben verwenden"
+    },
+    "system_dark_mode_description": {
+        "message": "Aktivieren, wenn das System dunkel ist"
+    },
+    "filter": {
+        "message": "Filter"
+    },
+    "mode": {
+        "message": "Modus"
+    },
+    "dark": {
+        "message": "Dunkel"
+    },
+    "light": {
+        "message": "Hell"
+    },
+    "brightness": {
+        "message": "Helligkeit"
+    },
+    "contrast": {
+        "message": "Kontrast"
+    },
+    "grayscale": {
+        "message": "Graustufen"
+    },
+    "sepia": {
+        "message": "Sepia"
+    },
+    "only_for": {
+        "message": "Nur für"
+    },
+    "only_for_description": {
+        "message": "Einstellungen nur auf aktuelle Domain anwenden"
+    },
+    "site_list": {
+        "message": "Websiteliste"
+    },
+    "invert_listed_only": {
+        "message": "Nur invertieren"
+    },
+    "not_invert_listed": {
+        "message": "Nicht invertieren"
+    },
+    "add_site_to_list": {
+        "message": "Webseite zur Liste hinzufügen"
+    },
+    "setup_add_site_hotkey": {
+        "message": "Hotkey zum Hinzufügen der Seite festlegen"
+    },
+    "more": {
+        "message": "Mehr"
+    },
+    "select_font": {
+        "message": "Schriftart auswählen"
+    },
+    "text_stroke": {
+        "message": "Textstärke"
+    },
+    "try_experimental_theme_engines": {
+        "message": "Probiere **experimentelle** Style-Engines aus:\n**Filter+** bewahrt die Farbsättigung, verwendet GPU\n**Statisches** generiert einfaches schnelles Design\n**Dynamisches Thema** analysiert Farben und Bilder"
+    },
+    "engine_filter": {
+        "message": "Filter"
+    },
+    "engine_filter_plus": {
+        "message": "Filter+"
+    },
+    "engine_static": {
+        "message": "Statisch"
+    },
+    "engine_dynamic": {
+        "message": "Dynam."
+    },
+    "theme_generation_mode": {
+        "message": "Verfahren zur Stylegenerierung"
+    },
+    "custom_browser_theme_on": {
+        "message": "Angepasst"
+    },
+    "custom_browser_theme_off": {
+        "message": "Standard"
+    },
+    "change_browser_theme": {
+        "message": "Browserdesign"
+    },
+    "privacy": {
+        "message": "Datenschutz"
+    },
+    "help": {
+        "message": "Hilfe"
+    },
+    "donate": {
+        "message": "Spenden"
+    },
+    "news": {
+        "message": "Neuigkeiten"
+    },
+    "read_more": {
+        "message": "Weiterlesen"
+    },
+    "open_dev_tools": {
+        "message": "Erweitert"
+    },
+    "store_listing": {
+        "message": "Zum Schutz der Augen ermöglicht diese Erweiterung das Erstellen dunkler Farblayouts für Webseiten. Dabei invertiert Dark Reader helle Farben, macht sie kontrastreich und nachts gut lesbar.\n\nHelligkeit, Kontrast, Sepia-Filter, Dark-Modus, Schrifteinstellungen und Ignorier-Liste können manuell verwaltet und individuell eingestellt werden.\n\nDark Reader zeigt dabei keine Werbung und sendet keine Benutzerdaten irgendwohin. Es ist komplett quelloffen: https://github.com/darkreader/darkreader\n\nBeachten Sie, dass Sie ähnliche Erweiterungen deaktivieren sollen, bevor Sie Dark Reader installieren. Viel Spaß beim angenehmeren Surfen!"
+    }
+}
