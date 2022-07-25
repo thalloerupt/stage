@@ -229,7 +229,8 @@ public class MainActivity extends AppCompatActivity  {
         homeTab(tabList.size());
         webExtensionController = GeckoRuntime.getDefault(MainActivity.this).getWebExtensionController();
         controller.setWebExtensionController(webExtensionController);
-        controller.Details(this,tabDetails,binding.getSessionModel(),mTabList,behavior,homeFragment,getSupportFragmentManager());
+        controller.setThing(this,tabDetails,binding.getSessionModel(),mTabList,behavior,homeFragment,getSupportFragmentManager());
+        controller.Details();
         controller.promptDelegate();
 
 

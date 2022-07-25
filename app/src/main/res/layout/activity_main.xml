@@ -78,6 +78,7 @@
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="0dp"
                         android:layout_height="2dp"
+                        android:progress="@{SessionModel.process}"
                         android:progressBackgroundTint="@color/purple_700"
                         android:progressDrawable="@drawable/progress"
                         app:layout_constraintEnd_toEndOf="parent"

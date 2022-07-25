@@ -10,7 +10,7 @@ import com.thallo.stage.R;
 
 import java.net.URI;
 
-public class addressText {
+public class AddressText {
     @BindingAdapter(value = {"titleToUrl","url"} ,requireAll = false)
     public static void titleToUrl(TextView view, String title,String url){
         if (title==null) return;
@@ -19,8 +19,6 @@ public class addressText {
         if(title=="新标签页")
             view.setText("");
         else view.setText(url);
-
-
 
     }
 

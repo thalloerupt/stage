@@ -25,7 +25,13 @@ import java.util.List;
 public class Controller {
     WebExtensionController webExtensionController;
     PopUp popUp;
-
+    TabDetails tabDetails;
+    Context context;
+    WebSessionViewModel webSessionViewModel;
+    List<PageTab> tabList;
+    BottomSheetBehavior behavior;
+    HomeFragment homeFragment;
+    FragmentManager fm;
     public void setWebExtensionController(WebExtensionController webExtensionController) {
         this.webExtensionController = webExtensionController;
     }
@@ -35,6 +41,7 @@ public class Controller {
                 @Nullable
                 @Override
                 public GeckoResult<AllowOrDeny> onOptionalPrompt(@NonNull WebExtension extension, @NonNull String[] permissions, @NonNull String[] origins) {
+
                     return GeckoResult.allow();
                 }
 
@@ -46,13 +53,23 @@ public class Controller {
                 @Nullable
                 @Override
                 public GeckoResult onInstallPrompt(@NonNull WebExtension extension) {
+                    extension.setTabDelegate(new WebExtension.TabDelegate() {
+                        @Nullable
+                        @Override
+                        public GeckoResult<GeckoSession> onNewTab(@NonNull WebExtension source, @NonNull WebExtension.CreateTabDetails createDetails) {
+                            GeckoSession session= new GeckoSession();
+                            tabDetails.newTabDetail(createDetails.url,tabList.size(),context,behavior);
+                            fm.beginTransaction().hide(homeFragment).commit();
+                            return GeckoResult.fromValue(session);
+                        }
+                    });
                     return GeckoResult.allow();
                 }
 
             });
         }
 
-    public void Details(Context context, TabDetails tabDetails, WebSessionViewModel webSessionViewModel, List<PageTab> tabList, BottomSheetBehavior behavior, HomeFragment homeFragment, FragmentManager fm){
+    public void Details(){
         popUp=new PopUp();
         webExtensionController.list().accept(new GeckoResult.Consumer<List<WebExtension>>() {
             @Override
@@ -62,7 +79,6 @@ public class Controller {
                     webExtensions.get(i).setActionDelegate(new WebExtension.ActionDelegate() {
                         @Override
                         public void onBrowserAction(@NonNull WebExtension extension, @Nullable GeckoSession session, @NonNull WebExtension.Action action) {
-                            WebExtension.ActionDelegate.super.onBrowserAction(extension, session, action);
                             extension.setTabDelegate(new WebExtension.TabDelegate() {
                                 @Nullable
                                 @Override
@@ -106,6 +122,17 @@ public class Controller {
 
             }
         });
+
+    }
+    public void setThing(Context context, TabDetails tabDetails, WebSessionViewModel webSessionViewModel, List<PageTab> tabList, BottomSheetBehavior behavior, HomeFragment homeFragment, FragmentManager fm){
+        this.context=context;
+        this.tabDetails=tabDetails;
+        this.webSessionViewModel=webSessionViewModel;
+        this.tabList=tabList;
+        this.behavior=behavior;
+        this.homeFragment=homeFragment;
+        this.fm=fm;
+
 
     }
 
