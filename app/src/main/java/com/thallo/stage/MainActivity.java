@@ -9,14 +9,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.util.TypedValue;
@@ -30,32 +27,26 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.gyf.immersionbar.ImmersionBar;
 import com.thallo.stage.components.PopUp;
+import com.thallo.stage.components.QR;
 import com.thallo.stage.components.SettingPopUp;
 import com.thallo.stage.databinding.ActivityMainBinding;
 import com.thallo.stage.extension.Controller;
 import com.thallo.stage.tab.TabDetails;
 
-import org.mozilla.geckoview.AllowOrDeny;
-import org.mozilla.geckoview.GeckoDisplay;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
-import org.mozilla.geckoview.GeckoSessionSettings;
 import org.mozilla.geckoview.Image;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -92,6 +83,7 @@ public class MainActivity extends AppCompatActivity  {
     Controller controller;
     TabDetails tabDetails;
      GeckoResult n;
+    QR qr;
     private List<PageTab> mTabList;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -118,6 +110,7 @@ public class MainActivity extends AppCompatActivity  {
         tabDetails.setThings(binding,tabList,spToInt,getSupportFragmentManager(),homeFragment);
         ConstraintLayout constraintLayout = findViewById(R.id.toolLayout);
         behavior = BottomSheetBehavior.from(constraintLayout);
+        qr=new QR(MainActivity.this,MainActivity.this,getSupportFragmentManager());
 
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -217,6 +210,13 @@ public class MainActivity extends AppCompatActivity  {
                binding.editView.setVisibility(View.GONE);
            }
        });
+        binding.homeButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
         binding.menu2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity  {
         controller.setWebExtensionController(webExtensionController);
         controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,behavior,homeFragment,getSupportFragmentManager());
         controller.Details();
-        controller.promptDelegate();
+        controller.promptDelegate(MainActivity.this);
 
 
 
@@ -252,77 +252,27 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
-    public GeckoResult showDialog(Image image, String name, String[] per){
 
-
-
-        View view = LayoutInflater.from(this).inflate(R.layout.dia_install,null);
-        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this).setView(view);
-        ImageView icon=view.findViewById(R.id.diaIcon);
-        TextView nameView=view.findViewById(R.id.diaName);
-        TextView perView=view.findViewById(R.id.diaPer);
-        dialog.setPositiveButton("安装",null);
-        dialog.setNegativeButton("取消",null);
-        alertDialog = dialog.create();
-        image.getBitmap(48).accept(new GeckoResult.Consumer<Bitmap>() {
-            @Override
-            public void accept(@Nullable Bitmap bitmap) {
-                icon.setImageBitmap(bitmap);
-
-
-            }
-        });
-        nameView.setText(name);
-
-        alertDialog.show();
-        for (int i=0;i<per.length;i++)
-        {
-            s+=per[i]+"\n";
-            Log.d("permission",s);
-
-        }
-        perView.setText(s);
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                n=GeckoResult.allow();
-                alertDialog.dismiss();
-
-            }
-        });
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                n=GeckoResult.deny();
-                alertDialog.dismiss();
-
-            }
-        });
-
-        //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4  注意一定要在show方法调用后再写设置窗口大小的代码，否则不起效果会
-        // dialog.getWindow().setLayout((ScreenUtils.getScreenWidth(this)/4*3), LinearLayout.LayoutParams.WRAP_CONTENT);
-        return n;
-    }
 
     @Override
     public void onBackPressed() {
-        //
-        if(behavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
-        {
-            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            binding.urlView.setVisibility(View.VISIBLE);
-            binding.editView.setVisibility(View.GONE);
-            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            return;
-        }
-        else{
-            if(binding.getSessionModel().isCanBack()) {
-                binding.getSessionModel().getSession().goBack();
+        if(qr.getQrFeature().onBackPressed()) getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag("MOZAC_QR_FRAGMENT")).commit();
+        else {
+            if(behavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
+            {
+                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                binding.urlView.setVisibility(View.VISIBLE);
+                binding.editView.setVisibility(View.GONE);
+                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 return;
-            }else if (tabList.size()!=1){tabDetails.closeTabDetail(tabList.size()-1,behavior,MainActivity.this);}
-            else if (tabList.size()==1){super.onBackPressed();}
+            }
+            else{
+                if(binding.getSessionModel().isCanBack()) {
+                    binding.getSessionModel().getSession().goBack();
+                    return;
+                }else if (tabList.size()!=1){tabDetails.closeTabDetail(tabList.size()-1,behavior,MainActivity.this);}
+                else if (tabList.size()==1){super.onBackPressed();}
+            }
         }
     }
 
@@ -375,6 +325,13 @@ public class MainActivity extends AppCompatActivity  {
             if(13<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=19){tips.setText("下午好");}
             if(19<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=22){tips.setText("晚安");}
             if(22<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<3){tips.setText("深夜,Good dream");}
+            ImageView imageView=view.findViewById(R.id.Home_Qr);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    qr.QrScan();
+                }
+            });
 
 
 
@@ -385,6 +342,23 @@ public class MainActivity extends AppCompatActivity  {
         }
 
 
+
+    }
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults != null && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // 权限被用户同意，可以做你要做的事情了。
+            qr.QrScan();
+        } else {
+            // 权限被用户拒绝了，可以提示用户,关闭界面等等。
+            Toast.makeText(this,"请先授权",Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -402,8 +376,6 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-
-   
 
 
 }

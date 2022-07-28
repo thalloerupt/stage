@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-qr:104.0.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/82a8eecc103aa0437c10cc5a0d4066dc/transformed/jetified-feature-qr-104.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/82a8eecc103aa0437c10cc5a0d4066dc/transformed/jetified-feature-qr-104.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/82a8eecc103aa0437c10cc5a0d4066dc/transformed/jetified-feature-qr-104.0.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-qr/104.0.0/fe3f2b1b547fc08a2a55d5def1efa356673c0725/feature-qr-104.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

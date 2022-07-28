@@ -32,6 +32,7 @@
         android:id="@+id/badgeLayout"
         android:layout_width="16dp"
         android:layout_height="16dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/imageView3">
 

@@ -1,13 +1,8 @@
 package com.thallo.stage;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,29 +11,21 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 
-import com.bumptech.glide.Glide;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import com.thallo.stage.interfaces.favicon;
-import com.thallo.stage.tab.TabDetails;
+import com.thallo.stage.dialog.ContentPermissionDialog;
+import com.thallo.stage.interfaces.confirm;
 
 import org.mozilla.geckoview.AllowOrDeny;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
-import org.mozilla.geckoview.GeckoSessionSettings;
-import org.mozilla.geckoview.Image;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 import org.mozilla.geckoview.WebResponse;
 
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
-import java.util.List;
 
 
-public class WebSessionViewModel extends BaseObservable {
+public class WebSessionViewModel extends BaseObservable  {
     private final GeckoSession session;
     private String mUrl;
     private boolean canBack;
@@ -59,7 +46,8 @@ public class WebSessionViewModel extends BaseObservable {
     GeckoResult n;
     Boolean showHome;
     private String faviconUrl;
-
+    boolean isSecure;
+    int i;
     public WebSessionViewModel(GeckoSession session, Context context) {
         this.session = session;
         mContext=context;
@@ -112,7 +100,34 @@ public class WebSessionViewModel extends BaseObservable {
             }
         });*/
 
+        session.setPromptDelegate(new GeckoSession.PromptDelegate() {
+            @Nullable
+            @Override
+            public GeckoResult<PromptResponse> onAlertPrompt(@NonNull GeckoSession session, @NonNull AlertPrompt prompt) {
+                return GeckoSession.PromptDelegate.super.onAlertPrompt(session, prompt);
+            }
+        });
+
+        session.setPermissionDelegate(new GeckoSession.PermissionDelegate() {
+            @Nullable
+            @Override
+            public GeckoResult<Integer> onContentPermissionRequest(@NonNull GeckoSession session, @NonNull ContentPermission perm) {
+
+
+                return GeckoResult.fromValue(i);
+            }
+        });
+
         session.setProgressDelegate(new GeckoSession.ProgressDelegate() {
+
+            @Override
+            public void onSecurityChange(@NonNull GeckoSession session, @NonNull SecurityInformation securityInfo) {
+                GeckoSession.ProgressDelegate.super.onSecurityChange(session, securityInfo);
+                isSecure=securityInfo.isSecure;
+                notifyPropertyChanged(BR.secure);
+
+            }
+
             @Override
             public void onSessionStateChange(@NonNull GeckoSession session, @NonNull GeckoSession.SessionState sessionState) {
                 mSessionState=sessionState;
@@ -191,6 +206,10 @@ public class WebSessionViewModel extends BaseObservable {
     public GeckoSession.SessionState getmSessionState() {
         return mSessionState;
     }
+    @Bindable
+    public boolean isSecure() {
+        return isSecure;
+    }
 
     public String getIcon() {
         return mIcon=faviconUrl;
@@ -254,8 +273,15 @@ public class WebSessionViewModel extends BaseObservable {
     }
 
 
-    public void setFavicon(String faviconUrl,Context context,favicon fav) {
+    public void setFavicon(String faviconUrl, Context context, confirm fav) {
        }
+
+    /*@Override
+    public int getConfirm(int i) {
+        this.i=i;
+        Log.d("Permission", String.valueOf(i));
+        return i;
+    }*/
 
 
     public interface NewSessionHandler{

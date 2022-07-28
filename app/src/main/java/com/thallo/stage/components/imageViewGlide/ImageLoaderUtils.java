@@ -26,5 +26,14 @@ public class ImageLoaderUtils {
 
     }
 
+    @BindingAdapter(value = {"isSecure"} ,requireAll = false)
+    public static void loadSecureImage(ImageView view, boolean isSecure){
+        if (isSecure) view.setImageResource(R.drawable.ic_lock);
+        else view.setImageResource(R.drawable.ic_broken_lock);
+
+
+
+    }
+
 
 }
