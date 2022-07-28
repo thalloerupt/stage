@@ -25,6 +25,7 @@ import com.thallo.stage.R;
 import com.thallo.stage.Setting;
 import com.thallo.stage.WebSessionViewModel;
 import com.thallo.stage.databinding.ActivityMainBinding;
+import com.thallo.stage.databinding.SettingMenuBinding;
 import com.thallo.stage.tab.TabDetails;
 
 import org.mozilla.geckoview.GeckoResult;
@@ -35,6 +36,7 @@ import org.mozilla.geckoview.WebExtensionController;
 import java.util.List;
 
 public class SettingPopUp {
+    SettingMenuBinding mBinding;
 
 
     public void setting (Context context, WebExtensionController webExtensionController, WebSessionViewModel webSessionViewModel, SharedPreferences mSp, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, HomeFragment homeFragment, FragmentManager fm){
@@ -48,25 +50,19 @@ public class SettingPopUp {
         View addonsLayout;
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogStyle);
-        dialogView= LayoutInflater.from(context).inflate(R.layout.setting_menu,null );
-        TextView title=dialogView.findViewById(R.id.popTitle);
-        reload = dialogView.findViewById(R.id.reload);
-        setting = dialogView.findViewById(R.id.setting);
-        popText= dialogView.findViewById(R.id.popTitle);
-        desktopMode = dialogView.findViewById(R.id.desktop);
-        linearLayout2= dialogView.findViewById(R.id.addonsIcon);
-        addonsLayout=dialogView.findViewById(R.id.addonsLayout);
+        mBinding=SettingMenuBinding.inflate(LayoutInflater.from(context));
+
         popUp=new PopUp();
         mEditor = mSp.edit();
         tabDetails=new TabDetails();
-        tabDetails.setThings(binding,tabList,dp,null,null);
-        popText.setText(webSessionViewModel.getTitle());
+        tabDetails.setThings(binding,tabList,dp,fm,homeFragment);
+        mBinding.popTitle.setText(webSessionViewModel.getTitle());
 
         webExtensionController.list().accept(new GeckoResult.Consumer<List<WebExtension>>() {
             @Override
             public void accept(@Nullable List<WebExtension> webExtensions) {
-                if (webExtensions.size()==0) addonsLayout.setVisibility(View.GONE);
-                else addonsLayout.setVisibility(View.VISIBLE);
+                if (webExtensions.size()==0) mBinding.addonsLayout.setVisibility(View.GONE);
+                else mBinding.addonsLayout.setVisibility(View.VISIBLE);
 
                 for (int i=0;i<webExtensions.size();i++)
                 {
@@ -101,6 +97,7 @@ public class SettingPopUp {
                                 @Override
                                 public void onClick(View view) {
                                     action.click();
+                                    bottomSheetDialog.dismiss();
 
 
                                 }
@@ -141,7 +138,7 @@ public class SettingPopUp {
 
 
 
-                    linearLayout2.addView(iconView);
+                    mBinding.addonsIcon.addView(iconView);
                 }
             }
         });
@@ -151,7 +148,7 @@ public class SettingPopUp {
 
 
 
-        reload.setOnClickListener(new View.OnClickListener() {
+        mBinding.reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 webSessionViewModel.getSession().reload();
@@ -159,7 +156,16 @@ public class SettingPopUp {
             }
         });
 
-        setting.setOnClickListener(new View.OnClickListener() {
+        mBinding.menuAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tabDetails.newTabDetail("https://addons.mozilla.org/zh-CN/firefox/",tabList.size(),context,behavior);
+                bottomSheetDialog.dismiss();
+                fm.beginTransaction().hide(homeFragment).commit();
+            }
+        });
+
+        mBinding.setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Setting.class);
@@ -169,21 +175,21 @@ public class SettingPopUp {
 
         if(!mSp.getBoolean("mode", false))
         {
-            desktopMode.setImageResource(R.drawable.ic_desk);
+            mBinding.desktop.setImageResource(R.drawable.ic_desk);
 
-        }else if (mSp.getBoolean("mode",false)){desktopMode.setImageResource(R.drawable.ic_desktop_on);}
-        desktopMode.setOnClickListener(new View.OnClickListener() {
+        }else if (mSp.getBoolean("mode",false)){mBinding.desktop.setImageResource(R.drawable.ic_desktop_on);}
+        mBinding.desktop.setOnClickListener(new View.OnClickListener() {
             int i;
             @Override
             public void onClick(View view) {
-                if (i==0) {mEditor.putBoolean("mode",true).commit();i=1;desktopMode.setImageResource(R.drawable.ic_desktop_on);}
-                else {mEditor.putBoolean("mode",false).commit();i=0;desktopMode.setImageResource(R.drawable.ic_desk);}
+                if (i==0) {mEditor.putBoolean("mode",true).commit();i=1;mBinding.desktop.setImageResource(R.drawable.ic_desktop_on);}
+                else {mEditor.putBoolean("mode",false).commit();i=0;mBinding.desktop.setImageResource(R.drawable.ic_desk);}
 
             }
         });
 
 
-        bottomSheetDialog.setContentView(dialogView);
+        bottomSheetDialog.setContentView(mBinding.getRoot());
         bottomSheetDialog.show();
 
 

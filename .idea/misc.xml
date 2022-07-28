@@ -3,6 +3,88 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_add_to_home_screen.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_arrowhead_down.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_arrowhead_right.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_arrowhead_up.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_autoplay_blocked.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_back.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_broken_lock.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_cart.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_check.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_chill.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_circle.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_clear.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_close.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_close_20.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_cookies.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_delete.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_device_desktop.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_device_mobile.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_dollar.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_download.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_edit_suggestion.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_extensions.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_fence.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_fingerprint.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_font.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_food.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_forward.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_fruit.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_gift.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_globe.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_grid.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_help.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_home.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_info.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_information.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_link.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_location.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_lock.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_login.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_menu.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_microphone.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_mozilla.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_new.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_open_in.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_password_hide.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_password_reveal.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_pet.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_pin.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_pin_filled.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_pin_filled_2.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_pin_remove.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_preferences.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_private_browsing.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_quit.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_reader_mode.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_refresh.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_reorder.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_rocket.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_rocket_filled.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_search.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_select_all.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_settings.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_share.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_shield.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_shield_disabled.xml" value="0.114" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_stop.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_storage.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_tab.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_tab_new.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_tree.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_vacation.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_video.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_warning.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/99835ab64a0a79251a37754e1c96300b/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_web_extension_default_icon.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_autoplay_blocked.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_broken_lock.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_cart.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_check.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_fence.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_font.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_lock.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_login.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_setting_anddons.xml" value="0.113" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_setting_menu.xml" value="0.138" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_trans.xml" value="0.1" />
@@ -11,19 +93,23 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic__delete.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_add.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_addons.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_broken_lock.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_circle.xml" value="0.115" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_circle2.xml" value="0.1225" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_clear.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_clear_24.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_copy.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_desk.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_download.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_edit.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_extensions.xml" value="0.1185" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_history.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_home.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_information.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_internet.xml" value="0.1335" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_left.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_lock.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_menu.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_menu2.xml" value="0.115" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_menu3.xml" value="0.115" />
@@ -33,19 +119,21 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_safe.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_search.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_setting.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_shield.xml" value="0.114" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_star.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_tabs.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_video.xml" value="0.138" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/progress.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/aa.xml" value="0.20878623188405798" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_main.xml" value="0.43023255813953487" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_main.xml" value="0.536" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_popupwindow_top.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addonsIcons.xml" value="0.1" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_icons.xml" value="2.23841059602649" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_icons.xml" value="0.72" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_list.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_list_item.xml" value="0.25" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_window.xml" value="0.16" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_install.xml" value="0.264" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_install.xml" value="0.21894005212858383" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_permission.xml" value="0.6" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_home.xml" value="0.4" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_main.xml" value="0.15489130434782608" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_web.xml" value="0.1" />
@@ -55,7 +143,7 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup_layout.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup_window.xml" value="0.2" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting.xml" value="0.1" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting_menu.xml" value="0.4" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting_menu.xml" value="0.6" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/switch_item.xml" value="0.19270833333333334" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab_layout.xml" value="0.536" />
@@ -80,7 +168,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.1" />
+        <option name="scale" value="0.6" />
       </ProjectState>
     </option>
   </component>

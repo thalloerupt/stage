@@ -321,8 +321,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="opacityPercent" value="75" />
-                            <entry key="outputName" value="ic_safe" />
-                            <entry key="sourceFile" value="C:\Users\luoyf\Downloads\安全.svg" />
+                            <entry key="outputName" value="ic_circle2" />
+                            <entry key="sourceFile" value="C:\Users\luoyf\Downloads\未选中圆圈.svg" />
                           </map>
                         </option>
                       </PersistentState>

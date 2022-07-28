@@ -1,6 +1,12 @@
 package com.thallo.stage.extension;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,10 +14,12 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.thallo.stage.HomeFragment;
-import com.thallo.stage.MainActivity;
 import com.thallo.stage.PageTab;
+import com.thallo.stage.PermissionDialog;
+import com.thallo.stage.R;
 import com.thallo.stage.WebSessionViewModel;
 import com.thallo.stage.components.PopUp;
+import com.thallo.stage.dialog.ContentPermissionDialog;
 import com.thallo.stage.tab.TabDetails;
 
 import org.mozilla.geckoview.AllowOrDeny;
@@ -22,7 +30,7 @@ import org.mozilla.geckoview.WebExtensionController;
 
 import java.util.List;
 
-public class Controller {
+public class Controller  {
     WebExtensionController webExtensionController;
     PopUp popUp;
     TabDetails tabDetails;
@@ -33,15 +41,21 @@ public class Controller {
     HomeFragment homeFragment;
     FragmentManager fm;
     int exAmount;
+    GeckoResult i;
     public void setWebExtensionController(WebExtensionController webExtensionController) {
         this.webExtensionController = webExtensionController;
     }
 
-    public void promptDelegate() {
-            webExtensionController.setPromptDelegate(new WebExtensionController.PromptDelegate() {
+    public void promptDelegate(Activity activity) {
+
+
+        webExtensionController.setPromptDelegate(new  WebExtensionController.PromptDelegate() {
+                ContentPermissionDialog contentPermissionDialog=new ContentPermissionDialog();
+                //contentPermissionDialog.setConfirm(WebSessionViewModel.this::getConfirm);
                 @Nullable
                 @Override
                 public GeckoResult<AllowOrDeny> onOptionalPrompt(@NonNull WebExtension extension, @NonNull String[] permissions, @NonNull String[] origins) {
+
 
                     return GeckoResult.allow();
                 }
@@ -49,7 +63,7 @@ public class Controller {
                 @Nullable
                 @Override
                 public GeckoResult<AllowOrDeny> onUpdatePrompt(@NonNull WebExtension currentlyInstalled, @NonNull WebExtension updatedExtension, @NonNull String[] newPermissions, @NonNull String[] newOrigins) {
-                    return GeckoResult.allow(); }
+                    return GeckoResult.allow();}
 
                 @Nullable
                 @Override
@@ -64,7 +78,20 @@ public class Controller {
                             return GeckoResult.fromValue(session);
                         }
                     });
-                    return GeckoResult.allow();
+                    PermissionDialog dlg = new PermissionDialog(activity,extension);
+
+                    if(dlg.showDialog() == 1)
+                    {
+
+                        return GeckoResult.allow();
+
+                    }
+                    else return GeckoResult.deny();
+
+
+
+
+
                 }
 
             });
@@ -79,6 +106,7 @@ public class Controller {
                 for (int i=0;i<webExtensions.size();i++)
                 {
                     webExtensions.get(i).setActionDelegate(new WebExtension.ActionDelegate() {
+
                         @Override
                         public void onBrowserAction(@NonNull WebExtension extension, @Nullable GeckoSession session, @NonNull WebExtension.Action action) {
                             extension.setTabDelegate(new WebExtension.TabDelegate() {
@@ -141,4 +169,40 @@ public class Controller {
     public int getExAmount() {
         return exAmount;
     }
+
+
+    public GeckoResult dialog(View view){
+        final GeckoResult[] i = new GeckoResult[1];
+        View dialogView= LayoutInflater.from(context).inflate(R.layout.dia_permission,null );
+        PopupWindow popupWindow = new PopupWindow
+                (dialogView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Button b1,b2;
+        b1=dialogView.findViewById(R.id.button2);
+        b2=dialogView.findViewById(R.id.button4);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                    i[0] =GeckoResult.allow();
+
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    i[0] =GeckoResult.deny();
+
+            }
+        });
+        popupWindow.showAtLocation(view,0,0,0);
+
+        return i[0];
+    }
+
+
+
+
+
 }

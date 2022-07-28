@@ -2,39 +2,21 @@ package com.thallo.stage.tab;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Matrix;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.thallo.stage.BR;
 import com.thallo.stage.HomeFragment;
 import com.thallo.stage.MainActivity;
 import com.thallo.stage.PageTab;
-import com.thallo.stage.R;
 import com.thallo.stage.WebSessionViewModel;
 import com.thallo.stage.databinding.ActivityMainBinding;
-import com.thallo.stage.databinding.TabBinding;
-import com.thallo.stage.interfaces.favicon;
 
 import org.mozilla.geckoview.GeckoSession;
 import org.mozilla.geckoview.GeckoSessionSettings;
-import org.mozilla.geckoview.WebExtensionController;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 public class TabDetails  {
