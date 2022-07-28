@@ -135,11 +135,12 @@
                         android:layout_width="@dimen/icon2"
                         android:layout_height="@dimen/icon2"
                         android:layout_marginStart="8dp"
+                        android:visibility="gone"
                         app:isSecure="@{SessionModel.secure}"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                         app:layout_constraintStart_toStartOf="@+id/imageView12"
                         app:layout_constraintTop_toTopOf="@+id/imageView12"
-                         />
+                        app:pageUrl="@{SessionModel.url}" />
 
                     <TextView
                         android:id="@+id/textView4"

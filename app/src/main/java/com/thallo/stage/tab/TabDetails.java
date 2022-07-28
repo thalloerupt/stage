@@ -38,8 +38,8 @@ public class TabDetails  {
         PageTab tab=new PageTab(context,new WebSessionViewModel(mSession,context));
         tab.setOnClickListener(v -> useTabDetail(tabList.indexOf(v), behavior,true));
         tab.getModel().setNewSessionHandler((session, uri) -> {
-
-            newTabDetail(url,tabList.indexOf(tab)+1,context,behavior);
+            Log.d("New",uri);
+            newTabDetail(uri,tabList.indexOf(tab)+1,context,behavior);
             return null;
         });
         tab.getBinding().close.setOnClickListener(v->closeTabDetail(tabList.indexOf(tab),behavior,context));
@@ -54,26 +54,39 @@ public class TabDetails  {
             @Override
             public void onScrollChanged(@NonNull GeckoSession session, int scrollX, int scrollY) {
                 GeckoSession.ScrollDelegate.super.onScrollChanged(session, scrollX, scrollY);
+                Log.d("scrollY",dp+"");
                 if (i<=scrollY) {
-                    n = i = scrollY;
-                    binding.toolLayout.setTranslationY(dp);
+                    i=scrollY;
+                    if (scrollY-n>200) {
+                        binding.toolLayout.setTranslationY(dp);
+                        binding.geckoview.setDynamicToolbarMaxHeight(0);
+
+                    }
+                    else {
+                        binding.toolLayout.setTranslationY(scrollY - n);
+                        binding.geckoview.setDynamicToolbarMaxHeight(n-scrollY);
+
+                    }
+
+
                 }
                 else if(i>=scrollY) {
                     binding.toolLayout.setTranslationY(0);
+                    binding.geckoview.setDynamicToolbarMaxHeight(dp);
+
                     if (scrollY==0) i=0;
                 }
-                Log.d("scrd",i+"");
+                Log.d("scrd",n+"");
 
             }
         });
 
     }
     public void useTabDetail(int index,BottomSheetBehavior behavior,boolean collapsed){
-        if(currentIndex!=index&&currentIndex<tabList.size())
-            tabList.get(currentIndex).getModel().inactive();
+        if(currentIndex!=index&&currentIndex<tabList.size()) tabList.get(currentIndex).getModel().inactive();
         currentIndex=index;
         binding.geckoview.releaseSession();
-        tabList.get(index).getModel().active(mSessionState);
+        tabList.get(index).getModel().active();
         binding.setSessionModel(tabList.get(index).getModel());
         binding.getSessionModel().getSession().setActive(true);
         binding.geckoview.setSession(binding.getSessionModel().getSession());
@@ -111,8 +124,9 @@ public class TabDetails  {
     }
 
 
-
-
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
 
     public int getmProcess() {
         return mProcess;

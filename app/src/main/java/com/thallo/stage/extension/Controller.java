@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.thallo.stage.HomeFragment;
 import com.thallo.stage.PageTab;
-import com.thallo.stage.PermissionDialog;
+import com.thallo.stage.dialog.PermissionDialog;
 import com.thallo.stage.R;
 import com.thallo.stage.WebSessionViewModel;
 import com.thallo.stage.components.PopUp;
@@ -30,6 +30,8 @@ import org.mozilla.geckoview.WebExtensionController;
 
 import java.util.List;
 
+import mozilla.components.feature.qr.QrFragment;
+
 public class Controller  {
     WebExtensionController webExtensionController;
     PopUp popUp;
@@ -41,12 +43,14 @@ public class Controller  {
     HomeFragment homeFragment;
     FragmentManager fm;
     int exAmount;
+    int currentIndex;
     GeckoResult i;
     public void setWebExtensionController(WebExtensionController webExtensionController) {
         this.webExtensionController = webExtensionController;
     }
 
     public void promptDelegate(Activity activity) {
+        tabDetails.setCurrentIndex(currentIndex);
 
 
         webExtensionController.setPromptDelegate(new  WebExtensionController.PromptDelegate() {
@@ -154,7 +158,7 @@ public class Controller  {
         });
 
     }
-    public void setThing(Context context, TabDetails tabDetails, WebSessionViewModel webSessionViewModel, List<PageTab> tabList, BottomSheetBehavior behavior, HomeFragment homeFragment, FragmentManager fm){
+    public void setThing(Context context, TabDetails tabDetails, WebSessionViewModel webSessionViewModel, List<PageTab> tabList, BottomSheetBehavior behavior, HomeFragment homeFragment, FragmentManager fm,int currentIndex){
         this.context=context;
         this.tabDetails=tabDetails;
         this.webSessionViewModel=webSessionViewModel;
@@ -162,6 +166,7 @@ public class Controller  {
         this.behavior=behavior;
         this.homeFragment=homeFragment;
         this.fm=fm;
+        this.currentIndex=currentIndex;
 
 
     }
@@ -171,35 +176,7 @@ public class Controller  {
     }
 
 
-    public GeckoResult dialog(View view){
-        final GeckoResult[] i = new GeckoResult[1];
-        View dialogView= LayoutInflater.from(context).inflate(R.layout.dia_permission,null );
-        PopupWindow popupWindow = new PopupWindow
-                (dialogView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        Button b1,b2;
-        b1=dialogView.findViewById(R.id.button2);
-        b2=dialogView.findViewById(R.id.button4);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-
-                    i[0] =GeckoResult.allow();
-
-            }
-        });
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                    i[0] =GeckoResult.deny();
-
-            }
-        });
-        popupWindow.showAtLocation(view,0,0,0);
-
-        return i[0];
-    }
 
 
 

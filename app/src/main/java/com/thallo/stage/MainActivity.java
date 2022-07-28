@@ -1,5 +1,6 @@
 package com.thallo.stage;
 
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -9,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -19,6 +21,8 @@ import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Surface;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -35,11 +39,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.gyf.immersionbar.ImmersionBar;
 import com.thallo.stage.components.PopUp;
 import com.thallo.stage.components.QR;
+import com.thallo.stage.components.QrPopUp;
 import com.thallo.stage.components.SettingPopUp;
 import com.thallo.stage.databinding.ActivityMainBinding;
 import com.thallo.stage.extension.Controller;
 import com.thallo.stage.tab.TabDetails;
 
+import org.mozilla.geckoview.GeckoDisplay;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
@@ -53,6 +59,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import mozilla.components.feature.qr.QrFragment;
 
 public class MainActivity extends AppCompatActivity  {
     private ActivityMainBinding binding;
@@ -82,10 +90,10 @@ public class MainActivity extends AppCompatActivity  {
     SettingPopUp settingPopUp;
     Controller controller;
     TabDetails tabDetails;
-     GeckoResult n;
+    GeckoResult n;
     QR qr;
     private List<PageTab> mTabList;
-
+    QrFragment qrFragment=new QrFragment();
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +106,7 @@ public class MainActivity extends AppCompatActivity  {
                 .transparentStatusBar()
                 .statusBarDarkFont(true)
                 .init();
-        spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,66,getResources().getDisplayMetrics());
+        spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,58,getResources().getDisplayMetrics());
         tabList = new LinkedList<>();
         homeFragment= new HomeFragment();
         mSp = getPreferences(MODE_PRIVATE);
@@ -108,9 +116,11 @@ public class MainActivity extends AppCompatActivity  {
         controller= new Controller();
         tabDetails= new TabDetails();
         tabDetails.setThings(binding,tabList,spToInt,getSupportFragmentManager(),homeFragment);
+        tabDetails.setCurrentIndex(currentIndex);
         ConstraintLayout constraintLayout = findViewById(R.id.toolLayout);
         behavior = BottomSheetBehavior.from(constraintLayout);
-        qr=new QR(MainActivity.this,MainActivity.this,getSupportFragmentManager());
+        qr=new QR();
+        QrPopUp qrPopUp=new QrPopUp();
 
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -133,9 +143,7 @@ public class MainActivity extends AppCompatActivity  {
             }
 
         });
-
         getSupportFragmentManager().beginTransaction().replace(binding.MainView.getId(), homeFragment,"home").commit();
-
         binding.addressText2.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         binding.addressText2.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -213,6 +221,8 @@ public class MainActivity extends AppCompatActivity  {
         binding.homeButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.getSessionModel().getSession().loadUri("about:blank");
+                getSupportFragmentManager().beginTransaction().show(homeFragment).commit();
 
 
             }
@@ -220,7 +230,7 @@ public class MainActivity extends AppCompatActivity  {
         binding.menu2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                settingPopUp.setting(MainActivity.this,webExtensionController,binding.getSessionModel(),mSp,tabList,behavior,binding,spToInt,homeFragment,getSupportFragmentManager());
+                settingPopUp.setting(MainActivity.this,webExtensionController,tabList,behavior,binding,spToInt,homeFragment,getSupportFragmentManager(),currentIndex);
 
             }
         });
@@ -230,11 +240,10 @@ public class MainActivity extends AppCompatActivity  {
         homeTab(tabList.size());
         webExtensionController = GeckoRuntime.getDefault(MainActivity.this).getWebExtensionController();
         controller.setWebExtensionController(webExtensionController);
-        controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,behavior,homeFragment,getSupportFragmentManager());
+        controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,behavior,homeFragment,getSupportFragmentManager(),currentIndex);
         controller.Details();
         controller.promptDelegate(MainActivity.this);
-
-
+        binding.geckoview.setDynamicToolbarMaxHeight(spToInt);
 
 
 
@@ -256,8 +265,6 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
-        if(qr.getQrFeature().onBackPressed()) getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag("MOZAC_QR_FRAGMENT")).commit();
-        else {
             if(behavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
             {
                 behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -267,13 +274,18 @@ public class MainActivity extends AppCompatActivity  {
                 return;
             }
             else{
-                if(binding.getSessionModel().isCanBack()) {
-                    binding.getSessionModel().getSession().goBack();
-                    return;
-                }else if (tabList.size()!=1){tabDetails.closeTabDetail(tabList.size()-1,behavior,MainActivity.this);}
-                else if (tabList.size()==1){super.onBackPressed();}
+                if(binding.getSessionModel().getUrl().indexOf("about:blank") == -1) {
+                    if (binding.getSessionModel().isCanBack()) {
+                        binding.getSessionModel().getSession().goBack();
+                        return;
+                    } else if (tabList.size() != 1) {
+                        tabDetails.closeTabDetail(tabList.size() - 1, behavior, MainActivity.this);
+                    } else if (tabList.size() == 1) {
+                        super.onBackPressed();
+                    }
+                }else  super.onBackPressed();
             }
-        }
+
     }
 
 
@@ -329,11 +341,9 @@ public class MainActivity extends AppCompatActivity  {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    qr.QrScan();
+
                 }
             });
-
-
 
 
 
@@ -354,7 +364,6 @@ public class MainActivity extends AppCompatActivity  {
         if (grantResults != null && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // 权限被用户同意，可以做你要做的事情了。
-            qr.QrScan();
         } else {
             // 权限被用户拒绝了，可以提示用户,关闭界面等等。
             Toast.makeText(this,"请先授权",Toast.LENGTH_LONG).show();

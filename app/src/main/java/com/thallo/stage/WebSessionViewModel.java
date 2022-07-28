@@ -1,20 +1,27 @@
 package com.thallo.stage;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
+import android.view.Surface;
+import android.view.SurfaceControl;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.thallo.stage.dialog.ContentPermissionDialog;
 import com.thallo.stage.interfaces.confirm;
 
 import org.mozilla.geckoview.AllowOrDeny;
+import org.mozilla.geckoview.GeckoDisplay;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
@@ -54,16 +61,11 @@ public class WebSessionViewModel extends BaseObservable  {
         webExtensionController = GeckoRuntime.getDefault(mContext).getWebExtensionController();
         WebExtension.SessionController sessionController= session.getWebExtensionController();
         session.setContentDelegate(new GeckoSession.ContentDelegate() {
-            @Override
-            public void onShowDynamicToolbar(@NonNull GeckoSession geckoSession) {
-                GeckoSession.ContentDelegate.super.onShowDynamicToolbar(geckoSession);
-            }
 
-            /**   @Override
+
+               @Override
             public void onFirstContentfulPaint(@NonNull GeckoSession session) {
-                geckoDisplay= session.acquireDisplay();
-
-            }**/
+            }
 
             @Override
             public void onExternalResponse(@NonNull GeckoSession session, @NonNull WebResponse response) {
@@ -103,8 +105,17 @@ public class WebSessionViewModel extends BaseObservable  {
         session.setPromptDelegate(new GeckoSession.PromptDelegate() {
             @Nullable
             @Override
+            public GeckoResult<PromptResponse> onChoicePrompt(@NonNull GeckoSession session, @NonNull ChoicePrompt prompt) {
+                //prompt.
+                return GeckoSession.PromptDelegate.super.onChoicePrompt(session, prompt);
+            }
+
+            @Nullable
+            @Override
             public GeckoResult<PromptResponse> onAlertPrompt(@NonNull GeckoSession session, @NonNull AlertPrompt prompt) {
-                return GeckoSession.PromptDelegate.super.onAlertPrompt(session, prompt);
+
+
+                return null;
             }
         });
 
@@ -178,7 +189,6 @@ public class WebSessionViewModel extends BaseObservable  {
             public GeckoResult<GeckoSession> onNewSession(@NonNull GeckoSession session, @NonNull String uri) {
                 if(newSessionHandler==null)
                     return null;
-
                 return newSessionHandler.onNewSession(session, uri);
             }
             @Override
@@ -190,6 +200,18 @@ public class WebSessionViewModel extends BaseObservable  {
             public void onCanGoForward(@NonNull GeckoSession session, boolean canGoForward) {
                 canForward=canGoForward;
                 notifyPropertyChanged(BR.canForward);
+            }
+        });
+
+
+        session.setHistoryDelegate(new GeckoSession.HistoryDelegate() {
+
+
+
+            @Override
+            public void onHistoryStateChange(@NonNull GeckoSession session, @NonNull HistoryList historyList) {
+
+                GeckoSession.HistoryDelegate.super.onHistoryStateChange(session, historyList);
             }
         });
 
@@ -258,11 +280,11 @@ public class WebSessionViewModel extends BaseObservable  {
         active=false;
         notifyPropertyChanged(BR.active);
     }
-    public void active(GeckoSession.SessionState sessionState){
+    public void active(){
         if(!session.isOpen()){
             session.open(GeckoRuntime.getDefault(mContext));
-            if(sessionState!=null)
-                session.restoreState(sessionState);
+            if(mSessionState!=null)
+                session.restoreState(mSessionState);
         }
         active=true;
         notifyPropertyChanged(BR.active);
@@ -271,8 +293,6 @@ public class WebSessionViewModel extends BaseObservable  {
     public void setNewSessionHandler(NewSessionHandler newSessionHandler) {
         this.newSessionHandler = newSessionHandler;
     }
-
-
     public void setFavicon(String faviconUrl, Context context, confirm fav) {
        }
 
@@ -283,10 +303,8 @@ public class WebSessionViewModel extends BaseObservable  {
         return i;
     }*/
 
-
     public interface NewSessionHandler{
         GeckoResult<GeckoSession> onNewSession(GeckoSession session,String uri);
-
     }
 
     public String getFaviconUrl() {

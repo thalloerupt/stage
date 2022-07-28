@@ -30,6 +30,7 @@ import com.thallo.stage.tab.TabDetails;
 
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoSession;
+import org.mozilla.geckoview.GeckoSessionSettings;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 
@@ -39,7 +40,7 @@ public class SettingPopUp {
     SettingMenuBinding mBinding;
 
 
-    public void setting (Context context, WebExtensionController webExtensionController, WebSessionViewModel webSessionViewModel, SharedPreferences mSp, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, HomeFragment homeFragment, FragmentManager fm){
+    public void setting (Context context, WebExtensionController webExtensionController, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, HomeFragment homeFragment, FragmentManager fm,int currentIndex){
         ImageView reload,setting,desktopMode;
         View dialogView;
         LinearLayout linearLayout2;
@@ -53,10 +54,10 @@ public class SettingPopUp {
         mBinding=SettingMenuBinding.inflate(LayoutInflater.from(context));
 
         popUp=new PopUp();
-        mEditor = mSp.edit();
         tabDetails=new TabDetails();
         tabDetails.setThings(binding,tabList,dp,fm,homeFragment);
-        mBinding.popTitle.setText(webSessionViewModel.getTitle());
+        tabDetails.setCurrentIndex(currentIndex);
+        mBinding.popTitle.setText(binding.getSessionModel().getTitle());
 
         webExtensionController.list().accept(new GeckoResult.Consumer<List<WebExtension>>() {
             @Override
@@ -151,7 +152,7 @@ public class SettingPopUp {
         mBinding.reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                webSessionViewModel.getSession().reload();
+                binding.getSessionModel().getSession().reload();
                 bottomSheetDialog.dismiss();
             }
         });
@@ -172,18 +173,12 @@ public class SettingPopUp {
                 context.startActivity(intent);
             }
         });
-
-        if(!mSp.getBoolean("mode", false))
-        {
-            mBinding.desktop.setImageResource(R.drawable.ic_desk);
-
-        }else if (mSp.getBoolean("mode",false)){mBinding.desktop.setImageResource(R.drawable.ic_desktop_on);}
         mBinding.desktop.setOnClickListener(new View.OnClickListener() {
             int i;
             @Override
             public void onClick(View view) {
-                if (i==0) {mEditor.putBoolean("mode",true).commit();i=1;mBinding.desktop.setImageResource(R.drawable.ic_desktop_on);}
-                else {mEditor.putBoolean("mode",false).commit();i=0;mBinding.desktop.setImageResource(R.drawable.ic_desk);}
+                binding.getSessionModel().getSession().getSettings().setUserAgentMode(GeckoSessionSettings.VIEWPORT_MODE_DESKTOP);
+                binding.getSessionModel().getSession().reload();
 
             }
         });
