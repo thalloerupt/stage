@@ -14,7 +14,7 @@ android {
     }
     defaultConfig {
         applicationId "com.thallo.stage"
-        minSdk 21
+        minSdk 24
         targetSdk 29
         versionCode 6
         versionName "0.1(808)"
