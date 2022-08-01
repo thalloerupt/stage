@@ -2,11 +2,6 @@ package com.thallo.stage.extension;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,11 +10,10 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.thallo.stage.HomeFragment;
 import com.thallo.stage.PageTab;
-import com.thallo.stage.dialog.PermissionDialog;
-import com.thallo.stage.R;
+import com.thallo.stage.components.dialog.PermissionDialog;
 import com.thallo.stage.WebSessionViewModel;
 import com.thallo.stage.components.PopUp;
-import com.thallo.stage.dialog.ContentPermissionDialog;
+import com.thallo.stage.components.dialog.ContentPermissionDialog;
 import com.thallo.stage.tab.TabDetails;
 
 import org.mozilla.geckoview.AllowOrDeny;
@@ -29,8 +23,6 @@ import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 
 import java.util.List;
-
-import mozilla.components.feature.qr.QrFragment;
 
 public class Controller  {
     WebExtensionController webExtensionController;

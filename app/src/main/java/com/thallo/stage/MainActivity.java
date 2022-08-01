@@ -104,9 +104,10 @@ public class MainActivity extends AppCompatActivity  {
                 .fitsSystemWindows(true)
                 .navigationBarColor(R.color.background)
                 .transparentStatusBar()
+                .transparentNavigationBar()
                 .statusBarDarkFont(true)
                 .init();
-        spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,58,getResources().getDisplayMetrics());
+        spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,66,getResources().getDisplayMetrics());
         tabList = new LinkedList<>();
         homeFragment= new HomeFragment();
         mSp = getPreferences(MODE_PRIVATE);

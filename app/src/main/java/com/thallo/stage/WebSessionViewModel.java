@@ -1,27 +1,22 @@
 package com.thallo.stage;
 
 import android.content.Context;
-import android.content.DialogInterface;
+import android.os.Build;
 import android.util.Log;
-import android.view.Surface;
-import android.view.SurfaceControl;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.thallo.stage.dialog.ContentPermissionDialog;
+import com.thallo.stage.components.dialog.JsChoiceDialog;
 import com.thallo.stage.interfaces.confirm;
 
 import org.mozilla.geckoview.AllowOrDeny;
-import org.mozilla.geckoview.GeckoDisplay;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
@@ -103,11 +98,16 @@ public class WebSessionViewModel extends BaseObservable  {
         });*/
 
         session.setPromptDelegate(new GeckoSession.PromptDelegate() {
+
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Nullable
             @Override
             public GeckoResult<PromptResponse> onChoicePrompt(@NonNull GeckoSession session, @NonNull ChoicePrompt prompt) {
                 //prompt.
-                return GeckoSession.PromptDelegate.super.onChoicePrompt(session, prompt);
+                JsChoiceDialog jsChoiceDialog=new JsChoiceDialog(context,prompt);
+                jsChoiceDialog.showDialog();
+
+                return GeckoResult.fromValue(prompt.confirm(jsChoiceDialog.getDialogResult()+""));
             }
 
             @Nullable

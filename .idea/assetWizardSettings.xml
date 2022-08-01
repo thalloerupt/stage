@@ -80,8 +80,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\luoyf\Desktop\未标题-2.png" />
-                                                <entry key="scalingPercent" value="50" />
+                                                <entry key="imagePath" value="C:\Users\luoyf\Desktop\logo.png" />
+                                                <entry key="scalingPercent" value="80" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -115,7 +115,7 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="outputName" value="ic_launcher_new" />
+                                      <entry key="outputName" value="ic_launcher_2" />
                                     </map>
                                   </option>
                                 </PersistentState>
