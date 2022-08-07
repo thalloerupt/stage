@@ -40,7 +40,7 @@ public class SettingPopUp {
     SettingMenuBinding mBinding;
 
 
-    public void setting (Context context, WebExtensionController webExtensionController, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, HomeFragment homeFragment, FragmentManager fm,int currentIndex){
+    public void setting (MainActivity context, WebExtensionController webExtensionController, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, HomeFragment homeFragment, FragmentManager fm,int currentIndex){
         ImageView reload,setting,desktopMode;
         View dialogView;
         LinearLayout linearLayout2;
@@ -174,13 +174,30 @@ public class SettingPopUp {
             }
         });
         mBinding.desktop.setOnClickListener(new View.OnClickListener() {
-            int i;
+            boolean i=false;
+
             @Override
             public void onClick(View view) {
-                binding.getSessionModel().getSession().getSettings().setUserAgentMode(GeckoSessionSettings.VIEWPORT_MODE_DESKTOP);
-                binding.getSessionModel().getSession().reload();
+                if (i)
+                {
+                    binding.getSessionModel().getSession().getSettings().setUserAgentMode(GeckoSessionSettings.USER_AGENT_MODE_MOBILE);
+                    binding.getSessionModel().getSession().reload();
+                    mBinding.desktop.setImageResource(R.drawable.ic_desk);
+                    i=true;
+
+                }
+                else
+                {
+                    binding.getSessionModel().getSession().getSettings().setUserAgentMode(GeckoSessionSettings.VIEWPORT_MODE_DESKTOP);
+                    binding.getSessionModel().getSession().reload();
+                    mBinding.desktop.setImageResource(R.drawable.ic_desktop_on);
+                    i=false;
+                }
+
+                bottomSheetDialog.dismiss();
 
             }
+
         });
 
 

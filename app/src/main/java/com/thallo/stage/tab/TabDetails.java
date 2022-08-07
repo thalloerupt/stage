@@ -32,7 +32,7 @@ public class TabDetails  {
     HomeFragment homeFragment;
     FragmentManager fm;
 
-    public void newTabDetail(String url, int index, Context context, BottomSheetBehavior behavior){
+    public void newTabDetail(String url, int index, MainActivity context, BottomSheetBehavior behavior){
         GeckoSession mSession= new GeckoSession();
         mSession.getSettings().setUserAgentMode(GeckoSessionSettings.USER_AGENT_MODE_MOBILE);
         PageTab tab=new PageTab(context,new WebSessionViewModel(mSession,context));
@@ -96,7 +96,7 @@ public class TabDetails  {
             fm.beginTransaction().show(homeFragment).commit();
         }else fm.beginTransaction().hide(homeFragment).commit();
     }
-    public void closeTabDetail(int index,BottomSheetBehavior behavior,Context context){
+    public void closeTabDetail(int index,BottomSheetBehavior behavior,MainActivity context){
         binding.tabSize2.setText(tabList.size()-1+"");
         tabList.get(currentIndex).getModel().inactive();
         binding.geckoview.releaseSession();

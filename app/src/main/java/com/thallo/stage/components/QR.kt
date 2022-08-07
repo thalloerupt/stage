@@ -22,7 +22,7 @@ class QR(){
         }
         fragmentManager.beginTransaction()
             .add(id, QrFragment.newInstance(scanCompleteListener, 1),
-                "QR_FRAGMENT")
+                "MOZAC_QR_FRAGMENT")
             .commit()
 
     }

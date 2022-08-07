@@ -5,7 +5,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.compose.ui.graphics.Canvas;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProviders;
 
 
 import android.app.AlertDialog;
@@ -14,6 +16,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +38,10 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -41,6 +50,8 @@ import com.thallo.stage.components.PopUp;
 import com.thallo.stage.components.QR;
 import com.thallo.stage.components.QrPopUp;
 import com.thallo.stage.components.SettingPopUp;
+import com.thallo.stage.components.Shortcuts;
+import com.thallo.stage.database.history.HistoryViewModel;
 import com.thallo.stage.databinding.ActivityMainBinding;
 import com.thallo.stage.extension.Controller;
 import com.thallo.stage.tab.TabDetails;
@@ -53,6 +64,7 @@ import org.mozilla.geckoview.Image;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -60,6 +72,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import mozilla.components.feature.qr.QrFragment;
 
 public class MainActivity extends AppCompatActivity  {
@@ -100,14 +113,13 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         binding=ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
+        View view=new View(this);
         ImmersionBar.with(this)
                 .fitsSystemWindows(true)
-                .navigationBarColor(R.color.background)
-                .transparentStatusBar()
                 .transparentNavigationBar()
                 .statusBarDarkFont(true)
                 .init();
-        spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,66,getResources().getDisplayMetrics());
+        spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,64,getResources().getDisplayMetrics());
         tabList = new LinkedList<>();
         homeFragment= new HomeFragment();
         mSp = getPreferences(MODE_PRIVATE);
@@ -122,6 +134,9 @@ public class MainActivity extends AppCompatActivity  {
         behavior = BottomSheetBehavior.from(constraintLayout);
         qr=new QR();
         QrPopUp qrPopUp=new QrPopUp();
+        HistoryViewModel historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
+
+
 
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -145,6 +160,7 @@ public class MainActivity extends AppCompatActivity  {
 
         });
         getSupportFragmentManager().beginTransaction().replace(binding.MainView.getId(), homeFragment,"home").commit();
+
         binding.addressText2.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         binding.addressText2.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -261,6 +277,10 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
+
+
+
+
     }
 
 
@@ -328,23 +348,9 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onStart() {
         super.onStart();
-        Calendar calendar =Calendar.getInstance();
-        try {
-            View view = getSupportFragmentManager().findFragmentByTag("home").getView();
-            TextView tips= view.findViewById(R.id.tips);
-            if(3<=calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=8){tips.setText("早安");}
-            if(8<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=11){tips.setText("上午好");}
-            if(11<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=13){tips.setText("午安");}
-            if(13<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=19){tips.setText("下午好");}
-            if(19<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=22){tips.setText("晚安");}
-            if(22<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<3){tips.setText("深夜,Good dream");}
-            ImageView imageView=view.findViewById(R.id.Home_Qr);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                }
-            });
+        try {
+
 
 
 
@@ -355,18 +361,17 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
-
-
-
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults != null && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // 权限被用户同意，可以做你要做的事情了。
+
         } else {
-            // 权限被用户拒绝了，可以提示用户,关闭界面等等。
             Toast.makeText(this,"请先授权",Toast.LENGTH_LONG).show();
         }
 

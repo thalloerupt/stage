@@ -12,8 +12,12 @@ import androidx.annotation.RequiresApi;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.thallo.stage.components.dialog.JsChoiceDialog;
+import com.thallo.stage.database.history.History;
+import com.thallo.stage.database.history.HistoryViewModel;
 import com.thallo.stage.interfaces.confirm;
 
 import org.mozilla.geckoview.AllowOrDeny;
@@ -50,11 +54,13 @@ public class WebSessionViewModel extends BaseObservable  {
     private String faviconUrl;
     boolean isSecure;
     int i;
-    public WebSessionViewModel(GeckoSession session, Context context) {
+    HistoryViewModel historyViewModel;
+    public WebSessionViewModel(GeckoSession session, MainActivity context) {
         this.session = session;
         mContext=context;
         webExtensionController = GeckoRuntime.getDefault(mContext).getWebExtensionController();
         WebExtension.SessionController sessionController= session.getWebExtensionController();
+        historyViewModel = ViewModelProviders.of(context).get(HistoryViewModel.class);
         session.setContentDelegate(new GeckoSession.ContentDelegate() {
 
 
@@ -82,6 +88,8 @@ public class WebSessionViewModel extends BaseObservable  {
                 if (mUrl.indexOf("about:blank")!=-1)
                 {mTitle = "新标签页";Log.d("YES",title);}
                 else mTitle=title;
+                History history=new History(mUrl,mTitle,1);
+                historyViewModel.insertWords(history);
                 notifyPropertyChanged(BR.title);
             }
         });
@@ -106,14 +114,12 @@ public class WebSessionViewModel extends BaseObservable  {
                 //prompt.
                 JsChoiceDialog jsChoiceDialog=new JsChoiceDialog(context,prompt);
                 jsChoiceDialog.showDialog();
-
                 return GeckoResult.fromValue(prompt.confirm(jsChoiceDialog.getDialogResult()+""));
             }
 
             @Nullable
             @Override
             public GeckoResult<PromptResponse> onAlertPrompt(@NonNull GeckoSession session, @NonNull AlertPrompt prompt) {
-
 
                 return null;
             }
@@ -158,6 +164,9 @@ public class WebSessionViewModel extends BaseObservable  {
 
                 }
                 Log.d("YES",url);
+
+
+
 
                 notifyPropertyChanged(BR.url);
 
@@ -211,7 +220,6 @@ public class WebSessionViewModel extends BaseObservable  {
             @Override
             public void onHistoryStateChange(@NonNull GeckoSession session, @NonNull HistoryList historyList) {
 
-                GeckoSession.HistoryDelegate.super.onHistoryStateChange(session, historyList);
             }
         });
 
