@@ -1,23 +1,21 @@
 package com.thallo.stage;
 
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.compose.ui.graphics.Canvas;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BlurMaskFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,56 +24,43 @@ import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Surface;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.gyf.immersionbar.ImmersionBar;
-import com.thallo.stage.components.PopUp;
+import com.thallo.stage.components.popup.PopUp;
 import com.thallo.stage.components.QR;
 import com.thallo.stage.components.QrPopUp;
-import com.thallo.stage.components.SettingPopUp;
-import com.thallo.stage.components.Shortcuts;
+import com.thallo.stage.components.popup.SettingPopUp;
+import com.thallo.stage.database.history.History;
 import com.thallo.stage.database.history.HistoryViewModel;
 import com.thallo.stage.databinding.ActivityMainBinding;
 import com.thallo.stage.extension.Controller;
 import com.thallo.stage.tab.TabDetails;
 
-import org.mozilla.geckoview.GeckoDisplay;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
-import org.mozilla.geckoview.Image;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 
-import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
 import mozilla.components.feature.qr.QrFragment;
 
 public class MainActivity extends AppCompatActivity  {
+    public static String url;
     private ActivityMainBinding binding;
     private List<PageTab> tabList;
     private int currentIndex;
@@ -107,6 +92,7 @@ public class MainActivity extends AppCompatActivity  {
     QR qr;
     private List<PageTab> mTabList;
     QrFragment qrFragment=new QrFragment();
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +100,13 @@ public class MainActivity extends AppCompatActivity  {
         binding=ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
         View view=new View(this);
-        ImmersionBar.with(this)
+        ImmersionBar
+                .with(this)
                 .fitsSystemWindows(true)
-                .transparentNavigationBar()
-                .statusBarDarkFont(true)
+                .statusBarColor(R.color.background)
+                .autoStatusBarDarkModeEnable(true,0.2f)
                 .init();
+
         spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,64,getResources().getDisplayMetrics());
         tabList = new LinkedList<>();
         homeFragment= new HomeFragment();
@@ -134,7 +122,6 @@ public class MainActivity extends AppCompatActivity  {
         behavior = BottomSheetBehavior.from(constraintLayout);
         qr=new QR();
         QrPopUp qrPopUp=new QrPopUp();
-        HistoryViewModel historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
 
 
 
@@ -334,33 +321,44 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
+
     @Override
     protected void onNightModeChanged(int mode) {
         super.onNightModeChanged(mode);
-        ImmersionBar.with(MainActivity.this)
-                .fitsSystemWindows(true)
-                .navigationBarColor(R.color.background)
-                .statusBarDarkFont(false)
-                .transparentStatusBar()
-                .init();
+        switch (mode) {
+            // 亮色主题
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                getWindow().setStatusBarColor(Color.TRANSPARENT);
+                break;
+            // 暗色主题
+            case AppCompatDelegate.MODE_NIGHT_YES:
+
+                break;
+        }
+        Log.d("onNightModeChanged","yes");
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        try {
-
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (url!=null)
+        {
+            newTab(url,tabList.size());
+            url=null;
+        }
+
+    }
+
     @Override
     protected void onStop() {
         super.onStop();

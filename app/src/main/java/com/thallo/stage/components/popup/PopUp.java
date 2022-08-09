@@ -1,4 +1,4 @@
-package com.thallo.stage.components;
+package com.thallo.stage.components.popup;
 
 import android.content.Context;
 import android.view.LayoutInflater;

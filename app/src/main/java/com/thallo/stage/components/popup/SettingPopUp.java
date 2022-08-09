@@ -1,6 +1,6 @@
-package com.thallo.stage.components;
+package com.thallo.stage.components.popup;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,15 +15,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.thallo.stage.FragmentHolder;
 import com.thallo.stage.HomeFragment;
 import com.thallo.stage.MainActivity;
 import com.thallo.stage.PageTab;
 import com.thallo.stage.R;
 import com.thallo.stage.Setting;
-import com.thallo.stage.WebSessionViewModel;
+import com.thallo.stage.components.popup.PopUp;
+import com.thallo.stage.database.bookmark.Bookmark;
+import com.thallo.stage.database.bookmark.BookmarkViewModel;
 import com.thallo.stage.databinding.ActivityMainBinding;
 import com.thallo.stage.databinding.SettingMenuBinding;
 import com.thallo.stage.tab.TabDetails;
@@ -49,6 +54,7 @@ public class SettingPopUp {
         TabDetails tabDetails;
         TextView popText;
         View addonsLayout;
+        BookmarkViewModel bookmarkViewModel;
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogStyle);
         mBinding=SettingMenuBinding.inflate(LayoutInflater.from(context));
@@ -58,6 +64,7 @@ public class SettingPopUp {
         tabDetails.setThings(binding,tabList,dp,fm,homeFragment);
         tabDetails.setCurrentIndex(currentIndex);
         mBinding.popTitle.setText(binding.getSessionModel().getTitle());
+        bookmarkViewModel=new ViewModelProvider((ViewModelStoreOwner) context).get(BookmarkViewModel.class);
 
         webExtensionController.list().accept(new GeckoResult.Consumer<List<WebExtension>>() {
             @Override
@@ -145,6 +152,37 @@ public class SettingPopUp {
         });
 
 
+        mBinding.history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FragmentHolder.class);
+                intent.putExtra("page","HISTORY");
+                context.startActivity(intent);
+                bottomSheetDialog.dismiss();
+
+            }
+        });
+
+        mBinding.star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bookmark bookmark=new Bookmark(binding.getSessionModel().getUrl(),binding.getSessionModel().getTitle(),"默认",false);
+                bookmarkViewModel.insertWords(bookmark);
+
+            }
+        });
+
+        mBinding.bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FragmentHolder.class);
+                intent.putExtra("page","BOOKMARK");
+                context.startActivity(intent);
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+
 
 
 
@@ -171,6 +209,8 @@ public class SettingPopUp {
             public void onClick(View view) {
                 Intent intent = new Intent(context, Setting.class);
                 context.startActivity(intent);
+                bottomSheetDialog.dismiss();
+
             }
         });
         mBinding.desktop.setOnClickListener(new View.OnClickListener() {

@@ -27,9 +27,10 @@ public interface HistoryDao {
     LiveData<List<com.thallo.stage.database.history.History>> getAllHistoriesLive();
 
     @Query("SELECT * FROM History WHERE url_info LIKE:pattern ORDER BY ID DESC")
-    LiveData<List<History>> findHistoriesWithPattern(String pattern) ;
+    LiveData<List<History>> findHistoriesWithPattern(String pattern);
 
     @Query("SELECT * FROM History WHERE title_info LIKE:pattern ORDER BY ID DESC")
-    LiveData<List<History>> findHistoriesWithTitle(String pattern) ;
-
+    LiveData<List<History>> findHistoriesWithTitle(String pattern);
+    @Query("SELECT * FROM History WHERE mix LIKE:pattern ORDER BY ID DESC")
+    LiveData<List<History>> findHistoriesWithMix(String pattern);
 }

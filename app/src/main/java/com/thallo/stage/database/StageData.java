@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.thallo.stage.database.bookmark.Bookmark;
 
+import com.thallo.stage.database.bookmark.BookmarkDao;
 import com.thallo.stage.database.history.History;
 import com.thallo.stage.database.history.HistoryDao;
 
@@ -23,6 +24,8 @@ public abstract class StageData extends RoomDatabase {
     }
 
     public abstract HistoryDao getHistoryDao();
+    public abstract BookmarkDao getBookmarkDao();
+
 
 
 }

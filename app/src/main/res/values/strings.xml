@@ -75,4 +75,14 @@
     <string name="per_webNavigation_cn">在使用时访问浏览器活动</string>
     <string name="per_clipboardWrite_cn">向剪贴板写入数据</string>
     <string name="per_clipboardRead_cn">从剪贴板获取数据</string>
+    <string name="title_activity_fragment_holder">FragmentHolder</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="pop_forward">前进</string>
 </resources>

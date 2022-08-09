@@ -14,11 +14,22 @@ public class History {
     private String title;
     @ColumnInfo(name = "time_info")
     private int time;
+    @ColumnInfo(name = "mix")
+    private String mix;
     public History(String url, String title,int time) {
         this.url=url;
         this.title=title;
         this.time=time;
+        this.mix=url+title;
 
+    }
+
+    public String getMix() {
+        return mix;
+    }
+
+    public void setMix(String mix) {
+        this.mix = mix;
     }
 
     public int getId() {
