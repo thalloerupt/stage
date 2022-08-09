@@ -122,7 +122,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline17"
                 app:layout_constraintTop_toBottomOf="@+id/textView7"
-                app:srcCompat="@drawable/ic_video" />
+                app:srcCompat="@drawable/ic_forward" />
 
             <ImageView
                 android:id="@+id/desktop"
@@ -131,11 +131,11 @@
                 android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline17"
-                app:layout_constraintTop_toBottomOf="@+id/imageView21"
+                app:layout_constraintTop_toBottomOf="@+id/star"
                 app:srcCompat="@drawable/ic_desk" />
 
             <ImageView
-                android:id="@+id/imageView21"
+                android:id="@+id/star"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="16dp"
@@ -174,6 +174,7 @@
                 android:text="TextView"
                 android:textColor="@color/textcolor"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/reload"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -194,7 +195,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/pop_video"
+                android:text="@string/pop_forward"
                 android:textSize="@dimen/pop_text"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/view2"

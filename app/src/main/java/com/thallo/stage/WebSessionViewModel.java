@@ -12,6 +12,8 @@ import androidx.annotation.RequiresApi;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -29,6 +31,7 @@ import org.mozilla.geckoview.WebExtensionController;
 import org.mozilla.geckoview.WebResponse;
 
 import java.net.URI;
+import java.util.List;
 
 
 public class WebSessionViewModel extends BaseObservable  {
@@ -60,7 +63,7 @@ public class WebSessionViewModel extends BaseObservable  {
         mContext=context;
         webExtensionController = GeckoRuntime.getDefault(mContext).getWebExtensionController();
         WebExtension.SessionController sessionController= session.getWebExtensionController();
-        historyViewModel = ViewModelProviders.of(context).get(HistoryViewModel.class);
+        historyViewModel = new ViewModelProvider(context).get(HistoryViewModel.class);
         session.setContentDelegate(new GeckoSession.ContentDelegate() {
 
 
@@ -88,8 +91,9 @@ public class WebSessionViewModel extends BaseObservable  {
                 if (mUrl.indexOf("about:blank")!=-1)
                 {mTitle = "新标签页";Log.d("YES",title);}
                 else mTitle=title;
-                History history=new History(mUrl,mTitle,1);
-                historyViewModel.insertWords(history);
+
+
+
                 notifyPropertyChanged(BR.title);
             }
         });
@@ -151,7 +155,13 @@ public class WebSessionViewModel extends BaseObservable  {
             }
             @Override
             public void onPageStop(@NonNull GeckoSession session, boolean success) {
+                if (mUrl.indexOf("about:blank")==-1)
+                {
+                    History history=new History(mUrl,mTitle,1);
+                    historyViewModel.insertWords(history);
 
+
+                }
 
             }
 
@@ -214,8 +224,11 @@ public class WebSessionViewModel extends BaseObservable  {
 
 
         session.setHistoryDelegate(new GeckoSession.HistoryDelegate() {
-
-
+            @Nullable
+            @Override
+            public GeckoResult<Boolean> onVisited(@NonNull GeckoSession session, @NonNull String url, @Nullable String lastVisitedURL, int flags) {
+                return GeckoResult.fromValue(false);
+            }
 
             @Override
             public void onHistoryStateChange(@NonNull GeckoSession session, @NonNull HistoryList historyList) {

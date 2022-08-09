@@ -40,10 +40,10 @@
                     android:layout_height="?attr/actionBarSize"
                     android:isScrollContainer="false"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_left"
-                    app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:navigationIcon="@drawable/ic_left_24"
+                    app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Display1"
                     app:title="@string/layout_setting"
-                    app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"></androidx.appcompat.widget.Toolbar>
+                    app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"></androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -53,6 +53,7 @@
 
 
             android:clipToPadding="false"
+            android:contentDescription="@string/pop_setting"
             android:isScrollContainer="false"
             android:overScrollMode="never"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">

@@ -1,7 +1,6 @@
 package com.thallo.stage.extension;
 
 import android.app.Activity;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +12,7 @@ import com.thallo.stage.MainActivity;
 import com.thallo.stage.PageTab;
 import com.thallo.stage.components.dialog.PermissionDialog;
 import com.thallo.stage.WebSessionViewModel;
-import com.thallo.stage.components.PopUp;
+import com.thallo.stage.components.popup.PopUp;
 import com.thallo.stage.components.dialog.ContentPermissionDialog;
 import com.thallo.stage.tab.TabDetails;
 

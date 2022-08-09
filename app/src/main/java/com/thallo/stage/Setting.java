@@ -22,15 +22,11 @@ public class Setting extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
         ImmersionBar.with(this)
-                //.hideBar(BarHide.FLAG_HIDE_STATUS_BAR)
                 .fitsSystemWindows(true)
-                .statusBarColor(R.color.white)
-                .transparentStatusBar()
-                .statusBarDarkFont(true)
-                //.navigationBarColor(R.color.white)
+                .statusBarColor(R.color.background)
+                .autoStatusBarDarkModeEnable(true,0.2f)
                 .init();
         getSupportFragmentManager().beginTransaction().replace(binding.settingCon.getId(), new SettingsFragment()).commit();
-        binding.toolbar.setNavigationIcon(R.drawable.ic_left);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

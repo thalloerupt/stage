@@ -42,6 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:behavior_peekHeight="64dp"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_behavior="@string/bottom_sheet_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent">
@@ -89,9 +91,9 @@
 
                     <ImageView
                         android:id="@+id/menu2"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +104,7 @@
                         android:id="@+id/progressBar2"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="0dp"
-                        android:layout_height="2dp"
+                        android:layout_height="3dp"
                         android:progress="@{SessionModel.process}"
                         android:progressBackgroundTint="@color/purple_700"
                         android:progressDrawable="@drawable/progress"
@@ -112,9 +114,9 @@
 
                     <ImageView
                         android:id="@+id/tabButton2"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                         app:layout_constraintEnd_toStartOf="@+id/menu2"
@@ -125,7 +127,9 @@
                         android:id="@+id/tabSize2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
                         android:text="1"
+                        android:textColor="@color/textcolor"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/tabButton2"
@@ -138,7 +142,7 @@
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:layout_marginStart="8dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/imageView12"
@@ -151,6 +155,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:visibility="invisible"
                         app:layout_constraintEnd_toStartOf="@+id/tabButton2"
                         app:layout_constraintStart_toEndOf="@+id/homeButton2"
                         app:layout_constraintTop_toBottomOf="@+id/progressBar2"
@@ -178,6 +183,7 @@
                         android:hint="@string/search_hint"
                         android:maxEms="10"
                         android:maxLines="1"
+                        android:textColor="@color/textcolor"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                         app:layout_constraintEnd_toEndOf="@+id/imageView12"
                         app:layout_constraintStart_toEndOf="@+id/information"
@@ -186,29 +192,6 @@
                         app:url="@{SessionModel.url}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="72dp"
-                    android:background="?android:attr/listDivider"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:src="@drawable/ic_add"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
                 <ScrollView
                     android:id="@+id/horizontalScrollView"
@@ -230,15 +213,28 @@
                         android:orientation="vertical" />
                 </ScrollView>
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/ic_add"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/editView"
                     android:layout_width="0dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_height="0dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_white_rounded"
+                    android:background="@color/background"
                     android:visibility="gone"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/add"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -248,34 +244,25 @@
                         android:layout_width="@dimen/icon2"
                         android:layout_height="@dimen/icon2"
                         android:layout_marginEnd="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/addressText2"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/addressText2"
                         app:srcCompat="@drawable/ic_edit" />
 
                     <EditText
                         android:id="@+id/addressText2"
                         android:layout_width="0dp"
                         android:layout_height="42dp"
+                        android:layout_marginStart="8dp"
                         android:background="@drawable/bg_trans"
                         android:ems="10"
                         android:hint="@string/search_hint"
                         android:inputType="textPersonName"
                         android:textSize="16sp"
-                        android:visibility="visible"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="@dimen/icon2"
-                        android:layout_height="@dimen/icon2"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_copy" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

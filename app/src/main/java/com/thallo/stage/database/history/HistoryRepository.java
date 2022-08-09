@@ -43,6 +43,9 @@ class HistoryRepository {
     LiveData<List<History>> findWordsWithTitle(String pattern){
         return historyDao.findHistoriesWithTitle(pattern);
     }
+    LiveData<List<History>> findWordsWithMix(String pattern){
+        return historyDao.findHistoriesWithMix(pattern);
+    }
 
 
 

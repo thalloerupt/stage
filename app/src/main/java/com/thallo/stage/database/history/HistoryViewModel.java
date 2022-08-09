@@ -9,22 +9,27 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class HistoryViewModel extends AndroidViewModel {
-    private com.thallo.stage.database.history.HistoryRepository historyRepository;
+    private HistoryRepository historyRepository;
     public HistoryViewModel(@NonNull Application application) {
         super(application);
-        historyRepository = new com.thallo.stage.database.history.HistoryRepository(application);
+        historyRepository = new HistoryRepository(application);
     }
 
-    LiveData<List<com.thallo.stage.database.history.History>> getAllHistoriesLive() {
+     public LiveData<List<com.thallo.stage.database.history.History>> getAllHistoriesLive() {
         return historyRepository.getAllHistoriesLive();
     }
-    LiveData<List<History>>findHistoriesWithPattern(String pattern){
+     LiveData<List<History>>findHistoriesWithPattern(String pattern){
         return historyRepository.findHistoriesWithPattern(pattern);
     }
 
     LiveData<List<History>>findHistoriesWithTitle(String pattern){
         return historyRepository.findWordsWithTitle(pattern);
     }
+    LiveData<List<History>>findHistoriesWithMix(String pattern){
+        return historyRepository.findWordsWithMix(pattern);
+    }
+
+
     public void insertWords(com.thallo.stage.database.history.History... histories) {
         historyRepository.insertHistory(histories);
     }
