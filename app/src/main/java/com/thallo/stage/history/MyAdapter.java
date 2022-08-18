@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.thallo.stage.MainActivity;
+import com.thallo.stage.BaseActivity;
 import com.thallo.stage.R;
 import com.thallo.stage.database.history.History;
 import com.thallo.stage.database.history.HistoryViewModel;
@@ -55,15 +55,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterHold> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(holder.itemView.getContext(), MainActivity.class);
-                MainActivity.url=history.getUrl();
+                Intent intent=new Intent(holder.itemView.getContext(), BaseActivity.class);
+                BaseActivity.url=history.getUrl();
                 holder.itemView.getContext().startActivity(intent);
                 ((FragmentActivity) view.getContext()).finish();
             }
         });
         URI uri=URI.create(history.getUrl());
         String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
-        Glide.with(holder.itemView.getContext()).load(faviconUrl).error(R.drawable.ic_internet)
+        Glide.with(holder.itemView.getContext()).load(faviconUrl).placeholder(R.drawable.ic_internet)
                 .into(icon);
 
     }

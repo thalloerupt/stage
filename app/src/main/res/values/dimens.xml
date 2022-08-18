@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="icon">30dp</dimen>
+    <dimen name="icon">32dp</dimen>
     <dimen name="pop_text">10sp</dimen>
     <dimen name="icon2">24dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="icon3">48dp</dimen>
     <dimen name="icon4">16dp</dimen>
+    <dimen name="icon5">64dp</dimen>
 </resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="@dimen/icon"
+        android:layout_height="@dimen/icon"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:srcCompat="@drawable/bg_shortcuts" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/downloadProgress"
+        app:layout_constraintEnd_toEndOf="@+id/downloadProgress"
+        app:layout_constraintStart_toStartOf="@+id/downloadProgress"
+        app:layout_constraintTop_toTopOf="@+id/downloadProgress"
+        app:srcCompat="@drawable/ic_file" />
+
+    <TextView
+        android:id="@+id/downloadName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:text="downloadName"
+        android:textColor="@color/textcolor"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/downloadDelete"
+        app:layout_constraintStart_toEndOf="@+id/downloadProgress"
+        app:layout_constraintTop_toTopOf="@+id/downloadProgress" />
+
+    <ProgressBar
+        android:id="@+id/downloadProgress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="@dimen/icon3"
+        android:layout_height="@dimen/icon3"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/downloadUrl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="downloadUrl"
+        app:layout_constraintBottom_toBottomOf="@+id/downloadProgress"
+        app:layout_constraintEnd_toStartOf="@+id/downloadSize"
+        app:layout_constraintStart_toEndOf="@+id/downloadProgress" />
+
+    <TextView
+        android:id="@+id/downloadSize"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="downloadSize"
+        app:layout_constraintBottom_toBottomOf="@+id/downloadProgress"
+        app:layout_constraintEnd_toStartOf="@+id/downloadDelete" />
+
+    <ImageView
+        android:id="@+id/downloadDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        app:srcCompat="@drawable/ic_trash" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

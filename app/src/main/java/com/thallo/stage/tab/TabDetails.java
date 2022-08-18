@@ -1,6 +1,5 @@
 package com.thallo.stage.tab;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -9,8 +8,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.thallo.stage.HomeFragment;
-import com.thallo.stage.MainActivity;
-import com.thallo.stage.PageTab;
+import com.thallo.stage.BaseActivity;
 import com.thallo.stage.WebSessionViewModel;
 import com.thallo.stage.databinding.ActivityMainBinding;
 
@@ -27,15 +25,15 @@ public class TabDetails  {
     List<PageTab> tabList;
     ActivityMainBinding binding;
     GeckoSession.SessionState mSessionState;
-    MainActivity activity;
+    BaseActivity activity;
     int dp;
     HomeFragment homeFragment;
     FragmentManager fm;
 
-    public void newTabDetail(String url, int index, MainActivity context, BottomSheetBehavior behavior){
+    public void newTabDetail(String url, int index, BaseActivity context, BottomSheetBehavior behavior){
         GeckoSession mSession= new GeckoSession();
         mSession.getSettings().setUserAgentMode(GeckoSessionSettings.USER_AGENT_MODE_MOBILE);
-        PageTab tab=new PageTab(context,new WebSessionViewModel(mSession,context));
+        PageTab tab=new PageTab(context,new WebSessionViewModel(mSession,context,fm,homeFragment));
         tab.setOnClickListener(v -> useTabDetail(tabList.indexOf(v), behavior,true));
         tab.getModel().setNewSessionHandler((session, uri) -> {
             Log.d("New",uri);
@@ -96,7 +94,7 @@ public class TabDetails  {
             fm.beginTransaction().show(homeFragment).commit();
         }else fm.beginTransaction().hide(homeFragment).commit();
     }
-    public void closeTabDetail(int index,BottomSheetBehavior behavior,MainActivity context){
+    public void closeTabDetail(int index, BottomSheetBehavior behavior, BaseActivity context){
         binding.tabSize2.setText(tabList.size()-1+"");
         tabList.get(currentIndex).getModel().inactive();
         binding.geckoview.releaseSession();

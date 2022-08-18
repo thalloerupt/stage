@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -24,6 +25,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.thallo.stage.database.history.History;
 import com.thallo.stage.database.history.HistoryViewModel;
 import com.thallo.stage.databinding.ActivityFragmentHolderBinding;
+import com.thallo.stage.R;
 
 import java.util.List;
 
@@ -55,7 +57,14 @@ public class FragmentHolder extends AppCompatActivity {
                 navController.navigate(R.id.bookmarkFragment, null);
                 binding.toolbar.setTitle(R.string.pop_star);
                 break;
-
+            case "DOWNLOAD":
+                navController.navigate(R.id.downloadFragment, null);
+                binding.toolbar.setTitle(R.string.pop_download);
+                break;
+            case "ADDONS":
+                navController.navigate(R.id.addonsManagerFragment, null);
+                binding.toolbar.setTitle(R.string.pop_addons);
+                break;
         }
         setSupportActionBar(binding.toolbar);
 

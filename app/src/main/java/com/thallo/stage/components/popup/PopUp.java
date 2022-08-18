@@ -19,7 +19,7 @@ import org.mozilla.geckoview.WebExtension;
 
 public class PopUp {
     public void popUp(WebExtension webExtension, GeckoSession session, Context context){
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogStyle);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
         View popView= LayoutInflater.from(context).inflate(R.layout.popup,null );
         GeckoView geckoView= popView.findViewById(R.id.popupGecko);
         session.setContentDelegate(new GeckoSession.ContentDelegate() {});

@@ -3,20 +3,13 @@ package com.thallo.stage;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,20 +22,18 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.gyf.immersionbar.ImmersionBar;
+import com.thallo.stage.components.Qr;
 import com.thallo.stage.components.popup.PopUp;
-import com.thallo.stage.components.QR;
-import com.thallo.stage.components.QrPopUp;
 import com.thallo.stage.components.popup.SettingPopUp;
-import com.thallo.stage.database.history.History;
-import com.thallo.stage.database.history.HistoryViewModel;
 import com.thallo.stage.databinding.ActivityMainBinding;
+import com.thallo.stage.extension.AddOns;
 import com.thallo.stage.extension.Controller;
+import com.thallo.stage.tab.PageTab;
 import com.thallo.stage.tab.TabDetails;
 
 import org.mozilla.geckoview.GeckoResult;
@@ -59,14 +50,13 @@ import java.util.TimerTask;
 
 import mozilla.components.feature.qr.QrFragment;
 
-public class MainActivity extends AppCompatActivity  {
+public class BaseActivity extends AppCompatActivity  {
     public static String url;
     private ActivityMainBinding binding;
     private List<PageTab> tabList;
     private int currentIndex;
     private static GeckoRuntime sRuntime;
-    WebExtensionController webExtensionController;
-    PopupWindow popupWindow,popupWindow1;
+    public static WebExtensionController webExtensionController;
     private List<AddOns> addOnsList = new ArrayList<AddOns>();
     AddOns add;
     Boolean is;
@@ -77,7 +67,7 @@ public class MainActivity extends AppCompatActivity  {
     private SharedPreferences.Editor mEditor;
     View dialogView;
     LinearLayout linearLayout2;
-    int spToInt;
+    public int spToInt;
     Bitmap extensionIcon;
     Bitmap pngBM;
     androidx.appcompat.app.AlertDialog alertDialog;
@@ -89,9 +79,10 @@ public class MainActivity extends AppCompatActivity  {
     Controller controller;
     TabDetails tabDetails;
     GeckoResult n;
-    QR qr;
+    WebSessionViewModel webSessionViewModel;
     private List<PageTab> mTabList;
     QrFragment qrFragment=new QrFragment();
+    Qr qr;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -100,13 +91,11 @@ public class MainActivity extends AppCompatActivity  {
         binding=ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
         View view=new View(this);
-        ImmersionBar
-                .with(this)
+        ImmersionBar.with(this)
                 .fitsSystemWindows(true)
                 .statusBarColor(R.color.background)
                 .autoStatusBarDarkModeEnable(true,0.2f)
                 .init();
-
         spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,64,getResources().getDisplayMetrics());
         tabList = new LinkedList<>();
         homeFragment= new HomeFragment();
@@ -120,8 +109,8 @@ public class MainActivity extends AppCompatActivity  {
         tabDetails.setCurrentIndex(currentIndex);
         ConstraintLayout constraintLayout = findViewById(R.id.toolLayout);
         behavior = BottomSheetBehavior.from(constraintLayout);
-        qr=new QR();
-        QrPopUp qrPopUp=new QrPopUp();
+        qr=new Qr();
+
 
 
 
@@ -146,6 +135,7 @@ public class MainActivity extends AppCompatActivity  {
             }
 
         });
+
         getSupportFragmentManager().beginTransaction().replace(binding.MainView.getId(), homeFragment,"home").commit();
 
         binding.addressText2.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -217,7 +207,7 @@ public class MainActivity extends AppCompatActivity  {
         binding.add.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               homeTab(tabList.size());
+               newTab("about:blank",tabList.size());
                binding.urlView.setVisibility(View.VISIBLE);
                binding.editView.setVisibility(View.GONE);
            }
@@ -234,19 +224,19 @@ public class MainActivity extends AppCompatActivity  {
         binding.menu2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                settingPopUp.setting(MainActivity.this,webExtensionController,tabList,behavior,binding,spToInt,homeFragment,getSupportFragmentManager(),currentIndex);
+                settingPopUp.setting(BaseActivity.this,webExtensionController,tabList,behavior,binding,spToInt,homeFragment,getSupportFragmentManager(),currentIndex);
 
             }
         });
 
         //newTab("https://www.csdn.net/",0);
 
-        homeTab(tabList.size());
-        webExtensionController = GeckoRuntime.getDefault(MainActivity.this).getWebExtensionController();
+        newTab("about:blank",tabList.size());
+        webExtensionController = GeckoRuntime.getDefault(BaseActivity.this).getWebExtensionController();
         controller.setWebExtensionController(webExtensionController);
         controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,behavior,homeFragment,getSupportFragmentManager(),currentIndex);
         controller.Details();
-        controller.promptDelegate(MainActivity.this);
+        controller.promptDelegate(BaseActivity.this);
         binding.geckoview.setDynamicToolbarMaxHeight(spToInt);
 
 
@@ -287,9 +277,9 @@ public class MainActivity extends AppCompatActivity  {
                         binding.getSessionModel().getSession().goBack();
                         return;
                     } else if (tabList.size() != 1) {
-                        tabDetails.closeTabDetail(tabList.size() - 1, behavior, MainActivity.this);
+                        tabDetails.closeTabDetail(tabList.size() - 1, behavior, BaseActivity.this);
                     } else if (tabList.size() == 1) {
-                        super.onBackPressed();
+                        binding.getSessionModel().getSession().loadUri("about:blank");
                     }
                 }else  super.onBackPressed();
             }
@@ -302,50 +292,12 @@ public class MainActivity extends AppCompatActivity  {
         tabDetails.newTabDetail(url,index,this,behavior);
         Log.d("tablist",tabDetails.getTabList().size()+"");
     }
-    public void homeTab(int index){
-        tabDetails.newTabDetail("about:blank",index,this,behavior);
-        getSupportFragmentManager().beginTransaction().show(homeFragment).commit();
 
 
-    }
-    public void openHomeTab(Boolean use)
-    {
-        if(use==null)
-            return;
-
-        else {
-            if(use) getSupportFragmentManager().beginTransaction().show(homeFragment).commit();
-            else getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
-            Log.d("OKS","ok");
-
-        }
-    }
-
-
-    @Override
-    protected void onNightModeChanged(int mode) {
-        super.onNightModeChanged(mode);
-        switch (mode) {
-            // 亮色主题
-            case AppCompatDelegate.MODE_NIGHT_NO:
-                getWindow().setStatusBarColor(Color.TRANSPARENT);
-                break;
-            // 暗色主题
-            case AppCompatDelegate.MODE_NIGHT_YES:
-
-                break;
-        }
-        Log.d("onNightModeChanged","yes");
-
-    }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-
-
-
     }
 
     @Override
@@ -368,6 +320,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults != null && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            qr.show(this);
 
         } else {
             Toast.makeText(this,"请先授权",Toast.LENGTH_LONG).show();
@@ -375,21 +328,9 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
+    public WebSessionViewModel getWebSessionViewModel() {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return binding.getSessionModel();
+    }
 }
 

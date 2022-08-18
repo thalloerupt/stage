@@ -13,12 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.thallo.stage.MainActivity;
+import com.thallo.stage.BaseActivity;
 import com.thallo.stage.R;
 import com.thallo.stage.database.bookmark.Bookmark;
 import com.thallo.stage.database.bookmark.BookmarkViewModel;
-import com.thallo.stage.database.history.History;
-import com.thallo.stage.database.history.HistoryViewModel;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -57,15 +55,15 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<com.thallo.stage.boo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(holder.itemView.getContext(), MainActivity.class);
-                MainActivity.url=bookmark.getUrl();
+                Intent intent=new Intent(holder.itemView.getContext(), BaseActivity.class);
+                BaseActivity.url=bookmark.getUrl();
                 holder.itemView.getContext().startActivity(intent);
                 ((FragmentActivity) view.getContext()).finish();
             }
         });
         URI uri=URI.create(bookmark.getUrl());
         String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
-        Glide.with(holder.itemView.getContext()).load(faviconUrl).error(R.drawable.ic_internet)
+        Glide.with(holder.itemView.getContext()).load(faviconUrl).placeholder(R.drawable.ic_internet)
                 .into(icon);
 
     }

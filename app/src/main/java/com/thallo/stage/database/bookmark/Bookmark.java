@@ -15,13 +15,23 @@ public class Bookmark {
     private String file;
     @ColumnInfo(name = "show_info")
     private Boolean show;
-
+    @ColumnInfo(name = "mix")
+    private String mix;
     public Bookmark(String url, String title,String file,Boolean show) {
         this.url=url;
         this.title=title;
         this.file=file;
         this.show=show;
+        this.mix=url+title;
 
+    }
+
+    public String getMix() {
+        return mix;
+    }
+
+    public void setMix(String mix) {
+        this.mix = mix;
     }
 
     public Boolean getShow() {

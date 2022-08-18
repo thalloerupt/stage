@@ -1,4 +1,4 @@
-package com.thallo.stage;
+package com.thallo.stage.tab;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.thallo.stage.WebSessionViewModel;
 import com.thallo.stage.databinding.TabBinding;
 
 import java.net.MalformedURLException;

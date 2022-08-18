@@ -78,6 +78,7 @@ dependencies {
     // optional - RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:2.3.0"
     implementation 'com.airbnb.android:lottie:5.2.0'
+    implementation 'cn.bingoogolapple:bga-qrcode-zxing:1.3.7'
 }
 
 

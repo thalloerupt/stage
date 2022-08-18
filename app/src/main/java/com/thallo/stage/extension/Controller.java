@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.thallo.stage.HomeFragment;
-import com.thallo.stage.MainActivity;
-import com.thallo.stage.PageTab;
+import com.thallo.stage.BaseActivity;
+import com.thallo.stage.tab.PageTab;
 import com.thallo.stage.components.dialog.PermissionDialog;
 import com.thallo.stage.WebSessionViewModel;
 import com.thallo.stage.components.popup.PopUp;
@@ -28,7 +28,7 @@ public class Controller  {
     WebExtensionController webExtensionController;
     PopUp popUp;
     TabDetails tabDetails;
-    MainActivity context;
+    BaseActivity context;
     WebSessionViewModel webSessionViewModel;
     List<PageTab> tabList;
     BottomSheetBehavior behavior;
@@ -150,7 +150,7 @@ public class Controller  {
         });
 
     }
-    public void setThing(MainActivity context, TabDetails tabDetails, WebSessionViewModel webSessionViewModel, List<PageTab> tabList, BottomSheetBehavior behavior, HomeFragment homeFragment, FragmentManager fm,int currentIndex){
+    public void setThing(BaseActivity context, TabDetails tabDetails, WebSessionViewModel webSessionViewModel, List<PageTab> tabList, BottomSheetBehavior behavior, HomeFragment homeFragment, FragmentManager fm, int currentIndex){
         this.context=context;
         this.tabDetails=tabDetails;
         this.webSessionViewModel=webSessionViewModel;

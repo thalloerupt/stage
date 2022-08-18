@@ -1,6 +1,9 @@
 package com.thallo.stage;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.widget.ImageView;
@@ -12,11 +15,11 @@ import androidx.annotation.RequiresApi;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.thallo.stage.download.DownloadUtils;
 import com.thallo.stage.components.dialog.JsChoiceDialog;
 import com.thallo.stage.database.history.History;
 import com.thallo.stage.database.history.HistoryViewModel;
@@ -29,9 +32,6 @@ import org.mozilla.geckoview.GeckoSession;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 import org.mozilla.geckoview.WebResponse;
-
-import java.net.URI;
-import java.util.List;
 
 
 public class WebSessionViewModel extends BaseObservable  {
@@ -58,7 +58,7 @@ public class WebSessionViewModel extends BaseObservable  {
     boolean isSecure;
     int i;
     HistoryViewModel historyViewModel;
-    public WebSessionViewModel(GeckoSession session, MainActivity context) {
+    public WebSessionViewModel(GeckoSession session, BaseActivity context, FragmentManager fragmentManager, HomeFragment homeFragment) {
         this.session = session;
         mContext=context;
         webExtensionController = GeckoRuntime.getDefault(mContext).getWebExtensionController();
@@ -74,6 +74,7 @@ public class WebSessionViewModel extends BaseObservable  {
             @Override
             public void onExternalResponse(@NonNull GeckoSession session, @NonNull WebResponse response) {
                 String address = response.uri;
+                MaterialAlertDialogBuilder builder=new MaterialAlertDialogBuilder(context);
                 if (address.endsWith("xpi"))
                 {
                     String ADD =address;
@@ -82,6 +83,33 @@ public class WebSessionViewModel extends BaseObservable  {
                     webExtensionController
                             .install(ADD)
                             .accept(webExtension -> Toast.makeText(mContext,webExtension.metaData.name+"安装成功",Toast.LENGTH_LONG).show());
+                }else {
+                    builder.setTitle("确定下载？");
+                    builder.setMessage(address);
+                    builder.setNeutralButton("第三方下载", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                            intent.setData(Uri.parse(address));
+                            context.startActivity(intent);
+                        }
+                    });
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            DownloadUtils downloadUtils=new DownloadUtils(context,1);
+                            downloadUtils.open(address);
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.create();
+                    builder.show();
                 }
             }
 
@@ -91,9 +119,6 @@ public class WebSessionViewModel extends BaseObservable  {
                 if (mUrl.indexOf("about:blank")!=-1)
                 {mTitle = "新标签页";Log.d("YES",title);}
                 else mTitle=title;
-
-
-
                 notifyPropertyChanged(BR.title);
             }
         });
@@ -168,11 +193,11 @@ public class WebSessionViewModel extends BaseObservable  {
             @Override
             public void onPageStart(@NonNull GeckoSession session, @NonNull String url) {
                 mUrl=url;
-                URI uri=URI.create(url);
                 if(url.indexOf("about:blank")!=-1)
                 {
+                    fragmentManager.beginTransaction().show(homeFragment).commit();
 
-                }
+                }else fragmentManager.beginTransaction().hide(homeFragment).commit();
                 Log.d("YES",url);
 
 

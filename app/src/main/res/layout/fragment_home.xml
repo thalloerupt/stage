@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:textColor="@color/textcolor"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toStartOf="@+id/Home_Qr"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +46,43 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tips">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="0dp"
+                    android:layout_height="224dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="32dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@color/background" />
+                </androidx.cardview.widget.CardView>
+
+                <GridView
+                    android:id="@+id/gridview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:hapticFeedbackEnabled="false"
+                    android:numColumns="auto_fit"
+                    android:stretchMode="columnWidth"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cardView" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"
@@ -79,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.4" />
+                    app:layout_constraintGuide_percent="0.35" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

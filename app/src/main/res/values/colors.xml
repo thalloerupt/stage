@@ -15,6 +15,7 @@
     <color name="alphaBlack">#80000000</color>
     <color name="background">#FFFBFE</color>
     <color name="editBackground">#80EDE7F6</color>
+    <color name="background2">#FBEEFE</color>
 
 
 </resources>

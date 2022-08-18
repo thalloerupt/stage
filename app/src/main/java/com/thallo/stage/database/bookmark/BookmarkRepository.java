@@ -44,14 +44,14 @@ public class BookmarkRepository {
     }
 
 
-    LiveData<List<Bookmark>> getAllBookmarksLive() {
-        return allBookmarkLive;
-    }
     LiveData<List<Bookmark>> findBookmarksWithPattern(String pattern){
         return bookmarkDao.findBookmarksWithPattern("%"+pattern+"%");
     }
     LiveData<List<Bookmark>> findWordsWithTitle(String pattern){
         return bookmarkDao.findBookmarksWithTitle(pattern);
+    }
+    LiveData<List<Bookmark>> findWordsWithShow(Boolean pattern){
+        return bookmarkDao.findBookmarksWithShow(pattern);
     }
 
 

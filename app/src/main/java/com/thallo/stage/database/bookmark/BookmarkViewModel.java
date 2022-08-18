@@ -27,6 +27,9 @@ public class BookmarkViewModel extends AndroidViewModel {
     LiveData<List<Bookmark>>findBookmarksWithTitle(String pattern){
         return bookmarkRepository.findWordsWithTitle(pattern);
     }
+    public LiveData<List<Bookmark>>findBookmarksWithShow(Boolean pattern){
+        return bookmarkRepository.findWordsWithShow(pattern);
+    }
     public void insertWords(com.thallo.stage.database.bookmark.Bookmark... bookmarks) {
         bookmarkRepository.insertBookmark(bookmarks);
     }

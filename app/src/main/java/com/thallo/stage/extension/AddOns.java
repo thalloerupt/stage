@@ -1,4 +1,4 @@
-package com.thallo.stage;
+package com.thallo.stage.extension;
 
 import android.graphics.Bitmap;
 import android.media.Image;

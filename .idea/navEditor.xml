@@ -8,6 +8,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="addonsManagerFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="571" />
+                            <option name="y" value="42" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="bookmarkFragment">
                     <value>
                       <LayoutPositions>
@@ -15,6 +27,18 @@
                           <Point>
                             <option name="x" value="232" />
                             <option name="y" value="51" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="downloadFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="417" />
+                            <option name="y" value="42" />
                           </Point>
                         </option>
                       </LayoutPositions>

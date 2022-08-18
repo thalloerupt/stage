@@ -9,10 +9,12 @@ import androidx.room.RoomDatabase;
 import com.thallo.stage.database.bookmark.Bookmark;
 
 import com.thallo.stage.database.bookmark.BookmarkDao;
+import com.thallo.stage.database.download.Download;
+import com.thallo.stage.database.download.DownloadDao;
 import com.thallo.stage.database.history.History;
 import com.thallo.stage.database.history.HistoryDao;
 
-@Database(entities = {Bookmark.class, History.class},version = 2,exportSchema = false)
+@Database(entities = {Bookmark.class, History.class,Download.class},version = 2,exportSchema = false)
 public abstract class StageData extends RoomDatabase {
     private static StageData INSTANCE;
     public static synchronized StageData getDatabase(Context context) {
@@ -25,6 +27,7 @@ public abstract class StageData extends RoomDatabase {
 
     public abstract HistoryDao getHistoryDao();
     public abstract BookmarkDao getBookmarkDao();
+    public abstract DownloadDao getDownloadDAO();
 
 
 

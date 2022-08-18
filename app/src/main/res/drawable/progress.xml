@@ -12,6 +12,7 @@
     >
 
 </solid>
+
         <!--梯度-->
         <corners
             android:topLeftRadius="3dp"
@@ -25,10 +26,12 @@
 <item android:id="@android:id/progress">
     <clip>
         <shape>
-
-
             <solid
-                android:color="@color/purple_700" />
+                android:color="@color/purple_700"
+                />
+          
+
+
         </shape>
     </clip>
 </item>

@@ -4,9 +4,19 @@
         <item name="android:windowEnterAnimation">@anim/fad_in</item>
         <item name="android:windowExitAnimation">@anim/fad_out</item>
     </style>
-    <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
+    <!--实现BottomSheetDialog圆角效果-->
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
-        <item name="android:colorBackground">@android:color/transparent</item>
-          </style>
-
+    <style name="WrapWrap" parent="MatchMatch">
+        <item name="android:radius">32dp</item>
+    </style>
+    <style name="MatchMatch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

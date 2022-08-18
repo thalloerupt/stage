@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.thallo.stage">
     <!-- 开启网络访问权限 -->
     <uses-permission android:name="android.permission.INTERNET"></uses-permission> <!-- 允许访问网络状态的权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许访问wifi状态的权限 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许修改网络状态的权限 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"></uses-permission> <!-- 允许修改wifi状态的权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--在SDCard中创建与删除文件权限  -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--  从SDCard读取数据权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--  访问网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+
+
 
     <application
         android:allowBackup="true"
@@ -17,14 +29,26 @@
         android:maxAspectRatio="2.4"
         android:roundIcon="@mipmap/ic_launcher_2_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:name=".DataHolder"
         android:theme="@style/Theme.Stage">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.thallo.stage.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"
+                />
+        </provider>
         <activity
             android:name=".FragmentHolder"
             android:exported="false"
             android:label="@string/title_activity_fragment_holder"
              />
         <activity
-            android:name=".MainActivity"
+            android:name=".BaseActivity"
             android:launchMode="singleTask"
             android:exported="true">
             <intent-filter>
@@ -40,6 +64,9 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" />
+
+
+
     </application>
 
 </manifest>

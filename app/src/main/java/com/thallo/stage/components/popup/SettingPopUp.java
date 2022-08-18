@@ -1,12 +1,12 @@
 package com.thallo.stage.components.popup;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,11 +22,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.thallo.stage.FragmentHolder;
 import com.thallo.stage.HomeFragment;
-import com.thallo.stage.MainActivity;
-import com.thallo.stage.PageTab;
+import com.thallo.stage.BaseActivity;
+import com.thallo.stage.tab.PageTab;
 import com.thallo.stage.R;
 import com.thallo.stage.Setting;
-import com.thallo.stage.components.popup.PopUp;
 import com.thallo.stage.database.bookmark.Bookmark;
 import com.thallo.stage.database.bookmark.BookmarkViewModel;
 import com.thallo.stage.databinding.ActivityMainBinding;
@@ -45,7 +44,7 @@ public class SettingPopUp {
     SettingMenuBinding mBinding;
 
 
-    public void setting (MainActivity context, WebExtensionController webExtensionController, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, HomeFragment homeFragment, FragmentManager fm,int currentIndex){
+    public void setting (BaseActivity context, WebExtensionController webExtensionController, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, HomeFragment homeFragment, FragmentManager fm, int currentIndex){
         ImageView reload,setting,desktopMode;
         View dialogView;
         LinearLayout linearLayout2;
@@ -56,7 +55,7 @@ public class SettingPopUp {
         View addonsLayout;
         BookmarkViewModel bookmarkViewModel;
 
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogStyle);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
         mBinding=SettingMenuBinding.inflate(LayoutInflater.from(context));
 
         popUp=new PopUp();
@@ -124,29 +123,20 @@ public class SettingPopUp {
                             if (action.badgeText!=null)
                                 badeText.setText(action.badgeText);
                             Log.d("badgeText",action.badgeText);
-
-
-
-
-
-
-                            action.icon.getBitmap(72).accept(new GeckoResult.Consumer<Bitmap>() {
-                                @Override
-                                public void accept(@Nullable Bitmap bitmap) {
-
-                                    imageView.setImageBitmap(bitmap);
+                            try {
+                                if (action.icon.getBitmap(72).poll(500)!=null){
+                                    imageView.setImageBitmap(action.icon.getBitmap(72).poll(500 ));
+                                    mBinding.addonsIcon.addView(iconView);
 
                                 }
-                            });
+                            } catch (Throwable e) {
+                                e.printStackTrace();
+                            }
 
 
                         }
                     });
 
-
-
-
-                    mBinding.addonsIcon.addView(iconView);
                 }
             }
         });
@@ -166,7 +156,7 @@ public class SettingPopUp {
         mBinding.star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bookmark bookmark=new Bookmark(binding.getSessionModel().getUrl(),binding.getSessionModel().getTitle(),"默认",false);
+                Bookmark bookmark=new Bookmark(binding.getSessionModel().getUrl(),binding.getSessionModel().getTitle(),"默认",true);
                 bookmarkViewModel.insertWords(bookmark);
 
             }
@@ -177,6 +167,25 @@ public class SettingPopUp {
             public void onClick(View view) {
                 Intent intent = new Intent(context, FragmentHolder.class);
                 intent.putExtra("page","BOOKMARK");
+                context.startActivity(intent);
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        mBinding.download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FragmentHolder.class);
+                intent.putExtra("page","DOWNLOAD");
+                context.startActivity(intent);
+                bottomSheetDialog.dismiss();
+            }
+        });
+        mBinding.addons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FragmentHolder.class);
+                intent.putExtra("page","ADDONS");
                 context.startActivity(intent);
                 bottomSheetDialog.dismiss();
             }

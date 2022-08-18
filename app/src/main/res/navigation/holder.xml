@@ -15,4 +15,12 @@
         android:name="com.thallo.stage.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark" />
+    <fragment
+        android:id="@+id/downloadFragment"
+        android:name="com.thallo.stage.download.DownloadFragment"
+        android:label="DownloadFragment" />
+    <fragment
+        android:id="@+id/addonsManagerFragment"
+        android:name="com.thallo.stage.extension.AddonsManagerFragment"
+        android:label="AddonsManagerFragment" />
 </navigation>

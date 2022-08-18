@@ -43,7 +43,6 @@ public class BookmarkFragment extends Fragment {
         bookmarkViewModel.getAllBookmarksLive().observe((LifecycleOwner) this, new Observer<List<Bookmark>>() {
             @Override
             public void onChanged(List<Bookmark> bookmarks) {
-
                 myAdapter.setAllBookmark(bookmarks);
                 binding.bookmarkRecycler.setItemViewCacheSize(bookmarks.size());
                 binding.bookmarkRecycler.setAdapter(myAdapter);
