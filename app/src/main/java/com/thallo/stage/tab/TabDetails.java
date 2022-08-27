@@ -2,6 +2,7 @@ package com.thallo.stage.tab;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -27,13 +28,12 @@ public class TabDetails  {
     GeckoSession.SessionState mSessionState;
     BaseActivity activity;
     int dp;
-    HomeFragment homeFragment;
-    FragmentManager fm;
+
 
     public void newTabDetail(String url, int index, BaseActivity context, BottomSheetBehavior behavior){
         GeckoSession mSession= new GeckoSession();
         mSession.getSettings().setUserAgentMode(GeckoSessionSettings.USER_AGENT_MODE_MOBILE);
-        PageTab tab=new PageTab(context,new WebSessionViewModel(mSession,context,fm,homeFragment));
+        PageTab tab=new PageTab(context,new WebSessionViewModel(mSession,context));
         tab.setOnClickListener(v -> useTabDetail(tabList.indexOf(v), behavior,true));
         tab.getModel().setNewSessionHandler((session, uri) -> {
             Log.d("New",uri);
@@ -89,10 +89,9 @@ public class TabDetails  {
         binding.getSessionModel().getSession().setActive(true);
         binding.geckoview.setSession(binding.getSessionModel().getSession());
         if (collapsed) behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        if(binding.getSessionModel().getTitle()=="新标签页")
-        {
-            fm.beginTransaction().show(homeFragment).commit();
-        }else fm.beginTransaction().hide(homeFragment).commit();
+
+
+
     }
     public void closeTabDetail(int index, BottomSheetBehavior behavior, BaseActivity context){
         binding.tabSize2.setText(tabList.size()-1+"");
@@ -109,12 +108,11 @@ public class TabDetails  {
     }
 
 
-    public void setThings(ActivityMainBinding binding,List<PageTab> tabList,int dp,FragmentManager fm,HomeFragment homeFragment) {
+    public void setThings(ActivityMainBinding binding,List<PageTab> tabList,int dp) {
         this.binding = binding;
         this.tabList = tabList;
         this.dp=dp;
-        this.homeFragment=homeFragment;
-        this.fm=fm;
+
     }
 
     public List<PageTab> getTabList() {

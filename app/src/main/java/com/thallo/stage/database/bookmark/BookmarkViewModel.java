@@ -20,7 +20,7 @@ public class BookmarkViewModel extends AndroidViewModel {
     public LiveData<List<Bookmark>> getAllBookmarksLive() {
         return bookmarkRepository.getAllBookmarkLive();
     }
-    LiveData<List<Bookmark>>findBookmarksWithPattern(String pattern){
+    public LiveData<List<Bookmark>>findBookmarksWithPattern(String pattern){
         return bookmarkRepository.findBookmarksWithPattern(pattern);
     }
 

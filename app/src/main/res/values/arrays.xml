@@ -1,15 +1,17 @@
 <resources>
     <!-- Reply Preference -->
-    <string-array name="reply_entries">
+    <string-array name="searchEngine_entries">
         <item>@string/baidu</item>
-        <item>google</item>
-        <item>Bing</item>
+        <item>@string/google</item>
+        <item>@string/bing</item>
+        <item>@string/sogou</item>
     </string-array>
 
-    <string-array name="reply_values">
+    <string-array name="searchEngine_values">
         <item>百度</item>
         <item>谷歌</item>
         <item>必应</item>
+        <item>搜狗</item>
 
     </string-array>
 </resources>

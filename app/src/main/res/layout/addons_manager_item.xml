@@ -38,7 +38,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:text="TextView"
-            android:textColor="@color/black"
+            android:textColor="@color/textcolor"
             app:layout_constraintEnd_toStartOf="@+id/addonsManagerSwitch"
             app:layout_constraintStart_toEndOf="@+id/imageView11"
             app:layout_constraintTop_toTopOf="@+id/imageView11" />

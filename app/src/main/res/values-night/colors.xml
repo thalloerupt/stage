@@ -4,4 +4,6 @@
     <color name="textcolor">#cac4d0</color>
     <color name="background">#1C1B1F</color>
     <color name="editBackground">#59000000</color>
+    <color name="background2">#241A2A</color>
+
 </resources>

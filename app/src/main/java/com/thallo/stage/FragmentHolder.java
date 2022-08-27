@@ -5,12 +5,16 @@ import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -33,7 +37,7 @@ public class FragmentHolder extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityFragmentHolderBinding binding;
-
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +48,7 @@ public class FragmentHolder extends AppCompatActivity {
                 .init();
         binding = ActivityFragmentHolderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Intent intent=getIntent();
+        intent=getIntent();
         NavHostFragment navHostController= (NavHostFragment) getSupportFragmentManager().findFragmentById(binding.fragmentContainerView.getId());
         NavController navController = navHostController.getNavController();
         switch (intent.getStringExtra("page"))
@@ -64,9 +68,16 @@ public class FragmentHolder extends AppCompatActivity {
             case "ADDONS":
                 navController.navigate(R.id.addonsManagerFragment, null);
                 binding.toolbar.setTitle(R.string.pop_addons);
+
+                break;
+            case "ABOUT":
+                navController.navigate(R.id.aboutFragment, null);
+                binding.toolbar.setTitle(R.string.setting_about);
                 break;
         }
+
         setSupportActionBar(binding.toolbar);
+
 
 
 
@@ -80,6 +91,8 @@ public class FragmentHolder extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public void onBackPressed() {

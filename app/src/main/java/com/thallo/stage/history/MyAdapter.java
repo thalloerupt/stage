@@ -55,9 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterHold> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(holder.itemView.getContext(), BaseActivity.class);
                 BaseActivity.url=history.getUrl();
-                holder.itemView.getContext().startActivity(intent);
                 ((FragmentActivity) view.getContext()).finish();
             }
         });

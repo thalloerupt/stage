@@ -1,6 +1,7 @@
 package com.thallo.stage.extension;
 
 import android.app.Activity;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +33,6 @@ public class Controller  {
     WebSessionViewModel webSessionViewModel;
     List<PageTab> tabList;
     BottomSheetBehavior behavior;
-    HomeFragment homeFragment;
-    FragmentManager fm;
     int exAmount;
     int currentIndex;
     GeckoResult i;
@@ -69,8 +68,7 @@ public class Controller  {
                         @Override
                         public GeckoResult<GeckoSession> onNewTab(@NonNull WebExtension source, @NonNull WebExtension.CreateTabDetails createDetails) {
                             GeckoSession session= new GeckoSession();
-                            tabDetails.newTabDetail(createDetails.url,tabList.size(),context,behavior);
-                            fm.beginTransaction().hide(homeFragment).commit();
+                            tabDetails.newTabDetail(createDetails.url,BaseActivity.tabList.size(),context,behavior);
                             return GeckoResult.fromValue(session);
                         }
                     });
@@ -110,8 +108,7 @@ public class Controller  {
                                 @Override
                                 public GeckoResult<GeckoSession> onNewTab(@NonNull WebExtension source, @NonNull WebExtension.CreateTabDetails createDetails) {
                                     GeckoSession session= new GeckoSession();
-                                    tabDetails.newTabDetail(createDetails.url,tabList.size(),context,behavior);
-                                    fm.beginTransaction().hide(homeFragment).commit();
+                                    tabDetails.newTabDetail(createDetails.url,BaseActivity.tabList.size(),context,behavior);
                                     return GeckoResult.fromValue(session);
                                 }
 
@@ -150,14 +147,13 @@ public class Controller  {
         });
 
     }
-    public void setThing(BaseActivity context, TabDetails tabDetails, WebSessionViewModel webSessionViewModel, List<PageTab> tabList, BottomSheetBehavior behavior, HomeFragment homeFragment, FragmentManager fm, int currentIndex){
+    public void setThing(BaseActivity context, TabDetails tabDetails, WebSessionViewModel webSessionViewModel, List<PageTab> tabList, BottomSheetBehavior behavior,  int currentIndex){
         this.context=context;
         this.tabDetails=tabDetails;
         this.webSessionViewModel=webSessionViewModel;
         this.tabList=tabList;
         this.behavior=behavior;
-        this.homeFragment=homeFragment;
-        this.fm=fm;
+
         this.currentIndex=currentIndex;
 
 

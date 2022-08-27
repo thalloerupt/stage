@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
@@ -23,6 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.thallo.stage.FragmentHolder;
 import com.thallo.stage.HomeFragment;
 import com.thallo.stage.BaseActivity;
+import com.thallo.stage.components.dialog.BookmarkDialog;
 import com.thallo.stage.tab.PageTab;
 import com.thallo.stage.R;
 import com.thallo.stage.Setting;
@@ -44,7 +46,7 @@ public class SettingPopUp {
     SettingMenuBinding mBinding;
 
 
-    public void setting (BaseActivity context, WebExtensionController webExtensionController, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, HomeFragment homeFragment, FragmentManager fm, int currentIndex){
+    public void setting (BaseActivity context, WebExtensionController webExtensionController, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, int currentIndex){
         ImageView reload,setting,desktopMode;
         View dialogView;
         LinearLayout linearLayout2;
@@ -60,7 +62,7 @@ public class SettingPopUp {
 
         popUp=new PopUp();
         tabDetails=new TabDetails();
-        tabDetails.setThings(binding,tabList,dp,fm,homeFragment);
+        tabDetails.setThings(binding,tabList,dp);
         tabDetails.setCurrentIndex(currentIndex);
         mBinding.popTitle.setText(binding.getSessionModel().getTitle());
         bookmarkViewModel=new ViewModelProvider((ViewModelStoreOwner) context).get(BookmarkViewModel.class);
@@ -73,7 +75,7 @@ public class SettingPopUp {
 
                 for (int i=0;i<webExtensions.size();i++)
                 {
-                    View iconView= LayoutInflater.from(context).inflate(R.layout.addons_icons,null );
+                    View iconView= LayoutInflater.from(context).inflate(R.layout.addons_icons,null);
                     ImageView imageView = iconView.findViewById(R.id.imageView2);
                     View badgeLayout=iconView.findViewById(R.id.badgeLayout);
                     CardView badgeCard=iconView.findViewById(R.id.badgeCard);
@@ -115,7 +117,6 @@ public class SettingPopUp {
                                 public GeckoResult<GeckoSession> onNewTab(@NonNull WebExtension source, @NonNull WebExtension.CreateTabDetails createDetails) {
                                     GeckoSession session= new GeckoSession();
                                     tabDetails.newTabDetail(createDetails.url,tabList.size(),context,behavior);
-                                    fm.beginTransaction().hide(homeFragment).commit();
                                     return GeckoResult.fromValue(session);
                                 }
                             });
@@ -124,10 +125,10 @@ public class SettingPopUp {
                                 badeText.setText(action.badgeText);
                             Log.d("badgeText",action.badgeText);
                             try {
-                                if (action.icon.getBitmap(72).poll(500)!=null){
-                                    imageView.setImageBitmap(action.icon.getBitmap(72).poll(500 ));
+                                Bitmap bitmap=action.icon.getBitmap(72).poll(500);
+                                if (bitmap!=null){
+                                    imageView.setImageBitmap(bitmap);
                                     mBinding.addonsIcon.addView(iconView);
-
                                 }
                             } catch (Throwable e) {
                                 e.printStackTrace();
@@ -156,9 +157,9 @@ public class SettingPopUp {
         mBinding.star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bookmark bookmark=new Bookmark(binding.getSessionModel().getUrl(),binding.getSessionModel().getTitle(),"默认",true);
-                bookmarkViewModel.insertWords(bookmark);
-
+                BookmarkDialog bookmarkDialog=new BookmarkDialog(context,binding.getSessionModel().getTitle(),binding.getSessionModel().getUrl(),bookmarkViewModel);
+                bookmarkDialog.show();
+                bottomSheetDialog.dismiss();
             }
         });
 
@@ -191,6 +192,22 @@ public class SettingPopUp {
             }
         });
 
+        mBinding.forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (binding.getSessionModel().isCanForward())
+                    binding.getSessionModel().getSession().goForward();
+                bottomSheetDialog.dismiss();
+            }
+        });
+        bookmarkViewModel.findBookmarksWithPattern(binding.getSessionModel().getUrl()).observe(context, new Observer<List<Bookmark>>() {
+            @Override
+            public void onChanged(List<Bookmark> list) {
+                if (list.size()!=0)mBinding.star.setImageResource(R.drawable.ic_round_star);
+                else mBinding.star.setImageResource(R.drawable.ic_star);
+            }
+        });
+
 
 
 
@@ -209,7 +226,7 @@ public class SettingPopUp {
             public void onClick(View view) {
                 tabDetails.newTabDetail("https://addons.mozilla.org/zh-CN/firefox/",tabList.size(),context,behavior);
                 bottomSheetDialog.dismiss();
-                fm.beginTransaction().hide(homeFragment).commit();
+
             }
         });
 
@@ -222,25 +239,20 @@ public class SettingPopUp {
 
             }
         });
+        int i=binding.getSessionModel().getSession().getSettings().getUserAgentMode();
         mBinding.desktop.setOnClickListener(new View.OnClickListener() {
-            boolean i=false;
 
             @Override
             public void onClick(View view) {
-                if (i)
+                if (i==GeckoSessionSettings.USER_AGENT_MODE_DESKTOP)
                 {
                     binding.getSessionModel().getSession().getSettings().setUserAgentMode(GeckoSessionSettings.USER_AGENT_MODE_MOBILE);
                     binding.getSessionModel().getSession().reload();
-                    mBinding.desktop.setImageResource(R.drawable.ic_desk);
-                    i=true;
-
-                }
-                else
+                }else if(i==GeckoSessionSettings.USER_AGENT_MODE_MOBILE)
                 {
-                    binding.getSessionModel().getSession().getSettings().setUserAgentMode(GeckoSessionSettings.VIEWPORT_MODE_DESKTOP);
+                    binding.getSessionModel().getSession().getSettings().setUserAgentMode(GeckoSessionSettings.USER_AGENT_MODE_DESKTOP);
                     binding.getSessionModel().getSession().reload();
-                    mBinding.desktop.setImageResource(R.drawable.ic_desktop_on);
-                    i=false;
+
                 }
 
                 bottomSheetDialog.dismiss();
@@ -248,6 +260,13 @@ public class SettingPopUp {
             }
 
         });
+        if (i==GeckoSessionSettings.USER_AGENT_MODE_DESKTOP)
+        {
+            mBinding.desktopBg.setVisibility(View.VISIBLE);
+        }else if(i==GeckoSessionSettings.USER_AGENT_MODE_MOBILE)
+        {
+            mBinding.desktopBg.setVisibility(View.GONE);
+        }
 
 
         bottomSheetDialog.setContentView(mBinding.getRoot());

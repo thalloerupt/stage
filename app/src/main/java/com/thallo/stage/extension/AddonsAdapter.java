@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thallo.stage.R;
+import com.thallo.stage.components.popup.AddonsInformationPopup;
 import com.thallo.stage.databinding.AddonsManagerItemBinding;
 import com.thallo.stage.extension.AddOns;
 
@@ -42,7 +43,7 @@ public class AddonsAdapter extends RecyclerView.Adapter<AddonsAdapter.AddonsAdap
         binding.addonsManagerDes.setText(webExtensions.get(position).metaData.description);
         binding.addonsManagerSwitch.setChecked(webExtensions.get(position).metaData.enabled);
         try {
-            binding.addonsManagerIcon.setImageBitmap(webExtensions.get(position).metaData.icon.getBitmap(72).poll(500));
+            binding.addonsManagerIcon.setImageBitmap(webExtensions.get(position).metaData.icon.getBitmap(64).poll(500));
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -53,6 +54,17 @@ public class AddonsAdapter extends RecyclerView.Adapter<AddonsAdapter.AddonsAdap
                 else webExtensionController.disable(webExtensions.get(position), WebExtensionController.EnableSource.USER);
             }
         });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddonsInformationPopup addonsInformationPopup=new AddonsInformationPopup(view.getContext(), webExtensions.get(position),webExtensionController,AddonsAdapter.this,position,webExtensions);
+                addonsInformationPopup.show();
+
+
+            }
+        });
+
 
 
     }

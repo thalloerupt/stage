@@ -14,8 +14,9 @@
     <color name="alpha">#00FFFFFF</color>
     <color name="alphaBlack">#80000000</color>
     <color name="background">#FFFBFE</color>
-    <color name="editBackground">#80EDE7F6</color>
+    <color name="editBackground">#80FBEEFE</color>
     <color name="background2">#FBEEFE</color>
+    <color name="test">#0DAA00FF</color>
 
 
 </resources>

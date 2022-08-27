@@ -46,8 +46,13 @@ public class BookmarkFragment extends Fragment {
                 myAdapter.setAllBookmark(bookmarks);
                 binding.bookmarkRecycler.setItemViewCacheSize(bookmarks.size());
                 binding.bookmarkRecycler.setAdapter(myAdapter);
+                if (bookmarks.size()==0) binding.bookmarkLottie.setVisibility(View.VISIBLE);
+                else binding.bookmarkLottie.setVisibility(View.GONE);
             }
         });
+        binding.bookmarkLottie.loop(true);
+        binding.bookmarkLottie.playAnimation();
+
         // Inflate the layout for this fragment
         return binding.getRoot();
     }

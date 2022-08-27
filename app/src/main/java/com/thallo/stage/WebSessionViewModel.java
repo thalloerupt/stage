@@ -3,22 +3,26 @@ package com.thallo.stage;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.thallo.stage.components.dialog.AlertDialog;
+import com.thallo.stage.components.filePicker.GetFile;
+import com.thallo.stage.components.popup.IntentPopup;
 import com.thallo.stage.download.DownloadUtils;
 import com.thallo.stage.components.dialog.JsChoiceDialog;
 import com.thallo.stage.database.history.History;
@@ -26,8 +30,10 @@ import com.thallo.stage.database.history.HistoryViewModel;
 import com.thallo.stage.interfaces.confirm;
 
 import org.mozilla.geckoview.AllowOrDeny;
+import org.mozilla.geckoview.Autofill;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
+import org.mozilla.geckoview.GeckoRuntimeSettings;
 import org.mozilla.geckoview.GeckoSession;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
@@ -58,18 +64,27 @@ public class WebSessionViewModel extends BaseObservable  {
     boolean isSecure;
     int i;
     HistoryViewModel historyViewModel;
-    public WebSessionViewModel(GeckoSession session, BaseActivity context, FragmentManager fragmentManager, HomeFragment homeFragment) {
+    Boolean isProtecting;
+    GeckoRuntimeSettings geckoRuntimeSettings;
+    public WebSessionViewModel(GeckoSession session, BaseActivity context) {
         this.session = session;
         mContext=context;
         webExtensionController = GeckoRuntime.getDefault(mContext).getWebExtensionController();
+        geckoRuntimeSettings=GeckoRuntime.getDefault(mContext).getSettings();
         WebExtension.SessionController sessionController= session.getWebExtensionController();
         historyViewModel = new ViewModelProvider(context).get(HistoryViewModel.class);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        IntentPopup intentPopup=new IntentPopup(context);
+
+
+
         session.setContentDelegate(new GeckoSession.ContentDelegate() {
 
 
                @Override
             public void onFirstContentfulPaint(@NonNull GeckoSession session) {
-            }
+
+               }
 
             @Override
             public void onExternalResponse(@NonNull GeckoSession session, @NonNull WebResponse response) {
@@ -89,9 +104,9 @@ public class WebSessionViewModel extends BaseObservable  {
                     builder.setNeutralButton("第三方下载", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                            intent.setData(Uri.parse(address));
+                            Intent intent = new Intent();
+                            intent.addCategory("android.intent.category.DEFAULT");
+                            intent.setDataAndType(Uri.parse(address),"*/*");
                             context.startActivity(intent);
                         }
                     });
@@ -135,8 +150,14 @@ public class WebSessionViewModel extends BaseObservable  {
         });*/
 
         session.setPromptDelegate(new GeckoSession.PromptDelegate() {
+            @Nullable
+            @Override
+            public GeckoResult<PromptResponse> onFilePrompt(@NonNull GeckoSession session, @NonNull FilePrompt prompt) {
+                GetFile getFile=new GetFile();
+                getFile.open(context);
+                return GeckoResult.fromValue(prompt.confirm(context,getFile.getUri()));
+            }
 
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Nullable
             @Override
             public GeckoResult<PromptResponse> onChoicePrompt(@NonNull GeckoSession session, @NonNull ChoicePrompt prompt) {
@@ -149,8 +170,9 @@ public class WebSessionViewModel extends BaseObservable  {
             @Nullable
             @Override
             public GeckoResult<PromptResponse> onAlertPrompt(@NonNull GeckoSession session, @NonNull AlertPrompt prompt) {
-
-                return null;
+                AlertDialog alertDialog=new AlertDialog(context,prompt);
+                alertDialog.showDialog();
+                return GeckoResult.fromValue(alertDialog.getDialogResult());
             }
         });
 
@@ -158,8 +180,6 @@ public class WebSessionViewModel extends BaseObservable  {
             @Nullable
             @Override
             public GeckoResult<Integer> onContentPermissionRequest(@NonNull GeckoSession session, @NonNull ContentPermission perm) {
-
-
                 return GeckoResult.fromValue(i);
             }
         });
@@ -169,6 +189,7 @@ public class WebSessionViewModel extends BaseObservable  {
             @Override
             public void onSecurityChange(@NonNull GeckoSession session, @NonNull SecurityInformation securityInfo) {
                 GeckoSession.ProgressDelegate.super.onSecurityChange(session, securityInfo);
+                isProtecting=session.getSettings().getUseTrackingProtection();
                 isSecure=securityInfo.isSecure;
                 notifyPropertyChanged(BR.secure);
 
@@ -193,14 +214,13 @@ public class WebSessionViewModel extends BaseObservable  {
             @Override
             public void onPageStart(@NonNull GeckoSession session, @NonNull String url) {
                 mUrl=url;
-                if(url.indexOf("about:blank")!=-1)
-                {
-                    fragmentManager.beginTransaction().show(homeFragment).commit();
-
-                }else fragmentManager.beginTransaction().hide(homeFragment).commit();
-                Log.d("YES",url);
 
 
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                if(prefs.getBoolean("settingProtecting",false)) session.getSettings().setUseTrackingProtection(true);
+                else session.getSettings().setUseTrackingProtection(false);
+                BaseActivity.binding.toolLayout.setTranslationY(0);
+                BaseActivity.binding.geckoview.setDynamicToolbarMaxHeight(BaseActivity.spToInt);
 
 
                 notifyPropertyChanged(BR.url);
@@ -224,6 +244,17 @@ public class WebSessionViewModel extends BaseObservable  {
             @Override
             public GeckoResult<AllowOrDeny> onLoadRequest(@NonNull GeckoSession session, @NonNull LoadRequest request) {
                 url1=request.uri;
+                Uri uri=Uri.parse(url1);
+                if (uri!=null){
+                if(uri.getScheme().indexOf("https")==-1&&uri.getScheme().indexOf("http")==-1&&uri.getScheme().indexOf("about")==-1)
+                {
+                    Log.d("scheme1",uri.getScheme());
+                    final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    if (intent.resolveActivity(context.getPackageManager())!=null)
+                        intentPopup.show(intent);
+
+                }}
+
 
                 return GeckoResult.allow();
             }
@@ -262,12 +293,40 @@ public class WebSessionViewModel extends BaseObservable  {
         });
 
 
+        session.setAutofillDelegate(new Autofill.Delegate() {
+            @Override
+            public void onNodeAdd(@NonNull GeckoSession session, @NonNull Autofill.Node node, @NonNull Autofill.NodeData data) {
+
+
+                Autofill.Delegate.super.onNodeAdd(session, node, data);
+            }
+        });
+
+
+
+
+        geckoRuntimeSettings.setInputAutoZoomEnabled(true);
+        geckoRuntimeSettings.setLoginAutofillEnabled(true);
+        geckoRuntimeSettings.setAboutConfigEnabled(true);
+
+        //强制手势缩放
+        if(prefs.getBoolean("setting_scalable",false)) geckoRuntimeSettings.setForceUserScalableEnabled(true);
+        else geckoRuntimeSettings.setForceUserScalableEnabled(false);
+        //自动调整字体大小
+        if(prefs.getBoolean("setting_FontSize",true)) geckoRuntimeSettings.setAutomaticFontSizeAdjustment(true);
+        else geckoRuntimeSettings.setAutomaticFontSizeAdjustment(true);
+
+
+
+
+
 
 
 
 
 
     }
+
 
 
 
@@ -279,12 +338,26 @@ public class WebSessionViewModel extends BaseObservable  {
         return isSecure;
     }
 
+    public Boolean getProtecting() {
+        return isProtecting;
+    }
+
     public String getIcon() {
         return mIcon=faviconUrl;
     }
 
     @Bindable
     public String getUrl(){
+        if(mUrl!=null){
+            if(mUrl.indexOf("about:blank")!=-1)
+            {
+                BaseActivity.binding.fragmentContainerLayout.setVisibility(View.VISIBLE);
+                BaseActivity.binding.geckoview.setVisibility(View.GONE);
+            }else {
+                BaseActivity.binding.fragmentContainerLayout.setVisibility(View.GONE);
+                BaseActivity.binding.geckoview.setVisibility(View.VISIBLE);
+            }
+        }
         return mUrl;
     }
 

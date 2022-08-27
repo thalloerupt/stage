@@ -23,4 +23,9 @@
         android:id="@+id/addonsManagerFragment"
         android:name="com.thallo.stage.extension.AddonsManagerFragment"
         android:label="AddonsManagerFragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.thallo.stage.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>

@@ -20,10 +20,8 @@ public class ImageLoaderUtils {
 
         URI uri=URI.create(url);
         String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
-            Glide.with(view.getContext()).load(faviconUrl).error(R.drawable.ic_internet)
+            Glide.with(view.getContext()).load(faviconUrl).placeholder(R.drawable.ic_internet)
                     .into(view);
-
-
     }
 
     @BindingAdapter(value = {"isSecure","pageUrl"} ,requireAll = false)
@@ -36,8 +34,13 @@ public class ImageLoaderUtils {
         {view.setVisibility(View.GONE);Log.d("YES",url);}
         if (isSecure) view.setImageResource(R.drawable.ic_lock);
         else view.setImageResource(R.drawable.ic_broken_lock);
+    }
 
-
+    @BindingAdapter(value = {"isProtecting"} ,requireAll = false)
+    public static void loadProtectingImage(ImageView view, boolean isSecure){
+        Log.d("isProtecting",isSecure+"");
+        if (isSecure) view.setImageResource(R.drawable.ic_shield);
+        else view.setImageResource(R.drawable.ic_broken_shield);
 
     }
 

@@ -51,13 +51,13 @@ public class HomeFragment extends Fragment {
 
         binding=FragmentHomeBinding.inflate(LayoutInflater.from(getContext()),container,false);
         Calendar calendar =Calendar.getInstance();
-        if(3<=calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=8){binding.tips.setText("早安");}
+        if(5<=calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=8){binding.tips.setText("早安");}
         if(8<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=11){binding.tips.setText("上午好");}
         if(11<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=13){binding.tips.setText("午安");}
         if(13<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=19){binding.tips.setText("下午好");}
         if(19<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<=22){binding.tips.setText("晚安");}
-        if(22<calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<3){binding.tips.setText("深夜,Good dream");}
-
+        if(22<calendar.get(Calendar.HOUR_OF_DAY)){binding.tips.setText("深夜,Good dream");}
+        if(0<=calendar.get(Calendar.HOUR_OF_DAY) && calendar.get(Calendar.HOUR_OF_DAY)<5){binding.tips.setText("深夜,Good dream");}
 
 
         binding.HomeQr.setOnClickListener(new View.OnClickListener() {

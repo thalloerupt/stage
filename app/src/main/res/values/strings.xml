@@ -30,9 +30,9 @@
     <string name="pop_desktop">桌面模式</string>
     <string name="pop_video">视频</string>
     <string name="dialog_permission">权限:</string>
-    <string name="baidu">baidu</string>
+    <string name="baidu">https://www.baidu.com/s?wd=</string>
     <string name="advanced">高级</string>
-    <string name="setting_about">关于 Stage</string>
+    <string name="setting_about">关于</string>
     <string name="dia_allow">允许</string>
     <string name="dia_deny">取消</string>
     <string name="per_tabs">tabs</string>
@@ -85,4 +85,31 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="pop_forward">前进</string>
+    <string name="about_name">Stage Browser</string>
+    <string name="about_thanks">Powered on GeckoView</string>
+    <string name="about_telegrams">加入telegrams群组</string>
+    <string name="setting_protecting">开启增强型跟踪保护</string>
+    <string name="google">https://www.google.com/search?q=</string>
+    <string name="bing">https://www.bing.com/search?q=</string>
+    <string name="sogou">https://www.sogou.com/web?query=</string>
+    <string name="information_secure">连接安全</string>
+    <string name="information_not_secure">连接不安全</string>
+    <string name="information_protection">已开启此网站的跟踪保护</string>
+    <string name="information_not_protection">已关闭此网站的跟踪保护</string>
+    <string name="intent_message">网页希望打开本地应用</string>
+    <string name="dia_bookmark_radio">添加到首页</string>
+    <string name="dia_bookmark_url">地址：</string>
+    <string name="dia_bookmark_title">名称：</string>
+    <string name="dia_add_bookmark_title">添加书签</string>
+    <string name="confirm">确定</string>
+    <string name="cancle">取消</string>
+    <string name="addons_menu_add">从addons.mozilla.org获取附加组件</string>
+    <string name="addons_creator">作者:</string>
+    <string name="addons_version">版本:</string>
+    <string name="addons_description">简介:</string>
+    <string name="safe">安全</string>
+    <string name="setting_forceuserscalable">强制缩放手势</string>
+    <string name="setting_FontSize">自动调整字体大小</string>
+    <string name="setting_stage_about">关于 Stage</string>
+    <string name="setting_feedback"><![CDATA[反馈&交流]]></string>
 </resources>

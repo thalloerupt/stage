@@ -67,7 +67,8 @@ public class MyBaseAdapter extends BaseAdapter {
         binding.IconLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                bookmarkViewModel.deleteWords(bookmark);
+                bookmark.setShow(false);
+                bookmarkViewModel.updateWords(bookmark);
                 return false;
             }
         });

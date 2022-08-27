@@ -37,7 +37,6 @@ public class JsChoiceDialog extends AlertDialog {
         setMessage(choicePrompt.message);
         setView(binding.getRoot());
         List<String> collect= Arrays.stream(choicePrompt.choices).map(choice -> choice.label).collect(Collectors.toList());
-        setTitle(choicePrompt.title);
         for (int i=0;i<collect.size();i++)
         {
             RadioButton radioButton=new RadioButton(context);

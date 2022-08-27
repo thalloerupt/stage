@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
@@ -56,7 +58,9 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.Downlo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                open(holder.itemView.getContext(),file);
+                if (file.exists())
+                    open(holder.itemView.getContext(),file);
+                else Toast.makeText(holder.itemView.getContext(), "文件不存在", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -90,18 +94,10 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.Downlo
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri apkUri = FileProvider.getUriForFile(context, "com.thallo.stage.fileprovider", file);
         //判读版本是否在7.0以上
-        if (Build.VERSION.SDK_INT >= 24) {
-            //7.0以上的版本
-            //添加这一句表示对目标应用临时授权该Uri所代表的文件
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(apkUri, resolver.getType(apkUri));
-        } else {
-            //7.0以下的版本
-            intent.setDataAndType(Uri.fromFile(file),resolver.getType(apkUri));
-        }
+        //添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(apkUri, resolver.getType(apkUri));
         context.startActivity(intent);
-
-
     }
 
 

@@ -85,8 +85,10 @@
         <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_font.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_lock.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/.gradle/caches/transforms-3/d603d158d24619d6050cbaa09491730d/transformed/jetified-ui-icons-104.0.0/res/drawable/mozac_ic_login.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_edittext.xml" value="0.116" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_qr.xml" value="0.1155" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_round.xml" value="0.132" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_search_icon.xml" value="0.116" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_setting_anddons.xml" value="0.113" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_setting_menu.xml" value="0.138" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/bg_shortcuts.xml" value="0.124" />
@@ -97,11 +99,15 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic__delete.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_add.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_addons.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_arrow_up_right_circle.xml" value="0.116" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_brand_telegram.xml" value="0.116" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_broken_lock.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_broken_shield.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_bulb.xml" value="0.1155" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_bulb_off.xml" value="0.1155" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_circle.xml" value="0.115" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_circle2.xml" value="0.1225" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_circle_check.xml" value="0.116" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_clear.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_clear_24.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_copy.xml" value="0.1" />
@@ -127,6 +133,7 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_qr.xml" value="0.138" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_reload.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_right.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_round_star.xml" value="0.116" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_safe.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_scan.xml" value="0.124" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_scan_view.xml" value="0.1155" />
@@ -140,7 +147,7 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/progress.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/aa.xml" value="0.20878623188405798" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_fragment_holder.xml" value="0.3378607809847199" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_main.xml" value="0.36180499597099114" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_popupwindow_top.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addonsIcons.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_icons.xml" value="0.536" />
@@ -149,14 +156,17 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_manager_item.xml" value="0.4" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_window.xml" value="0.16" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/content_fragment_holder.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_bookmark.xml" value="0.3189252336448598" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_choice.xml" value="0.2" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_install.xml" value="0.21894005212858383" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_permission.xml" value="0.6" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/download_item.xml" value="0.536" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_addons_manager.xml" value="0.16" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_bookmark.xml" value="0.1700854700854701" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_about.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_addons_manager.xml" value="0.4" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_bookmark.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_download.xml" value="0.14871794871794872" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_geckoview.xml" value="0.2" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_history.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_home.xml" value="0.4" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_main.xml" value="0.15489130434782608" />
@@ -164,21 +174,26 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/history_item.xml" value="0.264" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/home_icon.xml" value="0.264" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/install_dialog.xml" value="0.2" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/intent_popuo.xml" value="0.11581196581196582" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/list_view.xml" value="0.537828947368421" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup.xml" value="0.21979166666666666" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup_information.xml" value="0.2" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup_information_addons.xml" value="0.4" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup_intent.xml" value="0.4" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup_layout.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup_qr.xml" value="0.1703125" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/popup_window.xml" value="0.2" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/qr_layout.xml" value="0.16" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting.xml" value="0.2" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting_menu.xml" value="0.264" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting_menu.xml" value="0.536" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/switch_item.xml" value="0.19270833333333334" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab.xml" value="0.264" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab_layout.xml" value="0.536" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab_master.xml" value="0.2128623188405797" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/test.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tool_layout.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/menu/addons_manager.xml" value="0.264" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/menu/addons_menu.xml" value="0.16" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/menu/menu.xml" value="0.1953125" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/menu/menu2.xml" value="0.1578125" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
@@ -199,7 +214,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.6" />
+        <option name="scale" value="0.4" />
       </ProjectState>
     </option>
   </component>

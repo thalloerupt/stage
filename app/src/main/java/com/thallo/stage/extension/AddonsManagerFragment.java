@@ -1,5 +1,6 @@
 package com.thallo.stage.extension;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.thallo.stage.BaseActivity;
+import com.thallo.stage.FragmentHolder;
 import com.thallo.stage.R;
 import com.thallo.stage.databinding.FragmentAddonsManagerBinding;
 
@@ -47,12 +49,25 @@ public class AddonsManagerFragment extends Fragment {
             public void accept(@Nullable List<WebExtension> webExtensions) {
                 addonsAdapter.setWebExtensions(webExtensions);
                 addonsAdapter.setWebExtensionController(webExtensionController);
-
                 binding.AddonsRecyler.setAdapter(addonsAdapter);
-
+                if (webExtensions.size()==0) binding.addonsLottie.setVisibility(View.VISIBLE);
+                else binding.addonsLottie.setVisibility(View.GONE);
 
             }
         });
+        binding.addonsLottie.loop(true);
+        binding.addonsLottie.playAnimation();
+
+        binding.constraintLayout4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BaseActivity.url="https://addons.mozilla.org/zh-CN/firefox/";
+                Intent intent = new Intent(getContext(), BaseActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
+
         // Inflate the layout for this fragment
         return binding.getRoot();
     }

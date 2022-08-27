@@ -8,42 +8,66 @@
 
 
         <ListPreference
-            android:entryValues="@array/reply_entries"
+            android:entryValues="@array/searchEngine_entries"
             app:defaultValue="@string/baidu"
-            app:entries="@array/reply_values"
+            app:entries="@array/searchEngine_values"
             app:iconSpaceReserved="false"
             app:key="searchEngine"
             app:title="@string/engine"
             app:useSimpleSummaryProvider="true" />
         <Preference
             app:iconSpaceReserved="false"
-            app:title="@string/pop_addons" />
+            app:key="settingAddons"
+            app:title="@string/pop_addons" >
+        </Preference>
 
 
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/advanced"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="setting_FontSize"
+            android:title="@string/setting_FontSize"
+            app:iconSpaceReserved="false" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="setting_scalable"
+            android:title="@string/setting_forceuserscalable"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false"
         app:iconSpaceReserved="false"
-        app:title="@string/advanced">
+        app:title="@string/safe">
 
 
-        <SwitchPreferenceCompat
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="settingProtecting"
+            android:title="@string/setting_protecting"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/setting_about"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false">
+        <Preference
             app:iconSpaceReserved="false"
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:iconSpaceReserved="false"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+            app:key="setting_feedback"
+            app:title="@string/setting_feedback" />
 
         <Preference
             app:iconSpaceReserved="false"
-            app:title="@string/setting_about" />
-
+            app:key="settingAbout"
+            app:title="@string/setting_stage_about" />
     </PreferenceCategory>
 
 </PreferenceScreen>

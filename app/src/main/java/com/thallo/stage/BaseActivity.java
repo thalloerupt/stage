@@ -1,23 +1,35 @@
 package com.thallo.stage;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.preference.PreferenceManager;
 
 
+import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
@@ -28,6 +40,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.thallo.stage.components.Qr;
+import com.thallo.stage.components.filePicker.FilePicker;
+import com.thallo.stage.components.filePicker.PickUtils;
+import com.thallo.stage.components.popup.InformationPopup;
 import com.thallo.stage.components.popup.PopUp;
 import com.thallo.stage.components.popup.SettingPopUp;
 import com.thallo.stage.databinding.ActivityMainBinding;
@@ -48,12 +63,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import mozilla.components.feature.qr.QrFragment;
 
 public class BaseActivity extends AppCompatActivity  {
     public static String url;
-    private ActivityMainBinding binding;
-    private List<PageTab> tabList;
+    public static ActivityMainBinding binding;
+    public static List<PageTab> tabList;
     private int currentIndex;
     private static GeckoRuntime sRuntime;
     public static WebExtensionController webExtensionController;
@@ -62,12 +76,11 @@ public class BaseActivity extends AppCompatActivity  {
     Boolean is;
     BottomSheetDialog dialog;
     BottomSheetBehavior behavior;
-    HomeFragment homeFragment;
     private SharedPreferences mSp;
     private SharedPreferences.Editor mEditor;
     View dialogView;
     LinearLayout linearLayout2;
-    public int spToInt;
+    public static int spToInt;
     Bitmap extensionIcon;
     Bitmap pngBM;
     androidx.appcompat.app.AlertDialog alertDialog;
@@ -81,8 +94,10 @@ public class BaseActivity extends AppCompatActivity  {
     GeckoResult n;
     WebSessionViewModel webSessionViewModel;
     private List<PageTab> mTabList;
-    QrFragment qrFragment=new QrFragment();
     Qr qr;
+    public static Uri uri;
+    public static FilePicker filePicker;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -91,29 +106,29 @@ public class BaseActivity extends AppCompatActivity  {
         binding=ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
         View view=new View(this);
-        ImmersionBar.with(this)
-                .fitsSystemWindows(true)
-                .statusBarColor(R.color.background)
-                .autoStatusBarDarkModeEnable(true,0.2f)
-                .init();
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.background));
+        window.setNavigationBarColor(getColor(R.color.background));
+        setStatusBarColor();
         spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,64,getResources().getDisplayMetrics());
         tabList = new LinkedList<>();
-        homeFragment= new HomeFragment();
+
         mSp = getPreferences(MODE_PRIVATE);
         mEditor = mSp.edit();
         popUp=new PopUp();
         settingPopUp= new SettingPopUp();
         controller= new Controller();
         tabDetails= new TabDetails();
-        tabDetails.setThings(binding,tabList,spToInt,getSupportFragmentManager(),homeFragment);
+        tabDetails.setThings(binding,tabList,spToInt);
         tabDetails.setCurrentIndex(currentIndex);
         ConstraintLayout constraintLayout = findViewById(R.id.toolLayout);
         behavior = BottomSheetBehavior.from(constraintLayout);
         qr=new Qr();
+        filePicker=new FilePicker(this);
 
 
 
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -128,7 +143,6 @@ public class BaseActivity extends AppCompatActivity  {
                 }
                 //这里是bottomSheet 状态的改变
             }
-
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                 //这里是拖拽中的回调，根据slideOffset可以做一些动画
@@ -136,9 +150,32 @@ public class BaseActivity extends AppCompatActivity  {
 
         });
 
-        getSupportFragmentManager().beginTransaction().replace(binding.MainView.getId(), homeFragment,"home").commit();
+
+        switch (prefs.getString("searchEngine","https://www.baidu.com/s?wd="))
+        {
+            case "https://www.baidu.com/s?wd=":
+                binding.searchIcon.setImageResource(R.drawable.ic_baidu);
+                break;
+            case "https://www.google.com/search?q=":
+                binding.searchIcon.setImageResource(R.drawable.ic_google);
+                break;
+            case "https://www.bing.com/search?q=":
+                binding.searchIcon.setImageResource(R.drawable.ic_bing);
+                break;
+            case "https://www.sogou.com/web?query=":
+                binding.searchIcon.setImageResource(R.drawable.ic_sogou);
+                break;
+        }
 
         binding.addressText2.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+
+        binding.clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.addressText2.setText("");
+            }
+        });
+
         binding.addressText2.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
@@ -150,13 +187,17 @@ public class BaseActivity extends AppCompatActivity  {
                         binding.getSessionModel().getSession().loadUri(binding.addressText2.getText().toString());
 
                     }
-                    else try {binding.getSessionModel().getSession().loadUri("https://www.baidu.com/s?wd="+binding.addressText2.getText().toString());
-                    }catch (Exception e){newTab("https://www.baidu.com/s?wd="+binding.addressText2.getText().toString(),tabList.size());}
-                    getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
+                    else try {binding.getSessionModel().getSession().loadUri(prefs.getString("searchEngine","https://www.baidu.com/s?wd=")+binding.addressText2.getText().toString());
+                    }catch (Exception e){newTab(prefs.getString("searchEngine","https://www.baidu.com/s?wd=")+binding.addressText2.getText().toString(),tabList.size());}
                     binding.editView.setVisibility(View.GONE);
                     binding.urlView.setVisibility(View.VISIBLE);
-                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() { //弹出软键盘的代码
+                            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        }
+                    }, 100);
                     InputMethodManager imm = (InputMethodManager)
                             getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -184,6 +225,29 @@ public class BaseActivity extends AppCompatActivity  {
                     }
                 }, 200);
                 binding.urlView.setVisibility(View.GONE);
+                switch (prefs.getString("searchEngine","https://www.baidu.com/s?wd="))
+                {
+                    case "https://www.baidu.com/s?wd=":
+                        binding.searchIcon.setImageResource(R.drawable.ic_baidu);
+                        break;
+                    case "https://www.google.com/search?q=":
+                        binding.searchIcon.setImageResource(R.drawable.ic_google);
+                        break;
+                    case "https://www.bing.com/search?q=":
+                        binding.searchIcon.setImageResource(R.drawable.ic_bing);
+                        break;
+                    case "https://www.sogou.com/web?query=":
+                        binding.searchIcon.setImageResource(R.drawable.ic_sogou);
+                        break;
+                }
+            }
+        });
+
+        binding.information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InformationPopup informationPopup=new InformationPopup(BaseActivity.this,binding.getSessionModel().getSession(),binding.getSessionModel());
+                informationPopup.show();
             }
         });
 
@@ -216,7 +280,8 @@ public class BaseActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 binding.getSessionModel().getSession().loadUri("about:blank");
-                getSupportFragmentManager().beginTransaction().show(homeFragment).commit();
+
+
 
 
             }
@@ -224,32 +289,37 @@ public class BaseActivity extends AppCompatActivity  {
         binding.menu2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                settingPopUp.setting(BaseActivity.this,webExtensionController,tabList,behavior,binding,spToInt,homeFragment,getSupportFragmentManager(),currentIndex);
+                settingPopUp.setting(BaseActivity.this,webExtensionController,tabList,behavior,binding,spToInt,currentIndex);
 
             }
         });
 
-        //newTab("https://www.csdn.net/",0);
+        binding.copyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyToClipboard(BaseActivity.this,binding.textView15.getText().toString());
+            }
+        });
 
-        newTab("about:blank",tabList.size());
+
+       Intent intent=getIntent();
+       if (intent.getDataString()!=null)
+       {
+           newTab(intent.getDataString(),tabList.size());
+       }else {
+           newTab("about:blank",tabList.size());
+
+       }
+
+
+
         webExtensionController = GeckoRuntime.getDefault(BaseActivity.this).getWebExtensionController();
         controller.setWebExtensionController(webExtensionController);
-        controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,behavior,homeFragment,getSupportFragmentManager(),currentIndex);
+        controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,behavior,currentIndex);
         controller.Details();
         controller.promptDelegate(BaseActivity.this);
         binding.geckoview.setDynamicToolbarMaxHeight(spToInt);
-
-
-
-
-
-
-
-
-
-
-
-
+        binding.geckoview.setAutofillEnabled(true);
 
 
 
@@ -259,7 +329,14 @@ public class BaseActivity extends AppCompatActivity  {
 
 
     }
-
+    public static void copyToClipboard(Context context, String content) {
+        // 从 API11 开始 android 推荐使用 android.content.ClipboardManager
+        // 为了兼容低版本我们这里使用旧版的 android.text.ClipboardManager，虽然提示 deprecated，但不影响使用。
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 将文本内容放到系统剪贴板里。
+        cm.setText(content);
+        Toast.makeText(context, "已复制到剪切板", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onBackPressed() {
@@ -294,6 +371,43 @@ public class BaseActivity extends AppCompatActivity  {
     }
 
 
+    private void setStatusBarColor() {
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        //  | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        window.setStatusBarColor(Color.TRANSPARENT);
+        int uiOption = window.getDecorView().getSystemUiVisibility();
+        if (isDarkMode()) {
+            //没有DARK_STATUS_BAR属性，通过位运算将LIGHT_STATUS_BAR属性去除
+            window.getDecorView().setSystemUiVisibility(uiOption & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else {
+            //这里是要注意的地方，如果需要补充新的FLAG，记得要带上之前的然后进行或运算
+            window.getDecorView().setSystemUiVisibility(uiOption | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+    public boolean isDarkMode() {
+        int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return mode == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+
+
+    public void changStatusIconCollor(boolean setDark) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            View decorView = getWindow().getDecorView();
+            if(decorView != null){
+                int vis = decorView.getSystemUiVisibility();
+                if(setDark){
+                    vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                } else{
+                    vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                }
+                decorView.setSystemUiVisibility(vis);
+            }
+        }
+    }
+
 
     @Override
     protected void onStart() {
@@ -315,6 +429,18 @@ public class BaseActivity extends AppCompatActivity  {
     protected void onStop() {
         super.onStop();
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            filePicker.setUri(Uri.parse("file://"+ PickUtils.getPath(this, data.getData())));
+            return;
+        }
+
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -331,6 +457,15 @@ public class BaseActivity extends AppCompatActivity  {
     public WebSessionViewModel getWebSessionViewModel() {
 
         return binding.getSessionModel();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String IntentUrl=intent.getDataString();
+        if (IntentUrl!=null)
+            newTab(intent.getDataString(),tabList.size());
+
     }
 }
 

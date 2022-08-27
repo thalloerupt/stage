@@ -55,9 +55,7 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<com.thallo.stage.boo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(holder.itemView.getContext(), BaseActivity.class);
                 BaseActivity.url=bookmark.getUrl();
-                holder.itemView.getContext().startActivity(intent);
                 ((FragmentActivity) view.getContext()).finish();
             }
         });

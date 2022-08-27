@@ -67,7 +67,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="000000" />
+                                                <entry key="color" value="3c3f41" />
                                                 <entry key="imagePath" value="C:\Users\luoyf\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
@@ -114,8 +114,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="outputName" value="ic_launcher_2" />
+                                      <entry key="backgroundColor" value="fffbfe" />
+                                      <entry key="outputName" value="ic_launcher_3" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -321,8 +321,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="autoMirrored" value="true" />
-                            <entry key="outputName" value="ic_trash" />
-                            <entry key="sourceFile" value="C:\Users\luoyf\Downloads\trash.svg" />
+                            <entry key="outputName" value="ic_copy" />
+                            <entry key="sourceFile" value="C:\Users\luoyf\Downloads\copy.svg" />
                           </map>
                         </option>
                       </PersistentState>
