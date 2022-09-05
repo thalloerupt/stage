@@ -242,10 +242,16 @@ public class WebSessionViewModel extends BaseObservable  {
         session.setNavigationDelegate(new GeckoSession.NavigationDelegate() {
             @Nullable
             @Override
+            public GeckoResult<AllowOrDeny> onSubframeLoadRequest(@NonNull GeckoSession session, @NonNull LoadRequest request) {
+                return GeckoResult.allow();
+            }
+
+            @Nullable
+            @Override
             public GeckoResult<AllowOrDeny> onLoadRequest(@NonNull GeckoSession session, @NonNull LoadRequest request) {
                 url1=request.uri;
                 Uri uri=Uri.parse(url1);
-                if (uri!=null){
+                if (uri.getScheme()!=null){
                 if(uri.getScheme().indexOf("https")==-1&&uri.getScheme().indexOf("http")==-1&&uri.getScheme().indexOf("about")==-1)
                 {
                     Log.d("scheme1",uri.getScheme());

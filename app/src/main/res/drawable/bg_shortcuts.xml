@@ -4,7 +4,8 @@
         android:color="@color/background2"
         />
     <corners
-        android:radius="64dp"
+        android:radius="32dp"
         />
+
 
 </shape>

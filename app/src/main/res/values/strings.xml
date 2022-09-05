@@ -86,8 +86,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="pop_forward">前进</string>
     <string name="about_name">Stage Browser</string>
-    <string name="about_thanks">Powered on GeckoView</string>
-    <string name="about_telegrams">加入telegrams群组</string>
+    <string name="about_thanks">GeckoView Nightly 103</string>
+    <string name="about_telegrams">加入telegrams频道</string>
     <string name="setting_protecting">开启增强型跟踪保护</string>
     <string name="google">https://www.google.com/search?q=</string>
     <string name="bing">https://www.bing.com/search?q=</string>
@@ -112,4 +112,13 @@
     <string name="setting_FontSize">自动调整字体大小</string>
     <string name="setting_stage_about">关于 Stage</string>
     <string name="setting_feedback"><![CDATA[反馈&交流]]></string>
+    <string name="user_agreement">用户协议</string>
+    <string name="user_privacy">用户隐私协议</string>
+    <string name="agree">同意并继续</string>
+    <string name="disagree">不同意</string>
+    <string name="welcom">欢迎使用Stage</string>
+    <string name="welcomStory">欢迎您使用Stage浏览器，在使用前请务必仔细阅读“用户协议”与“用户隐私协议”。如果您同意，请点击同意并继续以开始接受我们的服务。</string>
+    <string name="version">0.1-alpha.5(The College Dropout)</string>
+    <string name="openSource">开源相关</string>
+    <string name="os">开源相关</string>
 </resources>

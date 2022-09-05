@@ -28,4 +28,9 @@
         android:name="com.thallo.stage.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/OSFragment"
+        android:name="com.thallo.stage.OSFragment"
+        android:label="fragment_o_s"
+        tools:layout="@layout/fragment_o_s" />
 </navigation>

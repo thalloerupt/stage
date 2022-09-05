@@ -40,6 +40,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.thallo.stage.components.Qr;
+import com.thallo.stage.components.dialog.AgreementDialog;
+import com.thallo.stage.components.dialog.SearchSelectDialog;
 import com.thallo.stage.components.filePicker.FilePicker;
 import com.thallo.stage.components.filePicker.PickUtils;
 import com.thallo.stage.components.popup.InformationPopup;
@@ -125,6 +127,11 @@ public class BaseActivity extends AppCompatActivity  {
         behavior = BottomSheetBehavior.from(constraintLayout);
         qr=new Qr();
         filePicker=new FilePicker(this);
+        if(!mSp.getBoolean("first",false))
+        {
+            AgreementDialog agreementDialog=new AgreementDialog(this,mEditor);
+            agreementDialog.show();
+        }
 
 
 
@@ -166,6 +173,15 @@ public class BaseActivity extends AppCompatActivity  {
                 binding.searchIcon.setImageResource(R.drawable.ic_sogou);
                 break;
         }
+
+        binding.searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SearchSelectDialog dialog=new SearchSelectDialog(BaseActivity.this);
+                dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.bg_shortcuts));
+                dialog.show();
+            }
+        });
 
         binding.addressText2.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 
@@ -240,7 +256,10 @@ public class BaseActivity extends AppCompatActivity  {
                         binding.searchIcon.setImageResource(R.drawable.ic_sogou);
                         break;
                 }
+                binding.toolLayout.setTranslationY(0);
+
             }
+
         });
 
         binding.information.setOnClickListener(new View.OnClickListener() {
@@ -263,6 +282,7 @@ public class BaseActivity extends AppCompatActivity  {
             public void onClick(View view) {
 
                 behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                binding.toolLayout.setTranslationY(0);
 
 
             }
@@ -300,7 +320,13 @@ public class BaseActivity extends AppCompatActivity  {
                 copyToClipboard(BaseActivity.this,binding.textView15.getText().toString());
             }
         });
-
+        binding.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.addressText2.setText(binding.textView15.getText().toString());
+                binding.addressText2.setSelection(binding.textView15.getText().toString().length());
+            }
+        });
 
        Intent intent=getIntent();
        if (intent.getDataString()!=null)

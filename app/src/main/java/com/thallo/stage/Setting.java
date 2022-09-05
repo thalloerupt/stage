@@ -24,6 +24,7 @@ public class Setting extends AppCompatActivity {
         ImmersionBar.with(this)
                 .fitsSystemWindows(true)
                 .statusBarColor(R.color.background)
+                .navigationBarColor(R.color.background)
                 .autoStatusBarDarkModeEnable(true,0.2f)
                 .init();
         getSupportFragmentManager().beginTransaction().replace(binding.settingCon.getId(), new SettingsFragment()).commit();

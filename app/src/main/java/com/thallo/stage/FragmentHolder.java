@@ -44,6 +44,7 @@ public class FragmentHolder extends AppCompatActivity {
         ImmersionBar.with(this)
                 .fitsSystemWindows(true)
                 .statusBarColor(R.color.background)
+                .navigationBarColor(R.color.background)
                 .autoStatusBarDarkModeEnable(true,0.2f)
                 .init();
         binding = ActivityFragmentHolderBinding.inflate(getLayoutInflater());
@@ -72,7 +73,11 @@ public class FragmentHolder extends AppCompatActivity {
                 break;
             case "ABOUT":
                 navController.navigate(R.id.aboutFragment, null);
-                binding.toolbar.setTitle(R.string.setting_about);
+                binding.toolbar.setTitle("");
+                break;
+            case "OS":
+                navController.navigate(R.id.OSFragment, null);
+                binding.toolbar.setTitle(R.string.os);
                 break;
         }
 

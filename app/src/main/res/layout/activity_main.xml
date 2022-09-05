@@ -276,13 +276,27 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:layout_marginEnd="8dp"
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="@{SessionModel.url}"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                            app:layout_constraintEnd_toStartOf="@+id/copyButton"
+                            app:layout_constraintEnd_toStartOf="@+id/editButton"
                             app:layout_constraintStart_toEndOf="@+id/imageView5"
                             app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+                        <Button
+                            android:id="@+id/editButton"
+                            style="@style/Widget.Material3.Button.IconButton"
+                            android:layout_width="@dimen/icon2"
+                            android:layout_height="@dimen/icon2"
+                            android:layout_marginEnd="8dp"
+                            app:icon="@drawable/ic_edit"
+                            app:iconGravity="textStart"
+                            app:layout_constraintBottom_toBottomOf="@+id/copyButton"
+                            app:layout_constraintEnd_toStartOf="@+id/copyButton"
+                            app:layout_constraintTop_toTopOf="@+id/copyButton"
+                            app:layout_constraintVertical_bias="0.0" />
 
                         <Button
                             android:id="@+id/copyButton"
