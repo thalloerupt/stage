@@ -9,4 +9,10 @@ class DataHolder: Application() {
         ids.plus(id)
         Toast.makeText(this,"ok",Toast.LENGTH_SHORT).show()
     }
+
+    override fun onCreate() {
+        super.onCreate()
+
+
+    }
 }

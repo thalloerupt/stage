@@ -78,7 +78,6 @@
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/version"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView3"
                 app:layout_constraintEnd_toEndOf="parent"

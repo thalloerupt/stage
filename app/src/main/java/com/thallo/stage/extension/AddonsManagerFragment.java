@@ -18,6 +18,7 @@ import com.thallo.stage.R;
 import com.thallo.stage.databinding.FragmentAddonsManagerBinding;
 
 import org.mozilla.geckoview.GeckoResult;
+import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 
@@ -31,7 +32,7 @@ public class AddonsManagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        webExtensionController=BaseActivity.webExtensionController;
+        webExtensionController= GeckoRuntime.getDefault(getContext()).getWebExtensionController();
 
 
 
@@ -47,8 +48,7 @@ public class AddonsManagerFragment extends Fragment {
         webExtensionController.list().accept(new GeckoResult.Consumer<List<WebExtension>>() {
             @Override
             public void accept(@Nullable List<WebExtension> webExtensions) {
-                addonsAdapter.setWebExtensions(webExtensions);
-                addonsAdapter.setWebExtensionController(webExtensionController);
+                addonsAdapter.AddonsAdapters(webExtensions,webExtensionController,getActivity());
                 binding.AddonsRecyler.setAdapter(addonsAdapter);
                 if (webExtensions.size()==0) binding.addonsLottie.setVisibility(View.VISIBLE);
                 else binding.addonsLottie.setVisibility(View.GONE);
@@ -57,6 +57,13 @@ public class AddonsManagerFragment extends Fragment {
         });
         binding.addonsLottie.loop(true);
         binding.addonsLottie.playAnimation();
+        binding.toolbar.setTitle(R.string.pop_addons);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
 
         binding.constraintLayout4.setOnClickListener(new View.OnClickListener() {
             @Override

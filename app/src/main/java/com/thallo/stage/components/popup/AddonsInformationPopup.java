@@ -1,11 +1,16 @@
 package com.thallo.stage.components.popup;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.thallo.stage.BaseActivity;
 import com.thallo.stage.R;
 import com.thallo.stage.databinding.PopupInformationAddonsBinding;
 import com.thallo.stage.databinding.PopupInformationBinding;
@@ -25,7 +30,7 @@ public class AddonsInformationPopup {
     PopupInformationAddonsBinding binding;
     int position;
     List<WebExtension> webExtensions;
-    public AddonsInformationPopup(Context context, WebExtension webExtension, WebExtensionController webExtensionController, AddonsAdapter addonsAdapter, int position, List<WebExtension> webExtensions){
+    public AddonsInformationPopup(Activity context, WebExtension webExtension, WebExtensionController webExtensionController, AddonsAdapter addonsAdapter, int position, List<WebExtension> webExtensions){
         this.context=context;
         this.webExtension=webExtension;
         this.webExtensionController=webExtensionController;
@@ -51,6 +56,17 @@ public class AddonsInformationPopup {
                 webExtensions.remove(position);
                 addonsAdapter.notifyItemRemoved(position);
                 addonsAdapter.notifyItemRangeChanged(position, webExtensions.size());
+            }
+        });
+        if (webExtension.metaData.optionsPageUrl == null)
+            binding.popupInformationAddonsSetting.setVisibility(View.GONE);
+
+        binding.popupInformationAddonsSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BaseActivity.url=webExtension.metaData.optionsPageUrl;
+                context.startActivity(new Intent(context,BaseActivity.class));
+                context.finish();
             }
         });
     }

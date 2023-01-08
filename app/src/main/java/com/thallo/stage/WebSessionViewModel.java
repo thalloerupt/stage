@@ -1,13 +1,21 @@
 package com.thallo.stage;
 
+import android.app.PendingIntent;
+import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,9 +26,11 @@ import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
-
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.liulishuo.okdownload.OkDownload;
 import com.thallo.stage.components.dialog.AlertDialog;
+import com.thallo.stage.components.dialog.ContextMenuDialog;
 import com.thallo.stage.components.filePicker.GetFile;
 import com.thallo.stage.components.popup.IntentPopup;
 import com.thallo.stage.download.DownloadUtils;
@@ -31,13 +41,17 @@ import com.thallo.stage.interfaces.confirm;
 
 import org.mozilla.geckoview.AllowOrDeny;
 import org.mozilla.geckoview.Autofill;
+import org.mozilla.geckoview.GeckoDisplay;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoRuntimeSettings;
 import org.mozilla.geckoview.GeckoSession;
+import org.mozilla.geckoview.MediaSession;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 import org.mozilla.geckoview.WebResponse;
+
+import java.util.List;
 
 
 public class WebSessionViewModel extends BaseObservable  {
@@ -66,6 +80,8 @@ public class WebSessionViewModel extends BaseObservable  {
     HistoryViewModel historyViewModel;
     Boolean isProtecting;
     GeckoRuntimeSettings geckoRuntimeSettings;
+    StatusBar statusBar;
+    SharedPreferences prefs;
     public WebSessionViewModel(GeckoSession session, BaseActivity context) {
         this.session = session;
         mContext=context;
@@ -73,18 +89,35 @@ public class WebSessionViewModel extends BaseObservable  {
         geckoRuntimeSettings=GeckoRuntime.getDefault(mContext).getSettings();
         WebExtension.SessionController sessionController= session.getWebExtensionController();
         historyViewModel = new ViewModelProvider(context).get(HistoryViewModel.class);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         IntentPopup intentPopup=new IntentPopup(context);
+        statusBar=new StatusBar(context);
+
 
 
 
         session.setContentDelegate(new GeckoSession.ContentDelegate() {
+            @Override
+            public void onShowDynamicToolbar(@NonNull GeckoSession geckoSession) {
+                GeckoSession.ContentDelegate.super.onShowDynamicToolbar(geckoSession);
+                Toast.makeText(context, "aa", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onContextMenu(@NonNull GeckoSession session, int screenX, int screenY, @NonNull ContextElement element) {
+                GeckoSession.ContentDelegate.super.onContextMenu(session, screenX, screenY, element);
+                ContextMenuDialog contextMenuDialog=new ContextMenuDialog(context,element);
+                if(element.type==element.TYPE_IMAGE|element.type==element.TYPE_VIDEO) {
+                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    if (vibrator.hasVibrator()) {
+                        long[] pattern = { 10L, 60L }; // An array of longs of times for which to turn the vibrator on or off.
+                        vibrator.vibrate(pattern, -1); // The index into pattern at which to repeat, or -1 if you don't want to repeat.
+                    }
 
-               @Override
-            public void onFirstContentfulPaint(@NonNull GeckoSession session) {
+                    contextMenuDialog.open();
+                }
 
-               }
+            }
 
             @Override
             public void onExternalResponse(@NonNull GeckoSession session, @NonNull WebResponse response) {
@@ -101,23 +134,25 @@ public class WebSessionViewModel extends BaseObservable  {
                 }else {
                     builder.setTitle("确定下载？");
                     builder.setMessage(address);
-                    builder.setNeutralButton("第三方下载", new DialogInterface.OnClickListener() {
+                    builder.setNeutralButton("下载", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = new Intent();
-                            intent.addCategory("android.intent.category.DEFAULT");
-                            intent.setDataAndType(Uri.parse(address),"*/*");
-                            context.startActivity(intent);
+                            DownloadUtils downloadUtils=new DownloadUtils(context);
+                            downloadUtils.startTask(address);
+
+
                         }
                     });
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("复制链接", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            DownloadUtils downloadUtils=new DownloadUtils(context,1);
-                            downloadUtils.open(address);
+                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                            // 将文本内容放到系统剪贴板里。
+                            cm.setText(address);
+                            Toast.makeText(context, "已复制到剪切板", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
@@ -154,7 +189,7 @@ public class WebSessionViewModel extends BaseObservable  {
             @Override
             public GeckoResult<PromptResponse> onFilePrompt(@NonNull GeckoSession session, @NonNull FilePrompt prompt) {
                 GetFile getFile=new GetFile();
-                getFile.open(context);
+                getFile.open(context,0);
                 return GeckoResult.fromValue(prompt.confirm(context,getFile.getUri()));
             }
 
@@ -201,10 +236,11 @@ public class WebSessionViewModel extends BaseObservable  {
             }
             @Override
             public void onPageStop(@NonNull GeckoSession session, boolean success) {
-                if (mUrl.indexOf("about:blank")==-1)
+                if (!mUrl.contains("about:blank"))
                 {
                     History history=new History(mUrl,mTitle,1);
                     historyViewModel.insertWords(history);
+
 
 
                 }
@@ -214,16 +250,14 @@ public class WebSessionViewModel extends BaseObservable  {
             @Override
             public void onPageStart(@NonNull GeckoSession session, @NonNull String url) {
                 mUrl=url;
-
-
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                if (BaseActivity.binding.urlView!=null) BaseActivity.binding.geckoview.setDynamicToolbarMaxHeight(BaseActivity.spToInt);
                 if(prefs.getBoolean("settingProtecting",false)) session.getSettings().setUseTrackingProtection(true);
                 else session.getSettings().setUseTrackingProtection(false);
-                BaseActivity.binding.toolLayout.setTranslationY(0);
-                BaseActivity.binding.geckoview.setDynamicToolbarMaxHeight(BaseActivity.spToInt);
-
-
+                if (BaseActivity.binding.urlView!=null)BaseActivity.binding.urlView.setTranslationY(0);
                 notifyPropertyChanged(BR.url);
+
+
 
             }
 
@@ -240,10 +274,10 @@ public class WebSessionViewModel extends BaseObservable  {
             }
         });
         session.setNavigationDelegate(new GeckoSession.NavigationDelegate() {
-            @Nullable
+
             @Override
-            public GeckoResult<AllowOrDeny> onSubframeLoadRequest(@NonNull GeckoSession session, @NonNull LoadRequest request) {
-                return GeckoResult.allow();
+            public void onLocationChange(@NonNull GeckoSession session, @Nullable String url, @NonNull List<GeckoSession.PermissionDelegate.ContentPermission> perms) {
+                GeckoSession.NavigationDelegate.super.onLocationChange(session, url, perms);
             }
 
             @Nullable
@@ -252,14 +286,19 @@ public class WebSessionViewModel extends BaseObservable  {
                 url1=request.uri;
                 Uri uri=Uri.parse(url1);
                 if (uri.getScheme()!=null){
-                if(uri.getScheme().indexOf("https")==-1&&uri.getScheme().indexOf("http")==-1&&uri.getScheme().indexOf("about")==-1)
+                if(!uri.getScheme().contains("https") && !uri.getScheme().contains("http") && !uri.getScheme().contains("about"))
                 {
-                    Log.d("scheme1",uri.getScheme());
-                    final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     if (intent.resolveActivity(context.getPackageManager())!=null)
+                    {
                         intentPopup.show(intent);
+                        Log.d("scheme1",uri.getScheme());
+
+                    }
 
                 }}
+
+
 
 
                 return GeckoResult.allow();
@@ -309,6 +348,37 @@ public class WebSessionViewModel extends BaseObservable  {
         });
 
 
+        session.setMediaSessionDelegate(new MediaSession.Delegate() {
+            Boolean orientation;
+
+            @Override
+            public void onFullscreen(@NonNull GeckoSession session, @NonNull MediaSession mediaSession, boolean enabled, @Nullable MediaSession.ElementMetadata meta) {
+                MediaSession.Delegate.super.onFullscreen(session, mediaSession, enabled, meta);
+
+
+                BaseActivity.binding.urlView.setVisibility(View.GONE);
+                if (enabled) {
+                    if (meta.height>meta.width)
+                    {
+                        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    }
+                    else context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    BaseActivity.binding.urlView.setVisibility(View.GONE);
+                    statusBar.hideStatusBar();
+                    BaseActivity.binding.geckoview.setDynamicToolbarMaxHeight(0);
+                }
+                else {
+                    context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    BaseActivity.binding.urlView.setVisibility(View.VISIBLE);
+                    statusBar.showStatusBar();
+                }
+
+
+            }
+        });
+
+
+
 
 
         geckoRuntimeSettings.setInputAutoZoomEnabled(true);
@@ -321,6 +391,10 @@ public class WebSessionViewModel extends BaseObservable  {
         //自动调整字体大小
         if(prefs.getBoolean("setting_FontSize",true)) geckoRuntimeSettings.setAutomaticFontSizeAdjustment(true);
         else geckoRuntimeSettings.setAutomaticFontSizeAdjustment(true);
+
+
+
+
 
 
 
@@ -359,11 +433,24 @@ public class WebSessionViewModel extends BaseObservable  {
             {
                 BaseActivity.binding.fragmentContainerLayout.setVisibility(View.VISIBLE);
                 BaseActivity.binding.geckoview.setVisibility(View.GONE);
+                statusBar.setStatusBarColor(R.color.alpha);
+
+                if (prefs.getInt("textC",-1)==1){
+                    statusBar.setTextColor(true);
+                }
+                else if (prefs.getInt("textC",-1)==0){
+                    statusBar.setTextColor(false);
+                }
             }else {
                 BaseActivity.binding.fragmentContainerLayout.setVisibility(View.GONE);
                 BaseActivity.binding.geckoview.setVisibility(View.VISIBLE);
+                BaseActivity.binding.tabButton.setIconTint(ColorStateList.valueOf(mContext.getColor(R.color.textcolor)));
+                BaseActivity.binding.menu.setIconTint(ColorStateList.valueOf(mContext.getColor(R.color.textcolor)));
+                BaseActivity.binding.tabSize2.setTextColor(mContext.getColor(R.color.textcolor));
+                statusBar.showStatusBar();
             }
         }
+
         return mUrl;
     }
 

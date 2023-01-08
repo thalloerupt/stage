@@ -14,75 +14,67 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background">
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/Home_Qr"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:id="@+id/imageView22"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_scan" />
+                app:srcCompat="@color/background" />
 
             <TextView
                 android:id="@+id/tips"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="24dp"
                 android:textColor="@color/textcolor"
-                android:textSize="22sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/Home_Qr"
                 app:layout_constraintEnd_toStartOf="@+id/Home_Qr"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Home_Qr" />
+                app:layout_constraintTop_toTopOf="@+id/Home_Qr" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Home_Qr"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginEnd="8dp"
+                app:icon="@drawable/ic_scan"
+                app:iconSize="@dimen/icon"
+                app:iconTint="@color/textcolor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tips">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="0dp"
-                    android:layout_height="224dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:cardCornerRadius="32dp"
-                    app:cardElevation="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@color/background" />
-                </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toBottomOf="@+id/tips"
+                app:layout_constraintVertical_bias="0.0">
 
                 <GridView
                     android:id="@+id/gridview"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="224dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
                     android:hapticFeedbackEnabled="false"
-                    android:numColumns="auto_fit"
                     android:stretchMode="columnWidth"
-                    app:layout_constraintBottom_toBottomOf="@+id/cardView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/cardView" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"
@@ -119,7 +111,20 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.35" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button10"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="72dp"
+                    app:icon="@drawable/shirt"
+                    app:iconSize="@dimen/icon2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

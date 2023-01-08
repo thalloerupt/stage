@@ -12,6 +12,7 @@ import com.thallo.stage.R;
 
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
+import org.mozilla.geckoview.GeckoRuntimeSettings;
 import org.mozilla.geckoview.GeckoSession;
 import org.mozilla.geckoview.GeckoSessionSettings;
 import org.mozilla.geckoview.GeckoView;
@@ -19,7 +20,7 @@ import org.mozilla.geckoview.WebExtension;
 
 public class PopUp {
     public void popUp(WebExtension webExtension, GeckoSession session, Context context){
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(context, R.style.BottomSheetDialog,0);
         View popView= LayoutInflater.from(context).inflate(R.layout.popup,null );
         GeckoView geckoView= popView.findViewById(R.id.popupGecko);
         session.setContentDelegate(new GeckoSession.ContentDelegate() {});
@@ -35,6 +36,12 @@ public class PopUp {
             }
         });
         geckoView.setSession(session);
+        GeckoRuntimeSettings geckoRuntimeSettings = GeckoRuntime.getDefault(context).getSettings();
+        geckoRuntimeSettings.setInputAutoZoomEnabled(true);
+        geckoRuntimeSettings.setLoginAutofillEnabled(true);
+        geckoRuntimeSettings.setAboutConfigEnabled(true);
+        geckoRuntimeSettings.setAutomaticFontSizeAdjustment(true);
+        geckoRuntimeSettings.setForceUserScalableEnabled(true);
         bottomSheetDialog.setContentView(popView);
         bottomSheetDialog.show();
 

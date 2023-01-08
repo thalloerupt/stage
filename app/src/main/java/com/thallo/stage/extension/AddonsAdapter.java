@@ -1,26 +1,18 @@
 package com.thallo.stage.extension;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Bitmap;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.thallo.stage.R;
 import com.thallo.stage.components.popup.AddonsInformationPopup;
 import com.thallo.stage.databinding.AddonsManagerItemBinding;
-import com.thallo.stage.extension.AddOns;
 
-import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.WebExtension;
 import org.mozilla.geckoview.WebExtensionController;
 
@@ -30,6 +22,7 @@ public class AddonsAdapter extends RecyclerView.Adapter<AddonsAdapter.AddonsAdap
     List<WebExtension> webExtensions;
     AddonsManagerItemBinding binding;
     WebExtensionController webExtensionController;
+    Activity activity;
     @NonNull
     @Override
     public AddonsAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,7 +36,7 @@ public class AddonsAdapter extends RecyclerView.Adapter<AddonsAdapter.AddonsAdap
         binding.addonsManagerDes.setText(webExtensions.get(position).metaData.description);
         binding.addonsManagerSwitch.setChecked(webExtensions.get(position).metaData.enabled);
         try {
-            binding.addonsManagerIcon.setImageBitmap(webExtensions.get(position).metaData.icon.getBitmap(64).poll(500));
+            binding.addonsManagerIcon.setImageBitmap(webExtensions.get(position).metaData.icon.getBitmap(64).poll(1000));
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -58,7 +51,7 @@ public class AddonsAdapter extends RecyclerView.Adapter<AddonsAdapter.AddonsAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddonsInformationPopup addonsInformationPopup=new AddonsInformationPopup(view.getContext(), webExtensions.get(position),webExtensionController,AddonsAdapter.this,position,webExtensions);
+                AddonsInformationPopup addonsInformationPopup=new AddonsInformationPopup(activity, webExtensions.get(position),webExtensionController,AddonsAdapter.this,position,webExtensions);
                 addonsInformationPopup.show();
 
 
@@ -67,6 +60,12 @@ public class AddonsAdapter extends RecyclerView.Adapter<AddonsAdapter.AddonsAdap
 
 
 
+    }
+
+    public void AddonsAdapters(List<WebExtension> webExtensions, WebExtensionController webExtensionController, Activity activity) {
+        this.webExtensions = webExtensions;
+        this.webExtensionController = webExtensionController;
+        this.activity = activity;
     }
 
     @Override
@@ -82,11 +81,5 @@ public class AddonsAdapter extends RecyclerView.Adapter<AddonsAdapter.AddonsAdap
         }
     }
 
-    public void setWebExtensionController(WebExtensionController webExtensionController) {
-        this.webExtensionController = webExtensionController;
-    }
 
-    public void setWebExtensions(List<WebExtension> webExtensions) {
-        this.webExtensions = webExtensions;
-    }
 }

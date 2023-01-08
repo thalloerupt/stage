@@ -11,65 +11,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/diaBookmarkTitle"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/icon3"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_white_rounded"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/diaBookmarkUrlText"
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="TextView"
+            android:textColor="@color/textcolor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/diaBookmarkUrl"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/icon3"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_white_rounded"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
+            android:hint="@string/dia_bookmark_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/diaBookmarkTitleText"
-            app:layout_constraintTop_toBottomOf="@+id/diaBookmarkTitle" />
-
-        <TextView
-            android:id="@+id/diaBookmarkUrlText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/dia_bookmark_title"
-            app:layout_constraintBottom_toBottomOf="@+id/diaBookmarkTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/diaBookmarkTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-        <TextView
-            android:id="@+id/diaBookmarkTitleText"
-            android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/diaBookmarkTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/textcolor"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/dia_bookmark_url"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/dia_bookmark_url"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/diaBookmarkUrl" />
+
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/diaBookmarkUrl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/textcolor"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:text="@string/dia_bookmark_radio"
+            app:buttonTint="@color/textcolor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/diaBookmarkUrl" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

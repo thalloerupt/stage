@@ -12,31 +12,60 @@
         android:layout_height="match_parent"
         tools:context=".history.HistoryFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/historyRecycler"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/historyRecycler"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/historyRecycler"
+                    app:layout_constraintTop_toTopOf="@+id/historyRecycler"
+                    app:lottie_rawRes="@raw/notfound" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_rawRes="@raw/notfound" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/historyRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appbar">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appbar"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    app:expanded="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:collapseIcon="@drawable/ic_left_24"
+                        app:layout_collapseMode="pin"
+                        app:navigationIcon="@drawable/ic_left_24"
+                        app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Large"
+                        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+                        app:titleTextColor="@color/textcolor"></androidx.appcompat.widget.Toolbar>
+
+                </com.google.android.material.appbar.AppBarLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </FrameLayout>
 </layout>

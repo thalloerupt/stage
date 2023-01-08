@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.thallo.stage">
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- 开启网络访问权限 -->
     <uses-permission android:name="android.permission.INTERNET"></uses-permission> <!-- 允许访问网络状态的权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许访问wifi状态的权限 -->
@@ -18,7 +17,17 @@
     <!--  访问网络权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="*" />
+        </intent>
+    </queries>
 
 
 
@@ -47,12 +56,13 @@
         <activity
             android:name=".FragmentHolder"
             android:exported="false"
-            android:label="@string/title_activity_fragment_holder"
              />
         <activity
             android:name=".BaseActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:configChanges="orientation|keyboardHidden|uiMode|screenSize"
             android:launchMode="singleInstance"
+            android:usesCleartextTraffic="true"
             android:exported="true">
             <intent-filter>
                 <action
@@ -66,6 +76,7 @@
                 <category
                     android:name="android.intent.category.APP_BROWSER" />
             </intent-filter>
+
             <intent-filter>
                 <action
                     android:name="android.intent.action.VIEW" />
@@ -77,7 +88,9 @@
                     android:scheme="http" />
                 <data
                     android:scheme="https" />
+                <data android:mimeType="text/html"/>
             </intent-filter>
+
 
         </activity>
         <activity

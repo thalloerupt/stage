@@ -86,7 +86,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="pop_forward">前进</string>
     <string name="about_name">Stage Browser</string>
-    <string name="about_thanks">GeckoView Nightly 103</string>
+    <string name="about_thanks">GeckoView 106</string>
     <string name="about_telegrams">加入telegrams频道</string>
     <string name="setting_protecting">开启增强型跟踪保护</string>
     <string name="google">https://www.google.com/search?q=</string>
@@ -121,4 +121,17 @@
     <string name="version">0.1-alpha.5(The College Dropout)</string>
     <string name="openSource">开源相关</string>
     <string name="os">开源相关</string>
+    <string name="share">分享</string>
+    <string name="open_out">在其他应用中打开</string>
+    <string name="copy_image_url">复制地址</string>
+    <string name="tab">标签</string>
+    <string name="light">亮色</string>
+    <string name="black">暗色</string>
+    <string name="textColor">文字颜色</string>
+    <string name="background">背景</string>
+    <string name="defaultBg">默认</string>
+    <string name="DIY">自定义</string>
+    <string name="exportBookmark">导出书签</string>
+    <string name="importBookmark">导入书签</string>
+    <string name="deleteAllBookmark">清空</string>
 </resources>

@@ -5,8 +5,9 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter()
         maven {
-            url "https://maven.mozilla.org/maven2/"
-        }// Warning: this repository is going to shut down soon
+            url 'https://jitpack.io'
+            }// Warning: this repository is going to shut down soon
+        maven { url "https://maven.mozilla.org/maven2/" }
     }
 }
 rootProject.name = "stage"

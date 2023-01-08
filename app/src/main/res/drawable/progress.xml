@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<item android:id="@android:id/background">
-    <!--形状-->
-    <shape>
-        <!-- 角球-->
-<solid
-    android:color="@color/alpha"
+    <item android:id="@android:id/background">
 
-    >
+        <shape
+            android:shape="rectangle" android:padding = "5dp">
+            <solid android:color="@color/alpha"/>
 
-</solid>
-
-        <!--梯度-->
-        <corners
-            android:topLeftRadius="3dp"
-            android:bottomLeftRadius="3dp"
-            />
-    </shape>
-</item>
-
-
-
-<item android:id="@android:id/progress">
-    <clip>
-        <shape>
-            <solid
-                android:color="@color/purple_700"
-                />
-          
-
-
+            <corners
+                android:radius="10dp" />
         </shape>
-    </clip>
-</item>
+    </item>
+
+    <item android:id="@android:id/secondaryProgress">
+
+        <scale android:scaleWidth="100%">
+
+            <shape
+                android:shape="rectangle" android:padding = "5dp">
+                <solid android:color="@color/purple"/>
+                <corners
+                    android:radius="10dp"
+                    />
+            </shape>
+        </scale>
+    </item>
+
+    <item android:id="@android:id/progress">
+
+        <scale android:scaleWidth="100%">
+
+            <shape
+                android:shape="rectangle" android:padding = "5dp">
+                <solid android:color="@color/purple"/>
+                <corners
+                    android:radius="10dp"
+                    />
+            </shape>
+        </scale>
+    </item>
 
 </layer-list>

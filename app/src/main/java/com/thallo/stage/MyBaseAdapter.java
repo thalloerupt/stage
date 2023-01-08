@@ -1,10 +1,12 @@
 package com.thallo.stage;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -24,14 +26,18 @@ public class MyBaseAdapter extends BaseAdapter {
     private HomeFragment homeFragment;
     private BaseActivity baseActivity;
     private BookmarkViewModel bookmarkViewModel;
-
-    public MyBaseAdapter(Context context, List<Bookmark> list, FragmentActivity activity, HomeFragment homeFragment, BaseActivity baseActivity, BookmarkViewModel bookmarkViewModel){
+    public onclick onclick;
+    int darkMutedColor= -16776961;
+    int textColor;
+    public MyBaseAdapter(Context context, List<Bookmark> list, FragmentActivity activity, HomeFragment homeFragment, BaseActivity baseActivity, BookmarkViewModel bookmarkViewModel,int darkMutedColor,int textColor){
         this.context=context;
         this.list=list;
         this.activity=activity;
         this.homeFragment=homeFragment;
         this.baseActivity = baseActivity;
         this.bookmarkViewModel=bookmarkViewModel;
+        this.darkMutedColor=darkMutedColor;
+        this.textColor=textColor;
 
 
 
@@ -62,7 +68,7 @@ public class MyBaseAdapter extends BaseAdapter {
         binding.IconText.setText(bookmark.getTitle());
         URI uri=URI.create(bookmark.getUrl());
         String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
-        Glide.with(context).load(faviconUrl).placeholder(R.drawable.ic_internet)
+        Glide.with(context).load(faviconUrl).placeholder(R.drawable.ic_internet).circleCrop()
                 .into(binding.IconImage);
         binding.IconLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -75,9 +81,22 @@ public class MyBaseAdapter extends BaseAdapter {
         binding.IconLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseActivity.getWebSessionViewModel().getSession().loadUri(bookmark.getUrl());
+                //baseActivity.getWebSessionViewModel().getSession().loadUri(bookmark.getUrl());
+                onclick.click(bookmark.getUrl());
+                //Toast.makeText(viewGroup.getContext(), bookmark.getUrl(), Toast.LENGTH_SHORT).show();
             }
         });
+        if (textColor==1) binding.IconText.setTextColor(context.getColor(R.color.background_light));
+        else if (textColor==0)binding.IconText.setTextColor(context.getColor(R.color.black));
+        if (darkMutedColor!=0) binding.IconBg.setCardBackgroundColor(darkMutedColor);
         return binding.getRoot();
+    }
+
+    public interface onclick{
+        void click(String url);
+    }
+
+    public void setOnclick(MyBaseAdapter.onclick onclick) {
+        this.onclick = onclick;
     }
 }

@@ -7,16 +7,21 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.thallo.stage.R;
 
 import org.mozilla.geckoview.GeckoSession;
 
 public class AlertDialog extends androidx.appcompat.app.AlertDialog {
     GeckoSession.PromptDelegate.PromptResponse dialogResult;
     Handler mHandler ;
+    Context context;
     public AlertDialog(@NonNull Context context, GeckoSession.PromptDelegate.AlertPrompt alertPrompt) {
         super(context);
+        this.context=context;
         onCreate(alertPrompt,context);
     }
     public void onCreate(GeckoSession.PromptDelegate.AlertPrompt alertPrompt, Context context) {

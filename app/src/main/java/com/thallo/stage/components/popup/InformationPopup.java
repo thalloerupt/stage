@@ -22,13 +22,19 @@ public class InformationPopup {
     Context context;
     BottomSheetDialog bottomSheetDialog;
     PopupInformationBinding binding;
-    public InformationPopup(Context context, GeckoSession session, WebSessionViewModel webSessionViewModel){
+    public InformationPopup(Context context){
         this.context=context;
         bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialog);
         binding= PopupInformationBinding.inflate(LayoutInflater.from(context));
+
+    }
+
+
+    public void show(WebSessionViewModel webSessionViewModel){
+        bottomSheetDialog.setContentView(binding.getRoot());
         URI uri=URI.create(webSessionViewModel.getUrl());
 
-        if (session.getSettings().getUseTrackingProtection()) {
+        if (webSessionViewModel.getSession().getSettings().getUseTrackingProtection()) {
             binding.informationProtection.setImageResource(R.drawable.ic_shield);
             binding.informationProtectionText.setText(context.getString(R.string.information_protection));
         }
@@ -50,11 +56,6 @@ public class InformationPopup {
         String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
         Glide.with(context).load(faviconUrl).placeholder(R.drawable.ic_internet)
                 .into(binding.informationIcon);
-    }
-
-
-    public void show(){
-        bottomSheetDialog.setContentView(binding.getRoot());
         bottomSheetDialog.show();
     }
 }

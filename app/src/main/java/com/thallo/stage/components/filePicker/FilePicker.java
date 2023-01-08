@@ -31,11 +31,11 @@ public class FilePicker  {
     public FilePicker(Activity activity){
         this.activity=activity;
     }
-    public void open(Activity activity) {
+    public void open(Activity activity,int requestCode) {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        activity.startActivityForResult(intent, 1);
+        activity.startActivityForResult(intent, requestCode);
         requestPermission();
 
     }

@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
@@ -18,145 +19,142 @@ import android.util.Log;
 import android.webkit.URLUtil;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.liulishuo.okdownload.DownloadContext;
+import com.liulishuo.okdownload.DownloadContextListener;
+import com.liulishuo.okdownload.DownloadListener;
+import com.liulishuo.okdownload.DownloadTask;
+import com.liulishuo.okdownload.OkDownload;
+import com.liulishuo.okdownload.StatusUtil;
+import com.liulishuo.okdownload.UnifiedListenerManager;
+import com.liulishuo.okdownload.core.breakpoint.BreakpointInfo;
+import com.liulishuo.okdownload.core.cause.EndCause;
+import com.liulishuo.okdownload.core.cause.ResumeFailedCause;
 import com.thallo.stage.BaseActivity;
 import com.thallo.stage.DataHolder;
 import com.thallo.stage.database.download.Download;
 import com.thallo.stage.database.download.DownloadViewModel;
 
-import org.jetbrains.annotations.Nullable;
-
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 public class DownloadUtils {
-    //下载器
-    private DownloadManager downloadManager;
     //上下文
     private Context mContext;
-    //下载的ID
-    private long downloadId;
-    String fileName;
-    URL url;
-    DownloadViewModel downloadViewModel;
-    DownloadManager.Query downloadQuery;
-    long id;
-    Cursor cursor;
-    int status;
-    public  DownloadUtils(Context context,@Nullable long id){
-        this.mContext = context;
-        this.id=id;
+    private DownloadContext.Builder builder;
+    private DownloadViewModel downloadViewModel;
+
+    public DownloadUtils(Context mContext) {
+        this.mContext = mContext;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            builder = new DownloadContext.QueueSet()
+                    .setParentPathFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS))
+                    .setPassIfAlreadyCompleted(true)
+                    .setMinIntervalMillisCallbackProcess(30)
+                    .commit();
+        }
         downloadViewModel=new ViewModelProvider((ViewModelStoreOwner) mContext).get(DownloadViewModel.class);
-        downloadQuery = new DownloadManager.Query();
-        downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        downloadQuery.setFilterById(id);
-        cursor = downloadManager.query(downloadQuery);
+
+
+
+
+
     }
+    public void startTask(String url){
 
 
-
-    //下载apk
-    public void open(String url1) {
-        fileName=URLUtil.guessFileName(url1,null,null);
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url1));
-        request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setAllowedOverRoaming(true);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
-        final DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        long downloadId = downloadManager.enqueue(request);
-        Download download=new Download(downloadId);
+        DownloadTask task=builder.bind(url);
+        DownloadContext context = builder.build();
+        Download download=new Download(task.getId());
         downloadViewModel.insertWords(download);
-        // 监听下载成功状态
-        mContext.registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
-    }
-    @SuppressLint("Range")
-
-    public String queryName() {
-        String fileName1 = null;
-        if (cursor != null && cursor.moveToFirst()) {
-            int fileUri = cursor.getColumnIndex(DownloadManager.COLUMN_URI);
-            String fu = cursor.getString(fileUri);
-            fileName1=URLUtil.guessFileName(fu,null,null);
+        UnifiedListenerManager manager = new UnifiedListenerManager();
+        
 
 
 
+        context.startOnParallel(new DownloadListener() {
+            @Override
+            public void taskStart(@NonNull DownloadTask task) {
+                Toast.makeText(mContext, "开始下载", Toast.LENGTH_SHORT).show();
 
-        }
-        return fileName1;
-    }
-    public String queryUrl() {
-        String fileUrl = null;
-        if (cursor != null && cursor.moveToFirst()) {
-            int fileUri = cursor.getColumnIndex(DownloadManager.COLUMN_URI);
-            fileUrl = cursor.getString(fileUri);
-
-
-        }
-        return fileUrl;
-    }
-    public int querySize() {
-        int i=0;
-        if (cursor != null && cursor.moveToFirst()) {
-            int totalSizeBytesIndex = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-            int bytesDownloadSoFarIndex = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-            // 下载的文件总大小
-            int totalSizeBytes = cursor.getInt(totalSizeBytesIndex);
-            i=totalSizeBytes;
-
-        }
-        return i;
-    }
-    public void close()
-    {
-        cursor.close();
-    }
-
-    //广播接受者，接收下载状态
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-                long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
-                //检查下载状态
-                checkDownloadStatus(downloadId );
             }
-        }
 
-        //检查下载状态
-        private void checkDownloadStatus(long downloadId ) {
-            DownloadManager.Query query = new DownloadManager.Query();
-            query.setFilterById(downloadId );//筛选下载任务，传入任务ID，可变参数
-            Cursor c = downloadManager.query(query);
-            if (c.moveToFirst()) {
-                @SuppressLint("Range") int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
-                switch (status) {
-                    case DownloadManager.STATUS_PAUSED:
-                        status=0;
-                    case DownloadManager.STATUS_PENDING:
-                    case DownloadManager.STATUS_RUNNING:
-                        status=2;
-                        break;
-                    case DownloadManager.STATUS_SUCCESSFUL:
-                        status=1;
-                        break;
-                    case DownloadManager.STATUS_FAILED:
-                        status=-1;
-                        break;
-                }
+            @Override
+            public void connectTrialStart(@NonNull DownloadTask task, @NonNull Map<String, List<String>> requestHeaderFields) {
+
+
             }
-        }
-    };
+
+            @Override
+            public void connectTrialEnd(@NonNull DownloadTask task, int responseCode, @NonNull Map<String, List<String>> responseHeaderFields) {
+
+
+            }
+
+            @Override
+            public void downloadFromBeginning(@NonNull DownloadTask task, @NonNull BreakpointInfo info, @NonNull ResumeFailedCause cause) {
+
+
+            }
+
+            @Override
+            public void downloadFromBreakpoint(@NonNull DownloadTask task, @NonNull BreakpointInfo info) {
+
+
+            }
+
+            @Override
+            public void connectStart(@NonNull DownloadTask task, int blockIndex, @NonNull Map<String, List<String>> requestHeaderFields) {
+
+
+            }
+
+            @Override
+            public void connectEnd(@NonNull DownloadTask task, int blockIndex, int responseCode, @NonNull Map<String, List<String>> responseHeaderFields) {
+
+
+            }
+
+            @Override
+            public void fetchStart(@NonNull DownloadTask task, int blockIndex, long contentLength) {
+
+
+            }
+
+            @Override
+            public void fetchProgress(@NonNull DownloadTask task, int blockIndex, long increaseBytes) {
+
+            }
+
+            @Override
+            public void fetchEnd(@NonNull DownloadTask task, int blockIndex, long contentLength) {
+
+            }
+
+            @Override
+            public void taskEnd(@NonNull DownloadTask task, @NonNull EndCause cause, @Nullable Exception realCause) {
+                Toast.makeText(mContext, "下载完成", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
 }
 

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.thallo.stage.R;
 import com.thallo.stage.database.history.History;
 import com.thallo.stage.database.history.HistoryViewModel;
 import com.thallo.stage.databinding.FragmentHistoryBinding;
@@ -37,19 +38,23 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding=FragmentHistoryBinding.inflate(inflater,container,false);
         binding.historyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        myAdapter=new MyAdapter();
-        historyViewModel= new ViewModelProvider((FragmentActivity)getContext()).get(HistoryViewModel.class);
-        historyViewModel.getAllHistoriesLive().observe((LifecycleOwner) this, new Observer<List<History>>() {
+        binding.toolbar.setTitle(R.string.pop_history);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(List<History> histories) {
-                myAdapter.setAllHistory(histories);
-                binding.historyRecycler.setItemViewCacheSize(histories.size());
-                binding.historyRecycler.setAdapter(myAdapter);
-                if (histories.size()==0) binding.lottie.setVisibility(View.VISIBLE);
-                else binding.lottie.setVisibility(View.GONE);
+            public void onClick(View view) {
+                getActivity().finish();
             }
         });
 
+        myAdapter=new MyAdapter();
+        historyViewModel= new ViewModelProvider((FragmentActivity)getContext()).get(HistoryViewModel.class);
+        historyViewModel.getAllHistoriesLive().observe((LifecycleOwner) this, histories -> {
+            myAdapter.setAllHistory(histories);
+            binding.historyRecycler.setAdapter(myAdapter);
+            binding.historyRecycler.setItemViewCacheSize(histories.size());
+            if (histories.size()==0) binding.lottie.setVisibility(View.VISIBLE);
+            else binding.lottie.setVisibility(View.GONE);
+        });
         binding.lottie.loop(true);
         binding.lottie.playAnimation();
 

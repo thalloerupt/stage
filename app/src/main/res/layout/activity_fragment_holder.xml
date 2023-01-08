@@ -18,7 +18,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
@@ -29,29 +29,6 @@
                 app:navGraph="@navigation/holder" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background"
-            app:expanded="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:collapseIcon="@drawable/ic_left_24"
-                app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_left_24"
-                app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Large"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-                app:titleTextColor="@color/textcolor"></androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

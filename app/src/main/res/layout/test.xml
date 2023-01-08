@@ -68,7 +68,7 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
                     android:layout_height="5dp"
-                    android:progressBackgroundTint="@color/purple_700"
+                    android:progressBackgroundTint="@color/purple"
                     android:progressDrawable="@drawable/progress"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

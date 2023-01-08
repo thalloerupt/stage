@@ -8,13 +8,14 @@ import android.widget.ImageView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.thallo.stage.BaseActivity;
 import com.thallo.stage.R;
+import com.thallo.stage.components.popup.MyBottomSheetDialog;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 public class Qr {
     public void show(BaseActivity baseActivity){
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(baseActivity, R.style.BottomSheetDialog);
+        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(baseActivity, R.style.BottomSheetDialog,0);
         View popView= LayoutInflater.from(baseActivity).inflate(R.layout.qr_layout,null );
 
         ZXingView zXingView=popView.findViewById(R.id.zxingview);

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.thallo.stage.R;
 import com.thallo.stage.database.download.Download;
 import com.thallo.stage.database.download.DownloadViewModel;
 import com.thallo.stage.databinding.FragmentDownloadBinding;
@@ -35,8 +36,17 @@ public class DownloadFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding=FragmentDownloadBinding.inflate(inflater,container,false);
         binding.downloadRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.toolbar.setTitle(R.string.pop_download);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+
         downloadViewModel=new ViewModelProvider((ViewModelStoreOwner) getContext()).get(DownloadViewModel.class);
         downloadAdapter= new DownloadAdapter();
+        downloadAdapter.setDownloadViewModel(downloadViewModel);
         downloadViewModel.getAllDownloadsLive().observe(getViewLifecycleOwner(), new Observer<List<Download>>() {
             @Override
             public void onChanged(List<Download> downloads) {
