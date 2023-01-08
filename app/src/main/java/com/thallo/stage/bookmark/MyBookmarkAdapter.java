@@ -1,6 +1,8 @@
 package com.thallo.stage.bookmark;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +44,7 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<com.thallo.stage.boo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.thallo.stage.bookmark.MyBookmarkAdapter.MyAdapterHold holder, int position) {
+    public void onBindViewHolder(@NonNull com.thallo.stage.bookmark.MyBookmarkAdapter.MyAdapterHold holder, @SuppressLint("RecyclerView") int position) {
         Bookmark bookmark=allBookmark.get(position);
         title.setText(bookmark.getTitle());
         url.setText(bookmark.getUrl());
@@ -59,10 +61,17 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<com.thallo.stage.boo
                 ((FragmentActivity) view.getContext()).finish();
             }
         });
-        URI uri=URI.create(bookmark.getUrl());
-        String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
-        Glide.with(holder.itemView.getContext()).load(faviconUrl).placeholder(R.drawable.ic_internet)
-                .into(icon);
+
+        try {
+            URI uri=URI.create(bookmark.getUrl());
+            String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
+            Glide.with(holder.itemView.getContext()).load(faviconUrl).placeholder(R.drawable.ic_internet)
+                    .into(icon);
+        }catch (Exception e){
+
+        }
+
+
 
     }
 
@@ -73,6 +82,7 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<com.thallo.stage.boo
 
     public void setAllBookmark(List<Bookmark> allBookmark) {
         this.allBookmark = allBookmark;
+
     }
 
     class MyAdapterHold extends RecyclerView.ViewHolder{
@@ -85,4 +95,8 @@ public class MyBookmarkAdapter extends RecyclerView.Adapter<com.thallo.stage.boo
 
         }
     }
+
+
+
+
 }

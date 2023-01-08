@@ -36,7 +36,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/purple_700"
+                android:background="@color/purple"
                 android:visibility="@{session.active?View.VISIBLE:View.INVISIBLE}">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -70,6 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
                             android:layout_marginBottom="4dp"
                             android:layout_weight="1"
                             android:ellipsize="end"
@@ -101,8 +102,8 @@
 
                         <ImageView
                             android:id="@+id/favicon"
-                            android:layout_width="@dimen/icon"
-                            android:layout_height="@dimen/icon"
+                            android:layout_width="@dimen/icon2"
+                            android:layout_height="@dimen/icon2"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:layout_marginBottom="16dp"
@@ -111,21 +112,24 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
+                        <Button
                             android:id="@+id/close"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            style="@style/Widget.Material3.Button.IconButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
+                            app:icon="@drawable/ic_delete"
+                            app:iconGravity="textStart"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_delete" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/address"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
                             android:layout_marginBottom="8dp"
                             android:ellipsize="end"
                             android:maxEms="15"

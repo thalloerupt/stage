@@ -10,6 +10,7 @@
             <solid
                 android:color="@color/alpha"
 
+
                 >
 
             </solid>
@@ -27,7 +28,7 @@
                 android:innerRadius="16dp"
                 >
                 <solid
-                    android:color="@color/purple_700"
+                    android:color="@color/purple"
                     />
 
 

@@ -12,370 +12,165 @@
             />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/purple_200">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/MainView"
+        <org.mozilla.geckoview.GeckoView
+            android:id="@+id/geckoview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background">
-
-            <org.mozilla.geckoview.GeckoView
-                android:id="@+id/geckoview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </org.mozilla.geckoview.GeckoView>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/fragmentContainerLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background">
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/fragmentContainerView4"
-                    android:name="androidx.navigation.fragment.NavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:defaultNavHost="true"
-                    app:navGraph="@navigation/nav_graph" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/toolLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            app:behavior_peekHeight="@dimen/icon5"
-            app:layout_behavior="@string/bottom_sheet_behavior"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+        </org.mozilla.geckoview.GeckoView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragmentContainerLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerView4"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/backImage"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/urlView"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/icon5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/menu2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView12"
-                        app:srcCompat="@drawable/ic_menu3" />
-
-                    <ProgressBar
-                        android:id="@+id/progressBar2"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="0dp"
-                        android:layout_height="3dp"
-                        android:progress="@{SessionModel.process}"
-                        android:progressBackgroundTint="@color/purple_700"
-                        android:progressDrawable="@drawable/progress"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/tabButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                        app:layout_constraintEnd_toStartOf="@+id/menu2"
-                        app:layout_constraintTop_toTopOf="@+id/imageView12"
-                        app:srcCompat="@drawable/ic_tabs" />
-
-                    <TextView
-                        android:id="@+id/tabSize2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-black"
-                        android:text="1"
-                        android:textColor="@color/textcolor"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tabButton2"
-                        app:layout_constraintEnd_toEndOf="@+id/tabButton2"
-                        app:layout_constraintStart_toStartOf="@+id/tabButton2"
-                        app:layout_constraintTop_toTopOf="@+id/tabButton2" />
-
-                    <ImageView
-                        android:id="@+id/homeButton2"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginStart="8dp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView12"
-                        app:srcCompat="@drawable/ic_home" />
-
-                    <ImageView
-                        android:id="@+id/imageView12"
-                        android:layout_width="0dp"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        app:layout_constraintEnd_toStartOf="@+id/tabButton2"
-                        app:layout_constraintStart_toEndOf="@+id/homeButton2"
-                        app:layout_constraintTop_toBottomOf="@+id/progressBar2"
-                        app:srcCompat="@drawable/bg_edittext" />
-
-                    <ImageView
-                        android:id="@+id/information"
-                        android:layout_width="@dimen/icon2"
-                        android:layout_height="@dimen/icon2"
-                        android:layout_marginStart="8dp"
-                        android:visibility="gone"
-                        app:isSecure="@{SessionModel.secure}"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                        app:layout_constraintStart_toStartOf="@+id/imageView12"
-                        app:layout_constraintTop_toTopOf="@+id/imageView12"
-                        app:pageUrl="@{SessionModel.url}" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="8dp"
-                        android:ellipsize="end"
-                        android:gravity="center|left"
-                        android:hint="@string/search_hint"
-                        android:maxEms="10"
-                        android:maxLines="1"
-                        android:textColor="@color/textcolor"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView12"
-                        app:layout_constraintStart_toEndOf="@+id/information"
-                        app:layout_constraintTop_toTopOf="@+id/imageView12"
-                        app:titleToUrl="@{SessionModel.title}"
-                        app:url="@{SessionModel.url}" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ScrollView
-                    android:id="@+id/horizontalScrollView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="76dp"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toTopOf="@+id/add"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SpeakableTextPresentCheck">
-
-                    <LinearLayout
-                        android:id="@+id/tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical" />
-                </ScrollView>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:src="@drawable/ic_add"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/editView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/background"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/add"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView15">
-
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="@dimen/icon2"
-                            android:layout_height="@dimen/icon2"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="8dp"
-                            app:imageUrl="@{SessionModel.url}"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView15"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="8dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@{SessionModel.url}"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                            app:layout_constraintEnd_toStartOf="@+id/editButton"
-                            app:layout_constraintStart_toEndOf="@+id/imageView5"
-                            app:layout_constraintTop_toTopOf="@+id/imageView5" />
-
-                        <Button
-                            android:id="@+id/editButton"
-                            style="@style/Widget.Material3.Button.IconButton"
-                            android:layout_width="@dimen/icon2"
-                            android:layout_height="@dimen/icon2"
-                            android:layout_marginEnd="8dp"
-                            app:icon="@drawable/ic_edit"
-                            app:iconGravity="textStart"
-                            app:layout_constraintBottom_toBottomOf="@+id/copyButton"
-                            app:layout_constraintEnd_toStartOf="@+id/copyButton"
-                            app:layout_constraintTop_toTopOf="@+id/copyButton"
-                            app:layout_constraintVertical_bias="0.0" />
-
-                        <Button
-                            android:id="@+id/copyButton"
-                            style="@style/Widget.Material3.Button.IconButton"
-                            android:layout_width="@dimen/icon2"
-                            android:layout_height="@dimen/icon2"
-                            android:layout_marginEnd="16dp"
-                            app:icon="@drawable/ic_copy"
-                            app:iconGravity="textStart"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView15"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/textView15" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <ImageView
-                        android:id="@+id/imageView15"
-                        android:layout_width="0dp"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/bg_edittext" />
-
-                    <ImageView
-                        android:id="@+id/imageView14"
-                        android:layout_width="@dimen/icon2"
-                        android:layout_height="@dimen/icon2"
-                        app:layout_constraintBottom_toBottomOf="@+id/searchIcon"
-                        app:layout_constraintEnd_toEndOf="@+id/searchIcon"
-                        app:layout_constraintStart_toStartOf="@+id/searchIcon"
-                        app:layout_constraintTop_toTopOf="@+id/searchIcon"
-                        app:srcCompat="@drawable/bg_search_icon" />
-
-                    <EditText
-                        android:id="@+id/addressText2"
-                        android:layout_width="0dp"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/bg_trans"
-                        android:ems="10"
-                        android:hint="@string/search_hint"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toStartOf="@+id/clearButton"
-                        app:layout_constraintStart_toEndOf="@+id/searchIcon"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/searchIcon"
-                        android:layout_width="@dimen/icon4"
-                        android:layout_height="@dimen/icon4"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/addressText2"
-                        app:layout_constraintStart_toStartOf="@+id/imageView15"
-                        app:layout_constraintTop_toTopOf="@+id/addressText2"
-                        app:srcCompat="@drawable/ic_baidu" />
-
-                    <Button
-                        android:id="@+id/clearButton"
-                        style="@style/Widget.Material3.Button.IconButton"
-                        android:layout_width="@dimen/icon2"
-                        android:layout_height="@dimen/icon2"
-                        android:layout_marginEnd="8dp"
-                        app:icon="@drawable/ic_delete"
-                        app:iconGravity="textStart"
-                        app:iconSize="@dimen/icon4"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView15"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView15"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="SpeakableTextPresentCheck" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                app:navGraph="@navigation/nav_graph"
+                tools:layout="@layout/fragment_home" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/urlView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/icon5"
+            android:background="@drawable/bg_shap"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:progress="@{SessionModel.process}"
+                android:progressBackgroundTint="@color/purple"
+                android:progressDrawable="@drawable/progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tabButton"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_tabs"
+                app:iconGravity="textStart"
+                app:iconSize="@dimen/icon2"
+                app:iconTint="@color/textcolor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/menu"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/menu"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_menu"
+                app:iconGravity="textStart"
+                app:iconSize="@dimen/icon2"
+                app:iconTint="@color/textcolor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/tabSize2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="1"
+                android:textColor="@color/textcolor"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tabButton"
+                app:layout_constraintEnd_toEndOf="@+id/tabButton"
+                app:layout_constraintStart_toStartOf="@+id/tabButton"
+                app:layout_constraintTop_toTopOf="@+id/tabButton" />
+
+            <ImageView
+                android:id="@+id/homeButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView12"
+                app:srcCompat="@drawable/ic_home" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/tabButton"
+                app:layout_constraintStart_toEndOf="@+id/homeButton2"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar2"
+                app:srcCompat="@drawable/bg_edittext" />
+
+            <ImageView
+                android:id="@+id/information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"
+                app:isSecure="@{SessionModel.secure}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:pageUrl="@{SessionModel.url}" />
+
+            <TextView
+                android:id="@+id/searchText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:gravity="center|left"
+                android:hint="@string/search_hint"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:textColor="@color/textcolor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tabButton"
+                app:layout_constraintStart_toEndOf="@+id/information"
+                app:layout_constraintTop_toTopOf="parent"
+                app:titleToUrl="@{SessionModel.title}"
+                app:url="@{SessionModel.url}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

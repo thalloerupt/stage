@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,17 +13,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.thallo.stage.FragmentHolder;
-import com.thallo.stage.HomeFragment;
 import com.thallo.stage.BaseActivity;
 import com.thallo.stage.components.dialog.BookmarkDialog;
+import com.thallo.stage.extension.Controller;
 import com.thallo.stage.tab.PageTab;
 import com.thallo.stage.R;
 import com.thallo.stage.Setting;
@@ -44,9 +41,10 @@ import java.util.List;
 
 public class SettingPopUp {
     SettingMenuBinding mBinding;
+    onNewTab onNewTab;
+    onInstallNewTab onInstallNewTab;
 
-
-    public void setting (BaseActivity context, WebExtensionController webExtensionController, List<PageTab> tabList, BottomSheetBehavior behavior, ActivityMainBinding binding, int dp, int currentIndex){
+    public void setting (BaseActivity context, WebExtensionController webExtensionController, List<PageTab> tabList, ActivityMainBinding binding, int dp, int currentIndex){
         ImageView reload,setting,desktopMode;
         View dialogView;
         LinearLayout linearLayout2;
@@ -61,8 +59,7 @@ public class SettingPopUp {
         mBinding=SettingMenuBinding.inflate(LayoutInflater.from(context));
 
         popUp=new PopUp();
-        tabDetails=new TabDetails();
-        tabDetails.setThings(binding,tabList,dp);
+        tabDetails=new TabDetails(tabList,dp,binding);
         tabDetails.setCurrentIndex(currentIndex);
         mBinding.popTitle.setText(binding.getSessionModel().getTitle());
         bookmarkViewModel=new ViewModelProvider((ViewModelStoreOwner) context).get(BookmarkViewModel.class);
@@ -116,7 +113,7 @@ public class SettingPopUp {
                                 @Override
                                 public GeckoResult<GeckoSession> onNewTab(@NonNull WebExtension source, @NonNull WebExtension.CreateTabDetails createDetails) {
                                     GeckoSession session= new GeckoSession();
-                                    tabDetails.newTabDetail(createDetails.url,tabList.size(),context,behavior);
+                                    onNewTab.newTab(session);
                                     return GeckoResult.fromValue(session);
                                 }
                             });
@@ -158,7 +155,7 @@ public class SettingPopUp {
             @Override
             public void onClick(View view) {
                 BookmarkDialog bookmarkDialog=new BookmarkDialog(context,binding.getSessionModel().getTitle(),binding.getSessionModel().getUrl(),bookmarkViewModel);
-                bookmarkDialog.show();
+                bookmarkDialog.open();
                 bottomSheetDialog.dismiss();
             }
         });
@@ -172,7 +169,6 @@ public class SettingPopUp {
                 bottomSheetDialog.dismiss();
             }
         });
-
         mBinding.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,6 +178,7 @@ public class SettingPopUp {
                 bottomSheetDialog.dismiss();
             }
         });
+
         mBinding.addons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -213,6 +210,7 @@ public class SettingPopUp {
 
 
 
+
         mBinding.reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,7 +222,7 @@ public class SettingPopUp {
         mBinding.menuAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tabDetails.newTabDetail("https://addons.mozilla.org/zh-CN/firefox/",tabList.size(),context,behavior);
+                tabDetails.newTabDetail("https://addons.mozilla.org/zh-CN/firefox/",null,tabList.size(),context);
                 bottomSheetDialog.dismiss();
 
             }
@@ -277,5 +275,18 @@ public class SettingPopUp {
 
 
     }
+    public interface onNewTab{
+        void newTab(GeckoSession session);
+    }
+    public interface onInstallNewTab{
+        void InstallNewTab(GeckoSession session);
+    }
 
+    public void setOnNewTab(SettingPopUp.onNewTab onNewTab) {
+        this.onNewTab = onNewTab;
+    }
+
+    public void setOnInstallNewTab(SettingPopUp.onInstallNewTab onInstallNewTab) {
+        this.onInstallNewTab = onInstallNewTab;
+    }
 }

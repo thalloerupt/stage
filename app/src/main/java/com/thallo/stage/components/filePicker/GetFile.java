@@ -20,7 +20,7 @@ public class GetFile {
             }
         });
     }
-    public void open(Activity activity){
+    public void open(Activity activity,int requestCode){
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message mesg) {
@@ -29,7 +29,7 @@ public class GetFile {
                 throw new RuntimeException();
             }
         };
-        BaseActivity.filePicker.open(activity);
+        BaseActivity.filePicker.open(activity,requestCode);
         try {
             Looper.getMainLooper().loop();
         }

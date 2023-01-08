@@ -15,9 +15,10 @@ public class HistoryViewModel extends AndroidViewModel {
         historyRepository = new HistoryRepository(application);
     }
 
-     public LiveData<List<com.thallo.stage.database.history.History>> getAllHistoriesLive() {
+     public LiveData<List<com.thallo.stage.database.history.History>> getAllHistoriesLive()
+     {
         return historyRepository.getAllHistoriesLive();
-    }
+     }
      LiveData<List<History>>findHistoriesWithPattern(String pattern){
         return historyRepository.findHistoriesWithPattern(pattern);
     }

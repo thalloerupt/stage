@@ -140,12 +140,15 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_scan_view.xml" value="0.1155" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_search.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_setting.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_share.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_shield.xml" value="0.114" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_star.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_tabs.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_trash.xml" value="0.114" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/ic_video.xml" value="0.138" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/progress.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/drawable/progress_circle.xml" value="0.1" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout-w600dp/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/aa.xml" value="0.20878623188405798" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_fragment_holder.xml" value="0.3378607809847199" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/activity_main.xml" value="0.4" />
@@ -158,9 +161,10 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/addons_window.xml" value="0.16" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/content_fragment_holder.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_agreement.xml" value="0.264" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_bookmark.xml" value="0.3189252336448598" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_bookmark.xml" value="0.16" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_choice.xml" value="0.2" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_install.xml" value="0.21894005212858383" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_contextmenu.xml" value="0.2" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_install.xml" value="0.29349269588313415" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_permission.xml" value="0.6" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_search_select.xml" value="0.4" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/dia_web.xml" value="0.2047008547008547" />
@@ -177,7 +181,7 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_o_s.xml" value="0.1918803418803419" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/fragment_web.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/history_item.xml" value="0.264" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/home_icon.xml" value="0.264" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/home_icon.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/install_dialog.xml" value="0.2" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/intent_popuo.xml" value="0.11581196581196582" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/list_view.xml" value="0.537828947368421" />
@@ -191,9 +195,9 @@
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/qr_layout.xml" value="0.16" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/se_select.xml" value="0.4" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting.xml" value="0.2" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting_menu.xml" value="0.536" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/setting_menu.xml" value="0.3833592534992224" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/switch_item.xml" value="0.19270833333333334" />
-        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab.xml" value="0.264" />
+        <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab.xml" value="0.1" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab_layout.xml" value="0.536" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/tab_master.xml" value="0.2128623188405797" />
         <entry key="..\:/Users/luoyf/AndroidStudioProjects/stage/app/src/main/res/layout/test.xml" value="0.1" />
@@ -220,7 +224,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.4" />
+        <option name="scale" value="0.536" />
       </ProjectState>
     </option>
   </component>

@@ -4,8 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.palette.graphics.Palette;
 import androidx.preference.PreferenceManager;
 
 
@@ -15,15 +14,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,28 +31,31 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.gyf.immersionbar.ImmersionBar;
 import com.thallo.stage.components.Qr;
 import com.thallo.stage.components.dialog.AgreementDialog;
-import com.thallo.stage.components.dialog.SearchSelectDialog;
 import com.thallo.stage.components.filePicker.FilePicker;
 import com.thallo.stage.components.filePicker.PickUtils;
 import com.thallo.stage.components.popup.InformationPopup;
 import com.thallo.stage.components.popup.PopUp;
+import com.thallo.stage.components.popup.SearchPopup;
 import com.thallo.stage.components.popup.SettingPopUp;
+import com.thallo.stage.components.popup.TabsPopup;
 import com.thallo.stage.databinding.ActivityMainBinding;
 import com.thallo.stage.extension.AddOns;
 import com.thallo.stage.extension.Controller;
 import com.thallo.stage.tab.PageTab;
 import com.thallo.stage.tab.TabDetails;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.mozilla.geckoview.GeckoResult;
 import org.mozilla.geckoview.GeckoRuntime;
 import org.mozilla.geckoview.GeckoSession;
@@ -62,22 +65,27 @@ import org.mozilla.geckoview.WebExtensionController;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class BaseActivity extends AppCompatActivity  {
+    /**
+     * author:  thallo
+     * email:   l694630313@Gmail.com
+     */
     public static String url;
     public static ActivityMainBinding binding;
+    //tablist，标签列表
     public static List<PageTab> tabList;
     private int currentIndex;
     private static GeckoRuntime sRuntime;
+    //WebExtensionCotroller
+    // 详见 https://mozilla.github.io/geckoview/javadoc/mozilla-central/org/mozilla/geckoview/WebExtensionController.html
     public static WebExtensionController webExtensionController;
+    //附加组件列表
     private List<AddOns> addOnsList = new ArrayList<AddOns>();
     AddOns add;
     Boolean is;
     BottomSheetDialog dialog;
-    BottomSheetBehavior behavior;
     private SharedPreferences mSp;
     private SharedPreferences.Editor mEditor;
     View dialogView;
@@ -89,9 +97,13 @@ public class BaseActivity extends AppCompatActivity  {
     String s="";
     GeckoSession.SessionState mSessionState;
     WebExtension.SessionController sessionController;
+    //附加组件popup
     PopUp popUp;
+    //弹出菜单
     SettingPopUp settingPopUp;
+    //WebExtensionController，用于管理附加组件的委托
     Controller controller;
+    //管理tab相关事件
     TabDetails tabDetails;
     GeckoResult n;
     WebSessionViewModel webSessionViewModel;
@@ -99,7 +111,7 @@ public class BaseActivity extends AppCompatActivity  {
     Qr qr;
     public static Uri uri;
     public static FilePicker filePicker;
-
+    SharedPreferences prefs;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -107,24 +119,22 @@ public class BaseActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         binding=ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
-        View view=new View(this);
-        Window window = getWindow();
-        window.setStatusBarColor(getColor(R.color.background));
-        window.setNavigationBarColor(getColor(R.color.background));
-        setStatusBarColor();
         spToInt= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,64,getResources().getDisplayMetrics());
+        //tablist
         tabList = new LinkedList<>();
-
+        StatusBar statusBar=new StatusBar(this);
+        if (BaseActivity.binding.urlView!=null)statusBar.setStatusBarColor(R.color.alpha);
+        else statusBar.showStatusBar();
+        TabsPopup tabsPopup=new TabsPopup(BaseActivity.this);
+        SearchPopup searchPopup=new SearchPopup(this);
+        InformationPopup informationPopup=new InformationPopup(this);
         mSp = getPreferences(MODE_PRIVATE);
         mEditor = mSp.edit();
         popUp=new PopUp();
         settingPopUp= new SettingPopUp();
         controller= new Controller();
-        tabDetails= new TabDetails();
-        tabDetails.setThings(binding,tabList,spToInt);
+        tabDetails= new TabDetails(tabList,spToInt,binding);
         tabDetails.setCurrentIndex(currentIndex);
-        ConstraintLayout constraintLayout = findViewById(R.id.toolLayout);
-        behavior = BottomSheetBehavior.from(constraintLayout);
         qr=new Qr();
         filePicker=new FilePicker(this);
         if(!mSp.getBoolean("first",false))
@@ -135,198 +145,12 @@ public class BaseActivity extends AppCompatActivity  {
 
 
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if (newState==BottomSheetBehavior.STATE_EXPANDED)
-                {
-                    behavior.setDraggable(false);
-
-                }
-                else{
-                    behavior.setDraggable(true);
-
-                }
-                //这里是bottomSheet 状态的改变
-            }
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                //这里是拖拽中的回调，根据slideOffset可以做一些动画
-            }
-
-        });
-
-
-        switch (prefs.getString("searchEngine","https://www.baidu.com/s?wd="))
-        {
-            case "https://www.baidu.com/s?wd=":
-                binding.searchIcon.setImageResource(R.drawable.ic_baidu);
-                break;
-            case "https://www.google.com/search?q=":
-                binding.searchIcon.setImageResource(R.drawable.ic_google);
-                break;
-            case "https://www.bing.com/search?q=":
-                binding.searchIcon.setImageResource(R.drawable.ic_bing);
-                break;
-            case "https://www.sogou.com/web?query=":
-                binding.searchIcon.setImageResource(R.drawable.ic_sogou);
-                break;
-        }
-
-        binding.searchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SearchSelectDialog dialog=new SearchSelectDialog(BaseActivity.this);
-                dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.bg_shortcuts));
-                dialog.show();
-            }
-        });
-
-        binding.addressText2.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-
-        binding.clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.addressText2.setText("");
-            }
-        });
-
-        binding.addressText2.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(KeyEvent.KEYCODE_ENTER==i && keyEvent.getAction()==KeyEvent.ACTION_DOWN)
-                {
-                    if(Patterns.WEB_URL.matcher(binding.addressText2.getText().toString()).matches() || URLUtil.isValidUrl(binding.addressText2.getText().toString()))
-                    {
-
-                        binding.getSessionModel().getSession().loadUri(binding.addressText2.getText().toString());
-
-                    }
-                    else try {binding.getSessionModel().getSession().loadUri(prefs.getString("searchEngine","https://www.baidu.com/s?wd=")+binding.addressText2.getText().toString());
-                    }catch (Exception e){newTab(prefs.getString("searchEngine","https://www.baidu.com/s?wd=")+binding.addressText2.getText().toString(),tabList.size());}
-                    binding.editView.setVisibility(View.GONE);
-                    binding.urlView.setVisibility(View.VISIBLE);
-                    Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() { //弹出软键盘的代码
-                            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                        }
-                    }, 100);
-                    InputMethodManager imm = (InputMethodManager)
-                            getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-
-                }
-                return false;
-            }
-        });
-
-        binding.textView4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                binding.editView.setVisibility(View.VISIBLE);
-                binding.addressText2.requestFocus();
-                binding.addressText2.setSelectAllOnFocus(true);
-                binding.addressText2.selectAll();
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() { //弹出软键盘的代码
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(binding.addressText2, InputMethodManager.RESULT_SHOWN);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                    }
-                }, 200);
-                binding.urlView.setVisibility(View.GONE);
-                switch (prefs.getString("searchEngine","https://www.baidu.com/s?wd="))
-                {
-                    case "https://www.baidu.com/s?wd=":
-                        binding.searchIcon.setImageResource(R.drawable.ic_baidu);
-                        break;
-                    case "https://www.google.com/search?q=":
-                        binding.searchIcon.setImageResource(R.drawable.ic_google);
-                        break;
-                    case "https://www.bing.com/search?q=":
-                        binding.searchIcon.setImageResource(R.drawable.ic_bing);
-                        break;
-                    case "https://www.sogou.com/web?query=":
-                        binding.searchIcon.setImageResource(R.drawable.ic_sogou);
-                        break;
-                }
-                binding.toolLayout.setTranslationY(0);
-
-            }
-
-        });
-
-        binding.information.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InformationPopup informationPopup=new InformationPopup(BaseActivity.this,binding.getSessionModel().getSession(),binding.getSessionModel());
-                informationPopup.show();
-            }
-        });
+         prefs= PreferenceManager.getDefaultSharedPreferences(this);
 
 
 
 
 
-
-
-
-        binding.tabButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                binding.toolLayout.setTranslationY(0);
-
-
-            }
-        });
-       // binding.homeButton.setImageDrawable(binding.geckoview.get);
-        binding.add.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               newTab("about:blank",tabList.size());
-               binding.urlView.setVisibility(View.VISIBLE);
-               binding.editView.setVisibility(View.GONE);
-           }
-       });
-        binding.homeButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.getSessionModel().getSession().loadUri("about:blank");
-
-
-
-
-            }
-        });
-        binding.menu2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                settingPopUp.setting(BaseActivity.this,webExtensionController,tabList,behavior,binding,spToInt,currentIndex);
-
-            }
-        });
-
-        binding.copyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                copyToClipboard(BaseActivity.this,binding.textView15.getText().toString());
-            }
-        });
-        binding.editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.addressText2.setText(binding.textView15.getText().toString());
-                binding.addressText2.setSelection(binding.textView15.getText().toString().length());
-            }
-        });
 
        Intent intent=getIntent();
        if (intent.getDataString()!=null)
@@ -341,11 +165,97 @@ public class BaseActivity extends AppCompatActivity  {
 
         webExtensionController = GeckoRuntime.getDefault(BaseActivity.this).getWebExtensionController();
         controller.setWebExtensionController(webExtensionController);
-        controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,behavior,currentIndex);
+        controller.setThing(this,tabDetails,binding.getSessionModel(),tabList,currentIndex);
         controller.Details();
         controller.promptDelegate(BaseActivity.this);
-        binding.geckoview.setDynamicToolbarMaxHeight(spToInt);
         binding.geckoview.setAutofillEnabled(true);
+        if(binding.menu!=null)
+        {binding.menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settingPopUp.setting(BaseActivity.this,webExtensionController,tabList,binding,spToInt,currentIndex);
+            }
+        });}
+
+
+        binding.tabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tabsPopup.show(tabDetails.getTabList(),tabDetails.getTabList().size());
+            }
+        });
+        binding.searchText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchPopup.show();
+            }
+        });
+        binding.information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                informationPopup.show(binding.getSessionModel());
+            }
+        });
+
+
+        searchPopup.setOnSearchListener(new SearchPopup.onSearchListener() {
+            @Override
+            public void onSearch(String value) {
+                if(Patterns.WEB_URL.matcher(value).matches() || URLUtil.isValidUrl(value))
+                {
+
+                    binding.getSessionModel().getSession().loadUri(value);
+
+                }
+                else try {binding.getSessionModel().getSession().loadUri(prefs.getString("searchEngine","https://www.baidu.com/s?wd=")+value);
+                }catch (Exception e){newTab(prefs.getString("searchEngine","https://www.baidu.com/s?wd=")+value,tabList.size());}
+                searchPopup.dismiss();
+
+
+
+            }
+        });
+
+
+        tabDetails.setOnCloseListener(new TabDetails.onCloseListener() {
+            @Override
+            public void onClose(int index) {
+                tabsPopup.removeTab(index);
+            }
+        });
+
+
+        controller.setOnNewTab(new Controller.onNewTab() {
+            @Override
+            public void newTab(GeckoSession session) {
+                tabDetails.newTabDetail(null,session,tabList.size(),BaseActivity.this);
+
+            }
+        });
+        controller.setOnInstallNewTab(new Controller.onInstallNewTab() {
+            @Override
+            public void InstallNewTab(GeckoSession session) {
+                tabDetails.newTabDetail(null,session,tabList.size(),BaseActivity.this);
+
+            }
+        });
+
+        settingPopUp.setOnNewTab(new SettingPopUp.onNewTab() {
+            @Override
+            public void newTab(GeckoSession session) {
+                tabDetails.newTabDetail(null,session,tabList.size(),BaseActivity.this);
+
+            }
+        });
+
+        tabsPopup.setOnAddNewTab(new TabsPopup.onAddNewTab() {
+            @Override
+            public void addNewTab() {
+                newTab("about:blank",tabList.size());
+            }
+        });
+
+
 
 
 
@@ -356,8 +266,6 @@ public class BaseActivity extends AppCompatActivity  {
 
     }
     public static void copyToClipboard(Context context, String content) {
-        // 从 API11 开始 android 推荐使用 android.content.ClipboardManager
-        // 为了兼容低版本我们这里使用旧版的 android.text.ClipboardManager，虽然提示 deprecated，但不影响使用。
         ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         // 将文本内容放到系统剪贴板里。
         cm.setText(content);
@@ -366,74 +274,28 @@ public class BaseActivity extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
-            if(behavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
-            {
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                binding.urlView.setVisibility(View.VISIBLE);
-                binding.editView.setVisibility(View.GONE);
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        if(!binding.getSessionModel().getUrl().contains("about:blank")) {
+            if (binding.getSessionModel().isCanBack()) {
+                binding.getSessionModel().getSession().goBack();
                 return;
+            } else if (tabList.size() != 1) {
+                tabDetails.closeTabDetail(tabList.size() - 1, BaseActivity.this);
+            } else if (tabList.size() == 1) {
+                binding.getSessionModel().getSession().loadUri("about:blank");
+                binding.getSessionModel().getSession().purgeHistory();
             }
-            else{
-                if(binding.getSessionModel().getUrl().indexOf("about:blank") == -1) {
-                    if (binding.getSessionModel().isCanBack()) {
-                        binding.getSessionModel().getSession().goBack();
-                        return;
-                    } else if (tabList.size() != 1) {
-                        tabDetails.closeTabDetail(tabList.size() - 1, behavior, BaseActivity.this);
-                    } else if (tabList.size() == 1) {
-                        binding.getSessionModel().getSession().loadUri("about:blank");
-                    }
-                }else  super.onBackPressed();
-            }
+        }else  super.onBackPressed();
+
 
     }
 
 
 
     public void newTab(String url,int index){
-        tabDetails.newTabDetail(url,index,this,behavior);
+        tabDetails.newTabDetail(url,null,index,this);
         Log.d("tablist",tabDetails.getTabList().size()+"");
     }
-
-
-    private void setStatusBarColor() {
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        //window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        //  | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        window.setStatusBarColor(Color.TRANSPARENT);
-        int uiOption = window.getDecorView().getSystemUiVisibility();
-        if (isDarkMode()) {
-            //没有DARK_STATUS_BAR属性，通过位运算将LIGHT_STATUS_BAR属性去除
-            window.getDecorView().setSystemUiVisibility(uiOption & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        } else {
-            //这里是要注意的地方，如果需要补充新的FLAG，记得要带上之前的然后进行或运算
-            window.getDecorView().setSystemUiVisibility(uiOption | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
-    }
-    public boolean isDarkMode() {
-        int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        return mode == Configuration.UI_MODE_NIGHT_YES;
-    }
-
-
-
-    public void changStatusIconCollor(boolean setDark) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            View decorView = getWindow().getDecorView();
-            if(decorView != null){
-                int vis = decorView.getSystemUiVisibility();
-                if(setDark){
-                    vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                } else{
-                    vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                }
-                decorView.setSystemUiVisibility(vis);
-            }
-        }
-    }
-
 
     @Override
     protected void onStart() {
@@ -448,6 +310,7 @@ public class BaseActivity extends AppCompatActivity  {
             newTab(url,tabList.size());
             url=null;
         }
+        binding.getSessionModel().getSession().setActive(true);
 
     }
 
@@ -460,9 +323,34 @@ public class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
+
+        if (requestCode == 0) {
             filePicker.setUri(Uri.parse("file://"+ PickUtils.getPath(this, data.getData())));
-            return;
+
+        }
+        if (requestCode == 1) {
+            prefs.edit().putString("bg","file:"+ PickUtils.getPath(this, data.getData())).commit();
+            if ("file:"+ PickUtils.getPath(this, data.getData())!=null) {
+                Uri uri=Uri.parse("file:"+ PickUtils.getPath(this, data.getData()));
+                HomeFragment.binding.imageView22.setImageURI(uri);
+                Glide.with(this).asBitmap().load("file:"+ PickUtils.getPath(this, data.getData())).into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
+                            @Override
+                            public void onGenerated(@Nullable Palette palette) {
+                                int darkMutedColor = palette.getMutedColor(Color.GREEN);
+                                prefs.edit().putInt("bgColor",darkMutedColor).commit();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                    }
+                });
+            }
         }
 
     }
@@ -492,6 +380,11 @@ public class BaseActivity extends AppCompatActivity  {
         if (IntentUrl!=null)
             newTab(intent.getDataString(),tabList.size());
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
 

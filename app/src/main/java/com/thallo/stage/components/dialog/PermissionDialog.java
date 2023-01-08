@@ -21,6 +21,7 @@ public class PermissionDialog extends MaterialAlertDialogBuilder
     int dialogResult;
     Handler mHandler ;
     DiaInstallBinding binding;
+    Activity activity;
 
 
     public PermissionDialog(Activity context, WebExtension webExtension)
@@ -28,6 +29,8 @@ public class PermissionDialog extends MaterialAlertDialogBuilder
 
         super(context);
         onCreate(webExtension);
+        this.activity=context;
+
 
     }
     public int getDialogResult()
@@ -42,8 +45,8 @@ public class PermissionDialog extends MaterialAlertDialogBuilder
 
     public void onCreate(WebExtension webExtension) {
         binding=DiaInstallBinding.inflate(LayoutInflater.from(getContext()));
-        setTitle("要添加"+webExtension.metaData.name+"吗？");
-        setMessage("需要以下权限：");
+        binding.textView23.setText("要添加"+webExtension.metaData.name+"吗？");
+        binding.textView22.setText("需要以下权限：");
         setIcon(R.drawable.ic_addons);
         binding.diaPer.setText(Arrays.toString(webExtension.metaData.permissions)
                 .replaceAll("\\[", "• ")
@@ -58,6 +61,7 @@ public class PermissionDialog extends MaterialAlertDialogBuilder
                 .replaceAll(getContext().getString(R.string.per_geolocation), getContext().getString(R.string.per_geolocation_cn))
                 .replaceAll(getContext().getString(R.string.per_notifications), getContext().getString(R.string.per_notifications_cn))
         );
+
 
 
         setView(binding.getRoot());
@@ -95,7 +99,7 @@ public class PermissionDialog extends MaterialAlertDialogBuilder
                 throw new RuntimeException();
             }
         };
-        super.show();
+        super.show().getWindow().setBackgroundDrawable(activity.getDrawable(R.drawable.bg_dialog));
         try {
             Looper.getMainLooper().loop();
         }

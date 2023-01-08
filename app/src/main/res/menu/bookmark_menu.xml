@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/importb"
+        android:title="@string/importBookmark" />
+    <item
+        android:id="@+id/exportb"
+        android:title="@string/exportBookmark" />
+    <item
+        android:id="@+id/deleteAb"
+        android:title="@string/deleteAllBookmark" />
+</menu>

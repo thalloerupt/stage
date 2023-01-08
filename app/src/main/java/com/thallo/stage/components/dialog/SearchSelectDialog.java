@@ -24,8 +24,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchSelectDialog extends AlertDialog {
+public class SearchSelectDialog extends myDialog {
     DiaSearchSelectBinding binding;
+    onSelect onSelect;
     public SearchSelectDialog(@NonNull Context context) {
         super(context);
         String[] datas=context.getResources().getStringArray(R.array.searchEngine_values);
@@ -40,22 +41,22 @@ public class SearchSelectDialog extends AlertDialog {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0:
-                        BaseActivity.binding.searchIcon.setImageResource(R.drawable.ic_baidu);
                         prefs.edit().putString("searchEngine", context.getString(R.string.baidu)).commit();
+                        onSelect.select(0);
                         break;
                     case 1:
-                        BaseActivity.binding.searchIcon.setImageResource(R.drawable.ic_google);
                         prefs.edit().putString("searchEngine", context.getString(R.string.google)).commit();
+                        onSelect.select(1);
 
                         break;
                     case 2:
-                        BaseActivity.binding.searchIcon.setImageResource(R.drawable.ic_bing);
                         prefs.edit().putString("searchEngine", context.getString(R.string.bing)).commit();
+                        onSelect.select(2);
 
                         break;
                     case 3:
-                        BaseActivity.binding.searchIcon.setImageResource(R.drawable.ic_sogou);
                         prefs.edit().putString("searchEngine", context.getString(R.string.sogou)).commit();
+                        onSelect.select(3);
 
                         break;
                 }
@@ -64,6 +65,11 @@ public class SearchSelectDialog extends AlertDialog {
 
             }
         });
+
+
+
+
+
         setView(binding.getRoot());
     }
     public void init(List<SearchChoice> searchChoices,String[] datas){
@@ -75,5 +81,13 @@ public class SearchSelectDialog extends AlertDialog {
         searchChoices.add(c);
         SearchChoice d=new SearchChoice(R.drawable.ic_sogou,datas[3]);
         searchChoices.add(d);
+    }
+
+    public void setOnSelect(SearchSelectDialog.onSelect onSelect) {
+        this.onSelect = onSelect;
+    }
+
+    public interface onSelect{
+        void select(int i);
     }
 }

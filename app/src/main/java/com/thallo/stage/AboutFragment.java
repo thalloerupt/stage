@@ -1,6 +1,8 @@
 package com.thallo.stage;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -61,6 +63,14 @@ public class AboutFragment extends Fragment {
                 getContext().startActivity(intent);
             }
         });
+        PackageManager manager = getContext().getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo("com.thallo.stage", 0);
+            binding.textView21.setText(info.versionName+" 🐻");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
 
 

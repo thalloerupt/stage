@@ -18,7 +18,9 @@ import com.thallo.stage.R;
 import com.thallo.stage.database.history.History;
 import com.thallo.stage.database.history.HistoryViewModel;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,10 +61,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterHold> {
                 ((FragmentActivity) view.getContext()).finish();
             }
         });
-        URI uri=URI.create(history.getUrl());
-        String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
-        Glide.with(holder.itemView.getContext()).load(faviconUrl).placeholder(R.drawable.ic_internet)
-                .into(icon);
+        try {
+            String param1 = URLEncoder.encode(history.getUrl(), "UTF-8");
+            URI uri=URI.create(param1);
+            String faviconUrl=uri.getScheme()+"://"+uri.getHost()+"/favicon.ico";
+            Glide.with(holder.itemView.getContext()).load(faviconUrl).placeholder(R.drawable.ic_internet)
+                    .into(icon);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

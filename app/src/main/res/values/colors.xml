@@ -4,7 +4,7 @@
     <color name="purple_50">#EDE7F6</color>
     <color name="purple_200">#FF6200EE</color>
     <color name="purple_500">#651FFF</color>
-    <color name="purple_700">#4A148C</color>
+    <color name="purple">#6750a4</color>
     <color name="teal_200">#D1C4E9</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
@@ -17,6 +17,7 @@
     <color name="editBackground">#80FBEEFE</color>
     <color name="background2">#FBEEFE</color>
     <color name="test">#0DAA00FF</color>
-
+    <color name="background_light">#FFFBFE</color>
+    <color name="green">#4CAF50</color>
 
 </resources>
